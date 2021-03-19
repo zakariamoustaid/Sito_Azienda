@@ -24,3 +24,7 @@ Auth::routes();
 //redirezione login in base al ruolo
 Route::get('/user', 'UserController@index')->name('user');
 Route::get('/admin', 'AdminController@index')->name('admin');
+
+
+//route diario
+Route::get('/diario', 'DiaryController@index')->name('diaries');

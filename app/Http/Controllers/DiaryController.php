@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class DiaryController extends Controller
 {
+    //faccio un check se utente è user
+    public function __construct()
+    {
+        $this->middleware('user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        //
+        return view('diaries.index');
     }
 
     /**
