@@ -12,9 +12,9 @@ class UserController extends Controller
         $this->middleware('user');
     }
 
-
     public function index()
     {
-        return view('diaries.index');
+        return view('user.home');
     }
+    
 }
