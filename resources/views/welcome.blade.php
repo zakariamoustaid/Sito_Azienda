@@ -12,7 +12,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background-color: #f2e4da;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -50,7 +50,7 @@
 
             .links > a {
                 color: #636b6f;
-                padding: 0 25px;
+                padding: 0 12px;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
@@ -67,11 +67,11 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @auth                                                       <!-- verifico che utente sia loggato -->
-                        @if(Auth::check() && Auth::user()->role == "admin")     <!-- check se utente è admin o user -->
-                            <a href="{{ url('/admin') }}">Dashboard</a>
+                    @auth                                                                        <!-- verifico che utente sia loggato -->
+                        @if(Auth::check() && Auth::user()->role == "admin")                      <!-- check se utente è admin o user -->
+                            <a href="{{ url('/admin') }}">{{ Auth::user()->name }}</a>
                         @else
-                            <a href="{{ url('/user') }}">Dashboard</a>
+                            <a href="{{ url('/diario') }}">{{ Auth::user()->name }}</a>
                         @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>
