@@ -84,9 +84,27 @@
             @yield('content')
         </main>
     </div>
-    <div>
-        <h1> ciao </h1>
-</div>
+    <div class="container">
+        <h1>Diario Attivit&agrave</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Nome Progetto</th>
+                <th scope="col">Ultima modifica</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach($diaries as $d)
+            <tr>
+                <td>{{ $d->project_id->name }}</td>
+                <th scope="row">{{ date('d/m/Y', strtotime($pj->begin)) }}</th>
+            </tr>
+            @endforeach
+
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 

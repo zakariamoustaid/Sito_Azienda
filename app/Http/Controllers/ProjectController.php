@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Customer;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    //solo Admin ha accesso a gestione progetti
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        //return view('projects.index');
     }
 
     /**
@@ -24,7 +30,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+
+        return view('projects.insert', compact('customers'));
     }
 
     /**
@@ -35,7 +43,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validatedData = $request->validate([
+            'name'      => 'required',
+            'description'   => 'required',
+            'note'        => 'required',
+            'begin'   => 'required',
+            'p_end'       => 'required',
+            'd_end'       => 'required',
+            'customer_id'       => 'required',
+            'cost'       => 'required',
+        ]);
+
+        Project::create($input);
+        
+        return redirect('/projects.index');
     }
 
     /**

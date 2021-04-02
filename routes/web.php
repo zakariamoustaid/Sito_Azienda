@@ -28,3 +28,14 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 
 //route diario
 Route::get('/diario', 'DiaryController@index')->name('diaries');
+
+//route progetti
+Route::get('/projects.index', 'ProjectController@index')->name('projects');
+Route::get('/inserimento_progetto', 'ProjectController@create')->name('projects');
+Route::post('/projects','ProjectController@store')->name('projects');
+
+//route clienti
+Route::get('/customers.index', 'CustomerController@index')->name('customers');
+Route::get('/inserimento_cliente', 'CustomerController@create')->name('customers');
+Route::post('','CustomerController@store');
+

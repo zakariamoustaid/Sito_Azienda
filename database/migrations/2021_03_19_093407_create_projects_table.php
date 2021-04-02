@@ -23,10 +23,8 @@ class CreateProjectsTable extends Migration
             $table->date('d_end')->nullable();
             $table->bigInteger('customer_id')->unsigned();
             $table->decimal('cost', 5, 2);
-            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('customer_id')->references('id')->on('customers');
         });
     }

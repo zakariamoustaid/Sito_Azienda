@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    //solo Admin ha accesso a gestione progetti
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //return view('customers.home')
+        return view('customers.index');
     }
 
     /**
@@ -24,7 +30,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+
+        return view('customers.insert', compact('customers'));
     }
 
     /**
@@ -35,7 +43,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validatedData = $request->validate([
+            'ragione_sociale'   => 'required',
+            'name_ref'          => 'required',
+            'surname_ref'       => 'required',
+            'email_ref'         => 'required',
+        ]);
+
+        Customer::create($input);
+        
+        return redirect('/customers.index');
     }
 
     /**
