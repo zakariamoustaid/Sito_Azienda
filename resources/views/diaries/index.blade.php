@@ -85,25 +85,7 @@
         </main>
     </div>
     <div class="container">
-        <h1>Diario Attivit&agrave</h1>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Nome Progetto</th>
-                <th scope="col">Ultima modifica</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @foreach($diaries as $d)
-            <tr>
-                <td>{{ $d->project_id->name }}</td>
-                <th scope="row">{{ date('d/m/Y', strtotime($pj->begin)) }}</th>
-            </tr>
-            @endforeach
-
-            </tbody>
-        </table>
+       <h1> creazione di qualcosa </h1>
     </div>
 </body>
 </html>

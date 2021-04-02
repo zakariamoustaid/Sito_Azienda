@@ -12,6 +12,7 @@ class Customer extends Model
 		'surname_ref',
 		'email_ref',
 	];
+    
     public function projects()
     {
         return $this->hasMany('App\Project');

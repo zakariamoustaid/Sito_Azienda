@@ -32,6 +32,7 @@ Route::get('/diario', 'DiaryController@index')->name('diaries');
 //route progetti
 Route::get('/projects.index', 'ProjectController@index')->name('projects');
 Route::get('/inserimento_progetto', 'ProjectController@create')->name('projects');
+Route::get('/assegna_progetto', 'ProjectController@index')->name('projects');
 Route::post('/projects','ProjectController@store')->name('projects');
 
 //route clienti

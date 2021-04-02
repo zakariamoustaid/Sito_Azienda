@@ -40,8 +40,17 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="/inserimento_progetto">Gestione Progetti</a>  <span class="sr-only">(current)</span></a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/assegna_progetto">Assegna Progetti</a>  <span class="sr-only">(current)</span></a>
+                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="/inserimento_cliente">Gestione Clienti</a> <span class="sr-only">(current)</span></a>
                         </li>

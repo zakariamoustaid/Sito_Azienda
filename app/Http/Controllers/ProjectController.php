@@ -20,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //return view('projects.index');
+        return view('projects.assign');
     }
 
     /**
@@ -48,10 +48,10 @@ class ProjectController extends Controller
         $validatedData = $request->validate([
             'name'      => 'required',
             'description'   => 'required',
-            'note'        => 'required',
+            'note'        => '',
             'begin'   => 'required',
             'p_end'       => 'required',
-            'd_end'       => 'required',
+            'd_end'       => '',
             'customer_id'       => 'required',
             'cost'       => 'required',
         ]);
