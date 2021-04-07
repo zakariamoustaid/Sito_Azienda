@@ -32,7 +32,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::all();
 
-        return view('customers.insert', compact('customers'));
+        return view('customers.create', compact('customers'));
     }
 
     /**

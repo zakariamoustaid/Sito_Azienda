@@ -7,7 +7,7 @@ use App\User;
 
 class UserController extends Controller
 {
-    //faccio un check se utente e' loggato
+    //faccio un check se utente è user
     public function __construct()
     {
         $this->middleware('user');

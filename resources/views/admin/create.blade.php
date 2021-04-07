@@ -44,18 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/projects.create">Gestione Progetti</a>  <span class="sr-only">(current)</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/assegna_progetto">Assegna Progetti</a>  <span class="sr-only">(current)</span></a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="/customers.create">Gestione Clienti</a> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/create">Gestione Utenti</a> <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/admin.create"><b>Gestione Utenti</b></a> <span class="sr-only">(current)</span></a>
                         </li>
                         <!--<li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
@@ -95,4 +84,57 @@
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
+        </div>
+        <div class="container">
+    <h1> Inserimento Utente </h1>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ URL::action('AdminController@store') }}" method="POST">
+        {{ csrf_field() }}
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" name="name" >
+          <small class="form-text text-muted">Inserisci nome utente</small>
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Cognome</label>
+            <input type="text" class="form-control" name="surname" >
+            <small class="form-text text-muted">Inserisci cognome utente</small>
+        </div>
+
+        <div class="form-group">
+            <label for="note">Ruolo</label>
+            <select class="form-control" name="role">
+            <option> admin </option>
+            <option> user </option>
+            </select>
+            <small class="form-text text-muted">Inserisci ruolo utente</small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" >
+            <small class="form-text text-muted">Inserisci email utente</small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" >
+            <small class="form-text text-muted">Inserisci password utente</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salva</button>
+        <a href="{{ URL::action('AdminController@index') }}" class="btn btn-secondary">Indietro</a>
+
+    </form>    
+</div>

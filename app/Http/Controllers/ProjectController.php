@@ -32,7 +32,7 @@ class ProjectController extends Controller
     {
         $customers = Customer::all();
 
-        return view('projects.insert', compact('customers'));
+        return view('projects.create', compact('customers'));
     }
 
     /**
