@@ -152,7 +152,7 @@
         <!--<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />-->
 
         <button type="submit" class="btn btn-primary">Salva</button>
-        <a href="{{ URL::action('AdminController@index') }}" class="btn btn-secondary">Indietro</a>
+        <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-secondary">Indietro</a>
 
     </form>    
 </div>

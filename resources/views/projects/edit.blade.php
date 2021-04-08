@@ -44,22 +44,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::action('ProjectController@index') }}">Gestione Progetti</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/projects.edit"><b>Assegna Progetti</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/projects/edit">Assegna Progetti</a>  <span class="sr-only">(current)</span></a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="/customers/create">Gestione Clienti</a> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/create">Gestione Utenti</a> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <!--<li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>-->
                         </ul>
                 </div>
 
@@ -95,4 +81,30 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+<div class="container">
+    <h1> Assegna progetti </h1>
+
+    <form action="{{ URL::action('ProjectController@update', $project) }}" method="POST">
+        <input type="hidden" name="_method" value="PATCH">
+        {{ csrf_field() }}
+
+        <div class="form-group">
+            <label for="user_d">Seleziona Utente</label>
+            <select class="form-control" name="user_id">
+                @foreach ($users as $c)
+                    <option value="{{ $c->id }}">{{ $c->surname }}</option>
+                @endforeach
+            </select>
+            <small class="form-text text-muted">Seleziona utente a cui affidare progetto</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Aggiorna</button>
+        
+        <a href="{{ URL::action('ProjectController@destroy', $project) }}" class="btn btn-danger">Cancella</a>
+
+        <a href="{{ URL::action('AdminController@index') }}" class="btn btn-secondary">Indietro</a>
+
+    </form>    
+</div>
     </div>

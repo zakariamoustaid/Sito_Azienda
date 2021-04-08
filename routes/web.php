@@ -21,26 +21,25 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+//route Admin
+Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/create', 'AdminController@create')->name('admin');
+Route::post('/admin','AdminController@store')->name('admin');
+
 //redirezione login in base al ruolo
 Route::get('/user', 'UserController@index')->name('user');
-Route::get('/admin', 'AdminController@index')->name('admin');
+
 
 
 //route diario
 Route::get('/diario', 'DiaryController@index')->name('diaries');
 
 //route progetti
-Route::get('/projects.index', 'ProjectController@index')->name('projects');
-Route::get('/projects.create', 'ProjectController@create')->name('projects');
-Route::get('/assegna_progetto', 'ProjectController@index')->name('projects');
-Route::post('/projects','ProjectController@store')->name('projects');
+Route::resource('/projects', 'ProjectController');
 
 //route clienti
 Route::get('/customers.index', 'CustomerController@index')->name('customers');
 Route::get('/customers.create', 'CustomerController@create')->name('customers');
 Route::post('','CustomerController@store');
 
-//route Admin
-Route::get('/create', 'AdminController@create')->name('admin');
-Route::post('/admin','AdminController@store')->name('admin');
 

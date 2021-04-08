@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\Customer;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -20,7 +21,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('projects.assign');
+        $projects = Project::all();
+        $users = User::all();
+        $customers = Customer::all();
+        return view('projects.index', compact('projects', 'users', 'customers'));
     }
 
     /**
@@ -31,8 +35,8 @@ class ProjectController extends Controller
     public function create()
     {
         $customers = Customer::all();
-
-        return view('projects.create', compact('customers'));
+        $users = User::all();
+        return view('projects.create', compact('customers', 'users'));
     }
 
     /**
@@ -80,7 +84,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $users = User::all();
+        return view('projects.edit', compact('project', 'users'));
     }
 
     /**
@@ -92,7 +97,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $input = $request->all();
+
+        $project->user_id = $input['user_id'];
+        $project->save();
+
+        return redirect('projects');
     }
 
     /**

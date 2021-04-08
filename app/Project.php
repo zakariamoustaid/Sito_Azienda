@@ -14,6 +14,7 @@ class Project extends Model
 		'p_end',
 		'd_end',
 		'customer_id',
+		'user_id',
 		'cost',
 	];
     
@@ -21,5 +22,10 @@ class Project extends Model
     public function customer() 
 	{	
 		return $this->belongsTo('App\Customer');
+	}
+
+	public function user() 
+	{	
+		return $this->hasMany('App\User');
 	}
 }
