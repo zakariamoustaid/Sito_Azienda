@@ -82,6 +82,7 @@
             @yield('content')
         </main>
 
+
 <div class="container">
     <h1> Assegna progetti </h1>
 
@@ -90,8 +91,8 @@
         {{ csrf_field() }}
 
         <div class="form-group">
-            <label for="user_d">Seleziona Utente</label>
-            <select class="form-control" name="user_id">
+            <label for="user_id">Seleziona Utente</label>
+            <select class="form-control" multiple="multiple" name="user_id[]">
                 @foreach ($users as $c)
                     <option value="{{ $c->id }}">{{ $c->surname }}</option>
                 @endforeach

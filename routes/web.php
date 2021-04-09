@@ -38,8 +38,9 @@ Route::get('/diario', 'DiaryController@index')->name('diaries');
 Route::resource('/projects', 'ProjectController');
 
 //route clienti
-Route::get('/customers.index', 'CustomerController@index')->name('customers');
-Route::get('/customers.create', 'CustomerController@create')->name('customers');
-Route::post('','CustomerController@store');
+Route::resource('/customers', 'CustomerController');
+//Route::get('/customers.index', 'CustomerController@index')->name('customers');
+//Route::get('/customers.create', 'CustomerController@create')->name('customers');
+//Route::post('','CustomerController@store');
 
 

@@ -26,6 +26,6 @@ class Project extends Model
 
 	public function user() 
 	{	
-		return $this->hasMany('App\User');
+		return $this->belongToMany('App\User');
 	}
 }

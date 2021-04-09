@@ -6,6 +6,7 @@ use App\Project;
 use App\Customer;
 use App\User;
 use Illuminate\Http\Request;
+use Log;
 
 class ProjectController extends Controller
 {
@@ -62,7 +63,7 @@ class ProjectController extends Controller
 
         Project::create($input);
         
-        return redirect('/projects.index');
+        return redirect('projects');
     }
 
     /**
@@ -99,8 +100,12 @@ class ProjectController extends Controller
     {
         $input = $request->all();
 
-        $project->user_id = $input['user_id'];
+        Log::info($request->user_id);
+        Log::info($input['user_id']);
+        $project->user_id = implode(',', $input['user_id']);
+    
         $project->save();
+        
 
         return redirect('projects');
     }
