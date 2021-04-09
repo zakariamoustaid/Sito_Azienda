@@ -44,22 +44,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::action('ProjectController@index') }}">Gestione Progetti</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Assegna Progetti</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::action('AssignmentController@index') }}">Assegna Progetti</a>  <span class="sr-only">(current)</span></a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::action('CustomerController@index') }}">Gestione Clienti</a> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/create">Gestione Utenti</a> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <!--<li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>-->
                         </ul>
                 </div>
 
@@ -95,4 +81,35 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+<div class="container">
+<h1> Assegna Progetti </h1>
+   <!-- <a href="{{ URL::action('ProjectController@create') }}" class="btn btn-primary float-md-right mb-2">Aggiungi</a>-->
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="customer_id">Seleziona Progetto</label>
+            <select class="form-control" name="project_id">
+                @foreach ($projects as $p)
+                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                @endforeach
+            </select>
+            <small class="form-text text-muted">Seleziona Progetto</small>
+        </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="user_id">Seleziona Utente</label>
+            <select class="form-control" name="user_id">
+                @foreach ($users as $u)
+                    <option value="{{ $u->id }}">{{ $u->surname }}</option>
+                @endforeach
+            </select>
+            <small class="form-text text-muted">Seleziona Utenti</small>
+        </div>
+    </div>
+</div>
+
+</div>

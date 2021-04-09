@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/projects.edit"><b>Assegna Progetti</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Progetti</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                         </ul>
                 </div>

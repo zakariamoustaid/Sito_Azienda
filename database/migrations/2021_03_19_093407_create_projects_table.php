@@ -22,12 +22,10 @@ class CreateProjectsTable extends Migration
             $table->date('p_end');
             $table->date('d_end')->nullable();
             $table->bigInteger('customer_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->decimal('cost', 5, 2);
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

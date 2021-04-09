@@ -39,8 +39,9 @@ Route::resource('/projects', 'ProjectController');
 
 //route clienti
 Route::resource('/customers', 'CustomerController');
-//Route::get('/customers.index', 'CustomerController@index')->name('customers');
-//Route::get('/customers.create', 'CustomerController@create')->name('customers');
-//Route::post('','CustomerController@store');
+
+//route assegnazioni
+Route::resource('/assignments', 'AssignmentController');
+
 
 
