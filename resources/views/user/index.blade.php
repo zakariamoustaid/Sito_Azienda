@@ -50,26 +50,24 @@
             @yield('content')
          </main>
          <div class="container">
-    <h1> Tutte i Progetti </h1>
-    <a href="{{ URL::action('AssignmentController@create') }}" class="btn btn-primary float-md-right mb-2">Gestisci Assegnazioni</a>
+    <h1> Tutti gli Utenti </h1>
+    <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Gestione Utenti</a>
     <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Registrato</th>
-            <th scope="col">Nome Progetto</th>
-            <th scope="col">Descrizione</th>
-            <th scope="col">Nome Utenti</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+            <th scope="col">Email</th>
           </tr>
         </thead>
         <tbody>
 
-          @foreach($assignments as $a)
+          @foreach($users as $u)
           <tr>
-            <th scope="row">{{ date('d/m/Y', strtotime($a->begin)) }}</th>
-            <td>{{ $a->project->name }} </td>
-            <td>{{ $a->user->surname }} {{ $a->user->name }}</td>
-            <td>{{ $a->description }}</td>
-            <td><a href="{{ URL::action('AssignmentController@edit', $a) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
+            <td>{{ $u->name }}</td>
+            <td>{{ $u->surname }}</td>
+            <td>{{ $u->email }}</td>
+            <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
           </tr>
           @endforeach
 

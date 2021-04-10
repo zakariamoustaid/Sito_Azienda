@@ -55,7 +55,7 @@
                             <a class="nav-link" href="{{ URL::action('CustomerController@index') }}">Gestione Clienti</a> <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/create">Gestione Utenti</a> <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ URL::action('UserController@index') }}">Gestione Utenti</a> <span class="sr-only">(current)</span></a>
                         </li>
                         <!--<li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>

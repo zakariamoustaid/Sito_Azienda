@@ -43,5 +43,8 @@ Route::resource('/customers', 'CustomerController');
 //route assegnazioni
 Route::resource('/assignments', 'AssignmentController');
 
+//route utenti
+Route::resource('/users', 'UserController');
+
 
 

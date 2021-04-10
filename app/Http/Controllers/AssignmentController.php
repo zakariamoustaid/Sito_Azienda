@@ -15,7 +15,7 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Project $projects)
+    public function index()
     {
         $projects = Project::all();
         $users = User::all();
@@ -29,7 +29,9 @@ class AssignmentController extends Controller
      */
     public function create()
     {
-        //
+        $projects = Project::all();
+        $users = User::all();
+        return view('assignments.create', compact('customers', 'users'));
     }
 
     /**
@@ -40,7 +42,22 @@ class AssignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validatedData = $request->validate([
+            'name'      => 'required',
+            'description'   => 'required',
+            'note'        => '',
+            'begin'   => 'required',
+            'p_end'       => 'required',
+            'd_end'       => '',
+            'customer_id'       => 'required',
+            'cost'       => 'required',
+        ]);
+
+        Project::create($input);
+        
+        return redirect('projects');
     }
 
     /**

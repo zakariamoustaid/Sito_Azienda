@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
-    //
+    protected $fillable = [
+		'begin',
+		'project_id',
+		'user_id',
+		'description',
+	];
 }

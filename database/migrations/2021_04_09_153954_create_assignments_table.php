@@ -15,9 +15,14 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_project')->unisigned();
-            $table->bigInteger('id_user')->unisigned();
+            $table->date('begin');
+            $table->bigInteger('project_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('description');
             $table->timestamps();
+
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

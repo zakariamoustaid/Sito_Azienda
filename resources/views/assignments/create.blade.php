@@ -50,33 +50,37 @@
             @yield('content')
          </main>
          <div class="container">
-    <h1> Tutte i Progetti </h1>
-    <a href="{{ URL::action('AssignmentController@create') }}" class="btn btn-primary float-md-right mb-2">Gestisci Assegnazioni</a>
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Registrato</th>
-            <th scope="col">Nome Progetto</th>
-            <th scope="col">Descrizione</th>
-            <th scope="col">Nome Utenti</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          @foreach($assignments as $a)
-          <tr>
-            <th scope="row">{{ date('d/m/Y', strtotime($a->begin)) }}</th>
-            <td>{{ $a->project->name }} </td>
-            <td>{{ $a->user->surname }} {{ $a->user->name }}</td>
-            <td>{{ $a->description }}</td>
-            <td><a href="{{ URL::action('AssignmentController@edit', $a) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
-          </tr>
-          @endforeach
-
-        </tbody>
-      </table>
-
-</div>
+            <h1> Assegna Progetti </h1>
+            <div class="row" center>
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="customer_id">Seleziona Progetto</label>
+                     <select class="form-control" name="project_id">
+                        @foreach ($projects as $p)
+                        <option value="{{ $p->id }}">{{ $p->name }}</option>
+                        @endforeach
+                     </select>
+                     <small class="form-text text-muted">Seleziona Progetto</small>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="user_id">Seleziona Utente</label>
+                     <select class="form-control" name="user_id" multiple>
+                        @foreach ($users as $u)
+                        @if($u->role == 'user')
+                        <option value="{{ $u->id }}" value="{{ $u->id }}">{{ $u->surname }} {{ $u->name }}</option>
+                        @endif
+                        @endforeach
+                     </select>
+                     <small class="form-text text-muted">Seleziona Utenti</small>
+                  </div>
+               </div>
+            </div>
+            <a href="{{ URL::action('AssignmentController@create') }}" class="btn btn-primary float-md-right mb-2">Assegna</a>
+        </div>
     </div>
    </body>
 </html>

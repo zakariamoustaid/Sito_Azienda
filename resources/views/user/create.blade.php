@@ -112,7 +112,7 @@
                <small class="form-text text-muted">Inserisci password utente</small>
             </div>
             <button type="submit" class="btn btn-primary">Salva</button>
-            <a href="{{ URL::action('AdminController@index') }}" class="btn btn-secondary">Indietro</a>
+            <a href="{{ URL::action('UserController@index') }}" class="btn btn-secondary">Indietro</a>
          </form>
       </div>
    </body>
