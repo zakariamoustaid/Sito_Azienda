@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="/admin">Home</a><span class="sr-only">(current)</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href=""><b>Assegna Progetti</b></a><span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href=""><b>Gestione Cliente</b></a><span class="sr-only">(current)</span></a></li>
                </ul>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -49,41 +49,42 @@
          <main class="py-4">
             @yield('content')
          </main>
-         <form action="{{ URL::action('AssignmentController@store') }}" method="POST">
-        {{ csrf_field() }}
          <div class="container">
-            <h1> Assegna Progetti </h1>
-            <div class="form-group">
-            <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="begins">
-            <small class="form-text text-muted">Inserire data inizio</small>
+    <h1> Gestione Cliente </h1>
+
+    <form action="{{ URL::action('CustomerController@update', $customer) }}" method="POST">
+        <input type="hidden" name="_method" value="PATCH">
+        {{ csrf_field() }}
+
+        <div class="form-group">
+          <label for="ragione_sociale">Nome Societ&agrave</label>
+          <input type="text" class="form-control" name="ragione_sociale" value="{{ $customer->ragione_sociale }}">
+          <small class="form-text text-muted">Inserisci ragione sociale</small>
         </div>
-            <div class="form-row">
-               <div class="form-group col-md-6">
-                     <select class="form-control" name="project_id">
-                        @foreach ($projects as $p)
-                        <option value="{{ $p->id }}">{{ $p->name }}</option>
-                        @endforeach
-                     </select>
-                     <small class="form-text text-muted">Seleziona Progetto</small>
-               </div>
-               <div class="form-group col-md-4">
-                     <select class="form-control" name="user_id[]" multiple>
-                        @foreach ($users as $u)
-                        @if($u->role == 'user')
-                        <option value="{{ $u->id }}">{{ $u->surname }} {{ $u->name }}</option>
-                        @endif
-                        @endforeach
-                     </select>
-                     <small class="form-text text-muted">Seleziona Utenti</small>
-               </div>
-            </div>
-            <div class="form-group">
-            <label for="description">Descrizione</label>
-            <input type="text" class="form-control" name="description" >
-            <small class="form-text text-muted">Inserire descrizione</small>
+
+        <div class="form-group">
+            <label for="name_ref">Nome Referente</label>
+            <input type="text" class="form-control" name="name_ref" value="{{ $customer->name_ref }}" disabled>
+            <small class="form-text text-muted">Inserisci il nome</small>
         </div>
-         <button type="submit" class="btn btn-primary">Assegna</button>
+
+        <div class="form-group">
+            <label for="surname_ref">Cognome Referente</label>
+            <input type="text" class="form-control" name="surname_ref" value="{{ $customer->surname_ref }}" disabled >
+            <small class="form-text text-muted">Inserisci il cognome</small>
         </div>
-    </div>
-   </body>
-</html>
+
+        <div class="form-group">
+            <label for="email_ref">Email Referente</label>
+            <input type="text" class="form-control" name="email_ref" value="{{ $customer->email_ref }}">
+            <small class="form-text text-muted">Inserisci la mail</small>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Aggiorna</button>
+
+
+        <a href="{{ URL::action('CustomerController@index') }}" class="btn btn-secondary">Indietro</a>
+
+    </form>    
+</div>

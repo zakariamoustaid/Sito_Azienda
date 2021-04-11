@@ -44,6 +44,8 @@ class AssignmentController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $a = Assignment::all();
+        $b = 1;
 
         $validatedData = $request->validate([
             'begins'         => 'required',
@@ -59,7 +61,18 @@ class AssignmentController extends Controller
             $assignments->project_id = $request->project_id;
             $assignments->user_id = $i;
             $assignments->description = $request->description;
-            $assignments->save();
+            foreach($a as $as)
+            {
+                if($as->user_id == $i && $as->project_id == $input['project_id'])
+                {
+                    $b = 0;
+                }
+            }
+
+            if($b)
+                $assignments->save();
+
+            $b = 1;
         }
         //Log::info($test);
         

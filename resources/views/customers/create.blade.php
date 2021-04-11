@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/customers.create"><b>Inserimento Cliente</b></a> <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Inserimento Cliente</b></a> <span class="sr-only">(current)</span></a>
                         </li>
                 </div>
 

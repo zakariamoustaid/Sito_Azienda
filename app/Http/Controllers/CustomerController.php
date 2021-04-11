@@ -78,7 +78,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customers.edit', compact('customer'));
     }
 
     /**
@@ -90,7 +90,18 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $input = $request->all();
+
+        $validatedData = $request->validate([
+            'ragione_sociale'       => 'required',
+            'email_ref'             => 'required',
+        ]);
+
+        $customer->ragione_sociale = $input['ragione_sociale'];
+        $customer->email_ref = $input['email_ref'];
+        $customer->save();
+
+        return redirect('customers');
     }
 
     /**

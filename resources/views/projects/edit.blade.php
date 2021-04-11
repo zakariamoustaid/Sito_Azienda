@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/projects.edit"><b>Modifica Dettagli Progetto</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Modifica Dettagli Progetto</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                         </ul>
                 </div>
@@ -118,7 +118,7 @@
 
         <div class="form-group">
             <label for="cost">Costo</label>
-            <input type="number" class="form-control" name="cost" value="{{ $project->cost }}">
+            <input type="number" step="any" class="form-control" name="cost" value="{{ $project->cost }}">
         </div>
 
 

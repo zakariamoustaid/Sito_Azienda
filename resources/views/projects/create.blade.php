@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/projects.create"><b>Inserimento Progetto</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Inserimento Progetto</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                 </div>
 

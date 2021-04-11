@@ -33,7 +33,7 @@
                      <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="/admin.create"><b>Gestione Utenti</b></a> <span class="sr-only">(current)</span></a>
+                     <a class="nav-link" href=""><b>Gestione Utenti</b></a> <span class="sr-only">(current)</span></a>
                   </li>
                   <!--<li class="nav-item">
                      <a class="nav-link disabled" href="#">Disabled</a>
