@@ -10,11 +10,10 @@ class Project extends Model
 		'name',
 		'description',
 		'note',
-		'begin',
+		'begins',
 		'p_end',
 		'd_end',
 		'customer_id',
-		'user_id',
 		'cost',
 	];
     
@@ -27,5 +26,10 @@ class Project extends Model
 	public function user() 
 	{	
 		return $this->belongToMany('App\User');
+	}
+
+	public function assignment() 
+	{	
+		return $this->hasMany('App\Assignment');
 	}
 }

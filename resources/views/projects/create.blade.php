@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/projects.create"><b>Gestione Progetti</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/projects.create"><b>Inserimento Progetto</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                 </div>
 
@@ -116,14 +116,14 @@
         </div>
 
         <div class="form-group">
-            <label for="begin">Data Inizio</label>
-            <input type="date" class="form-control" name="begin" >
+            <label for="begins">Data Inizio</label>
+            <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="begins" >
             <small class="form-text text-muted">Inserisci la data di inizio</small>
         </div>
 
         <div class="form-group">
             <label for="p_end">Data Possibile Fine</label>
-            <input type="date" class="form-control" name="p_end" >
+            <input type="date" value="<?php echo date('Y-m-d', + strtotime("+30 days")); ?>" class="form-control" name="p_end" >
             <small class="form-text text-muted">Inserisci possibile data fine</small>
         </div>
 

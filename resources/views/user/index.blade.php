@@ -57,6 +57,7 @@
           <tr>
             <th scope="col">Nome</th>
             <th scope="col">Cognome</th>
+            <th scope="col">Ruolo</th>
             <th scope="col">Email</th>
           </tr>
         </thead>
@@ -66,6 +67,7 @@
           <tr>
             <td>{{ $u->name }}</td>
             <td>{{ $u->surname }}</td>
+            <td>{{ $u->role }}</td>
             <td>{{ $u->email }}</td>
             <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
           </tr>

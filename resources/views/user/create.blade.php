@@ -96,6 +96,7 @@
             <div class="form-group">
                <label for="note">Ruolo</label>
                <select class="form-control" name="role">
+               <option> - </option>
                   <option> admin </option>
                   <option> user </option>
                </select>
@@ -103,7 +104,7 @@
             </div>
             <div class="form-group">
                <label for="email">Email</label>
-               <input type="text" class="form-control" name="email" >
+               <input type="email" pattern=".+@coffedev.com" value="@coffedev.com" class="form-control" name="email" >
                <small class="form-text text-muted">Inserisci email utente</small>
             </div>
             <div class="form-group">

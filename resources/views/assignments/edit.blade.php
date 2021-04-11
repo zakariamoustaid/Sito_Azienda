@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="/admin">Home</a><span class="sr-only">(current)</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href=""><b>Gestione Assegnazioni</b></a><span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href=""><b>Assegna Progetti</b></a><span class="sr-only">(current)</span></a></li>
                </ul>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -50,31 +50,32 @@
             @yield('content')
          </main>
          <div class="container">
-    <h1> Tutte le Assegnazioni </h1>
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Registrato</th>
-            <th scope="col">Nome Progetto</th>
-            <th scope="col">Utenti</th>
-            <th scope="col">Descrizione</th>
-          </tr>
-        </thead>
-        <tbody>
+    <h1> Modifica Assegnazioni </h1>
 
-          @foreach($assignments as $a)
-          <tr>
-            <th scope="row">{{ date('d/m/Y', strtotime($a->begins)) }}</th>
-            <td>{{ $a->project->name }} </td>
-            <td>{{ $a->user->name }} {{ $a->user->surname }}</td>
-            <td>{{ $a->description }}</td>
-            <td><a href="{{ URL::action('AssignmentController@destroy', $a) }}" class="btn btn-danger">Cancella</a></td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-      <a href="{{ URL::action('AssignmentController@create') }}" class="btn btn-primary float-md-right mb-2">Nuova Assegnazione</a>
+    <form action="{{ URL::action('AssignmentController@update', $assignment) }}" method="POST">
+        <input type="hidden" name="_method" value="PATCH">
+        {{ csrf_field() }}
+
+        <div class="form-group">
+          <label for="begins">Data</label>
+          <input type="date" class="form-control" name="begins" value="{{ $assignment->begins }}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="project_id">Progetto</label>
+            <input type="text" class="form-control" name="project_id" value="{{ $assignment->project->name}}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="user_id">Utenti</label>
+            <input type="number" class="form-control" name="user_id" value="{{ $assignment->user->name }}">
+            <small class="form-text text-muted">Modifica Utenti</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Aggiorna</button>
+
+
+        <a href="{{ URL::action('AssignmentController@index') }}" class="btn btn-secondary">Indietro</a>
+
+    </form>    
 </div>
-    </div>
-   </body>
-</html>

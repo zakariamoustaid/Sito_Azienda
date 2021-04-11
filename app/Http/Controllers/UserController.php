@@ -31,11 +31,11 @@ class UserController extends Controller
         $input = $request->all();
 
         $validatedData = $request->validate([
-            'name'      => 'required',
-            'surname'   => 'required',
-            'role'        => 'required',
-            'email'   => 'required',
-            'password'       => 'required',
+            'name'          => 'required',
+            'surname'       => 'required',
+            'role'          => 'required',
+            'email'         => 'required',
+            'password'      => 'required',
         ]);
 
         User::create($input);

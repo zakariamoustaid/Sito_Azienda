@@ -49,12 +49,19 @@
          <main class="py-4">
             @yield('content')
          </main>
+         <form action="{{ URL::action('AssignmentController@store') }}" method="POST">
+        {{ csrf_field() }}
          <div class="container">
             <h1> Assegna Progetti </h1>
+            <div class="form-group">
+            <label for="begins">Data assegnazione</label>
+            <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="begins">
+            <small class="form-text text-muted">Inserire data inizio</small>
+        </div>
             <div class="row" center>
                <div class="col-sm-6">
                   <div class="form-group">
-                     <label for="customer_id">Seleziona Progetto</label>
+                     <label for="project_id">Seleziona Progetto</label>
                      <select class="form-control" name="project_id">
                         @foreach ($projects as $p)
                         <option value="{{ $p->id }}">{{ $p->name }}</option>
@@ -68,7 +75,7 @@
                <div class="col-sm-6">
                   <div class="form-group">
                      <label for="user_id">Seleziona Utente</label>
-                     <select class="form-control" name="user_id" multiple>
+                     <select class="form-control" name="user_id[]" multiple>
                         @foreach ($users as $u)
                         @if($u->role == 'user')
                         <option value="{{ $u->id }}" value="{{ $u->id }}">{{ $u->surname }} {{ $u->name }}</option>
@@ -79,7 +86,12 @@
                   </div>
                </div>
             </div>
-            <a href="{{ URL::action('AssignmentController@create') }}" class="btn btn-primary float-md-right mb-2">Assegna</a>
+            <div class="form-group">
+            <label for="description">Descrizione</label>
+            <input type="text" class="form-control" name="description" >
+            <small class="form-text text-muted">Inserire descrizione</small>
+        </div>
+         <button type="submit" class="btn btn-primary">Assegna</button>
         </div>
     </div>
    </body>

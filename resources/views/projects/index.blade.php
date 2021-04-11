@@ -99,7 +99,7 @@
 
           @foreach($projects as $p)
           <tr>
-            <th scope="row">{{ date('d/m/Y', strtotime($p->begin)) }}</th>
+            <th scope="row">{{ date('d/m/Y', strtotime($p->begins)) }}</th>
             <td>{{ $p->name }} </td>
             <td>{{ $p->description }}</td>
             <td>{{ $p->customer->surname_ref }}</td>

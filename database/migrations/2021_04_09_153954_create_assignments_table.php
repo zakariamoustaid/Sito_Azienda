@@ -15,7 +15,7 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->date('begin');
+            $table->date('begins');
             $table->bigInteger('project_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->string('description');

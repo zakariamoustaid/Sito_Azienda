@@ -17,9 +17,9 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-        $users = User::all();
-        return view('assignments.index', compact('projects', 'users'));
+        $assignments = Assignment::all();
+
+        return view('assignments.index', compact('assignments'));
     }
 
     /**
@@ -31,7 +31,8 @@ class AssignmentController extends Controller
     {
         $projects = Project::all();
         $users = User::all();
-        return view('assignments.create', compact('customers', 'users'));
+        $assignments = Assignment::all();
+        return view('assignments.create', compact('projects', 'users', 'assignments'));
     }
 
     /**
@@ -45,19 +46,24 @@ class AssignmentController extends Controller
         $input = $request->all();
 
         $validatedData = $request->validate([
-            'name'      => 'required',
+            'begins'         => 'required',
+            'project_id'    => 'required',
+            'user_id'       => 'required',
             'description'   => 'required',
-            'note'        => '',
-            'begin'   => 'required',
-            'p_end'       => 'required',
-            'd_end'       => '',
-            'customer_id'       => 'required',
-            'cost'       => 'required',
         ]);
 
-        Project::create($input);
+        foreach($input['user_id'] as $i)
+        {
+            $assignments = new Assignment();
+            $assignments->begins = $request->begins;
+            $assignments->project_id = $request->project_id;
+            $assignments->user_id = $i;
+            $assignments->description = $request->description;
+            $assignments->save();
+        }
+        //Log::info($test);
         
-        return redirect('projects');
+        return redirect('assignments');
     }
 
     /**
@@ -79,7 +85,8 @@ class AssignmentController extends Controller
      */
     public function edit(Assignment $assignment)
     {
-        //
+        return view('assignments.edit', compact('assignment'));
+        
     }
 
     /**
@@ -91,7 +98,15 @@ class AssignmentController extends Controller
      */
     public function update(Request $request, Assignment $assignment)
     {
-        //
+        $input = $request->all();
+
+        foreach($input['user_id'] as $i)
+        {
+            $assignment->user_id = $i;
+            $assignment->save();
+        }
+
+        return redirect('assignments');
     }
 
     /**
@@ -102,6 +117,8 @@ class AssignmentController extends Controller
      */
     public function destroy(Assignment $assignment)
     {
-        //
+        $assignment->delete();
+        
+        return redirect('assignments');
     }
 }

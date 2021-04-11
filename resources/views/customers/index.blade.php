@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href=""><b>Gestione Cliente</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Gestione Clienti</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                         </ul>
                 </div>

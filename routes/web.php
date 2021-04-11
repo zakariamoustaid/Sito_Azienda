@@ -35,13 +35,16 @@ Route::get('/user', 'UserController@index')->name('user');
 Route::get('/diario', 'DiaryController@index')->name('diaries');
 
 //route progetti
-Route::resource('/projects', 'ProjectController');
+Route::resource('/projects', 'ProjectController')->except(['destroy']);
+Route::get('/projects/{project}/delete', 'ProjectController@destroy');
+
 
 //route clienti
 Route::resource('/customers', 'CustomerController');
 
 //route assegnazioni
-Route::resource('/assignments', 'AssignmentController');
+Route::resource('/assignments', 'AssignmentController')->except(['destroy']);
+Route::get('/assignments/{assignment}/delete', 'AssignmentController@destroy');
 
 //route utenti
 Route::resource('/users', 'UserController');

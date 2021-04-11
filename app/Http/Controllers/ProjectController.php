@@ -36,8 +36,7 @@ class ProjectController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $users = User::all();
-        return view('projects.create', compact('customers', 'users'));
+        return view('projects.create', compact('customers'));
     }
 
     /**
@@ -51,14 +50,14 @@ class ProjectController extends Controller
         $input = $request->all();
 
         $validatedData = $request->validate([
-            'name'      => 'required',
-            'description'   => 'required',
-            'note'        => '',
-            'begin'   => 'required',
-            'p_end'       => 'required',
-            'd_end'       => '',
+            'name'              => 'required',
+            'description'       => 'required',
+            'note'              => '',
+            'begins'            => 'required',
+            'p_end'             => 'required',
+            'd_end'             => '',
             'customer_id'       => 'required',
-            'cost'       => 'required',
+            'cost'              => 'required|numeric|max:50|min:12',
         ]);
 
         Project::create($input);
@@ -85,8 +84,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $users = User::all();
-        return view('projects.edit', compact('project', 'users'));
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -100,12 +98,14 @@ class ProjectController extends Controller
     {
         $input = $request->all();
 
-        Log::info($request->user_id);
-        Log::info($input['user_id']);
-        $project->user_id = implode(',', $input['user_id']);
-    
+        $validatedData = $request->validate([
+            'description'       => 'required',
+            'cost'              => 'required|numeric|max:50|min:12',
+        ]);
+
+        $project->description = $input['description'];
+        $project->cost = $input['cost'];
         $project->save();
-        
 
         return redirect('projects');
     }
@@ -118,6 +118,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        
+        return redirect('projects');
     }
 }

@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('note')->nullable();
-            $table->date('begin');
+            $table->date('begins');
             $table->date('p_end');
             $table->date('d_end')->nullable();
             $table->bigInteger('customer_id')->unsigned();

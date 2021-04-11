@@ -48,7 +48,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::action('AssignmentController@index') }}">Assegna Progetti</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ URL::action('AssignmentController@index') }}">Gestione Assegnazioni</a>  <span class="sr-only">(current)</span></a>
                         </li>
                         
                         <li class="nav-item">
