@@ -26,9 +26,6 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/create', 'AdminController@create')->name('admin');
 Route::post('/admin','AdminController@store')->name('admin');
 
-//redirezione login in base al ruolo
-Route::get('/user', 'UserController@index')->name('user');
-
 
 
 //route diario
@@ -40,14 +37,16 @@ Route::get('/projects/{project}/delete', 'ProjectController@destroy');
 
 
 //route clienti
-Route::resource('/customers', 'CustomerController');
+Route::resource('/customers', 'CustomerController')->except(['destroy']);
+Route::get('/customers/{customer}/delete', 'CustomerController@destroy');
 
 //route assegnazioni
 Route::resource('/assignments', 'AssignmentController')->except(['destroy']);
 Route::get('/assignments/{assignment}/delete', 'AssignmentController@destroy');
 
 //route utenti
-Route::resource('/users', 'UserController');
+Route::resource('/users', 'UserController')->except(['destroy']);
+Route::get('/users/{user}/delete', 'UserController@destroy');
 
 
 

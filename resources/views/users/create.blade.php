@@ -96,9 +96,9 @@
             <div class="form-group">
                <label for="note">Ruolo</label>
                <select class="form-control" name="role">
-               <option> - </option>
-                  <option> admin </option>
-                  <option> user </option>
+               <option>  </option>
+                  <option> ADMIN </option>
+                  <option> USER </option>
                </select>
                <small class="form-text text-muted">Inserisci ruolo utente</small>
             </div>
@@ -111,6 +111,11 @@
                <label for="password">Password</label>
                <input type="password" class="form-control" name="password" >
                <small class="form-text text-muted">Inserisci password utente</small>
+            </div>
+            <div class="form-group">
+               <label for="tel">Telefono</label>
+               <input type="text" class="form-control" name="tel" >
+               <small class="form-text text-muted">Inserire numero telefono</small>
             </div>
             <button type="submit" class="btn btn-primary">Salva</button>
             <a href="{{ URL::action('UserController@index') }}" class="btn btn-secondary">Indietro</a>

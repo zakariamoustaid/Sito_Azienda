@@ -14,34 +14,38 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([[
             'name' 			=> 'Beatrice',
 	        'surname' 		=> 'Bianchi',
-            'role'          => 'admin',
+            'role'          => 'ADMIN',
 	        'email' 		=> 'beatrice.bianchi@coffedev.com',
 	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
 	        'updated_at' 	=> date('Y-m-d h:i:s'),
 			'created_at' 	=> date('Y-m-d h:i:s')		        
 		], [
             'name' 			=> 'Martino',
 	        'surname' 		=> 'Marroni',
-            'role'          => 'admin',
+            'role'          => 'ADMIN',
 	        'email' 		=> 'martino.marroni@coffedev.com',
 	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
 	        'updated_at' 	=> date('Y-m-d h:i:s'),
 			'created_at' 	=> date('Y-m-d h:i:s')	        
 		], [
             'name' 			=> 'Susanna',
 	        'surname' 		=> 'Sasso',
-            'role'          => 'user',
+            'role'          => 'USER',
 	        'email' 		=> 'susanna.sasso@coffedev.com',
 	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
 	        'updated_at' 	=> date('Y-m-d h:i:s'),
 			'created_at' 	=> date('Y-m-d h:i:s')	
         ],
         [
             'name' 			=> 'Pietro',
 	        'surname' 		=> 'Perlo',
-            'role'          => 'user',
+            'role'          => 'USER',
 	        'email' 		=> 'pietro.perlo@coffedev.com',
 	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
 	        'updated_at' 	=> date('Y-m-d h:i:s'),
 			'created_at' 	=> date('Y-m-d h:i:s')	
         ]]);

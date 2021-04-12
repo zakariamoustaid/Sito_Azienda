@@ -84,6 +84,16 @@
 
 <div class="container">
     <h1> Tutte i Progetti </h1>
+    @if (session('alert'))
+    <div class="alert alert-danger">
+        {{ session('alert') }}
+    </div>
+@endif
+@if (session('ok'))
+    <div class="alert alert-success">
+        {{ session('ok') }}
+    </div>
+@endif
     <a href="{{ URL::action('CustomerController@create') }}" class="btn btn-primary float-md-right mb-2">Aggiungi</a>
     <table class="table table-striped">
         <thead>

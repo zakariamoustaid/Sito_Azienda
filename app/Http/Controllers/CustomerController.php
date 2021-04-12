@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Project;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
 
-    //solo Admin ha accesso a gestione progetti
+    //blocco accesso se utente non è admin
     public function __construct()
     {
         $this->middleware('admin');
     }
+    
     /**
      * Display a listing of the resource.
      *
@@ -112,6 +114,22 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $projects = Project::all();
+        $message = "Eliminazione avvenuta con successo";
+        $t = 1;
+        foreach($projects as $p)
+        {
+            if($p->customer->id == $customer->id)
+            {
+                $message = "Non è possibile chiudere il contratto con " . $customer->ragione_sociale;
+                $t = 0;
+                return redirect('customers')->with('alert', $message);
+            }
+        }
+
+        if($t)
+            $customer->delete();
+
+        return redirect('customers')->with('ok', $message);
     }
 }

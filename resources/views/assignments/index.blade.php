@@ -51,6 +51,18 @@
          </main>
          <div class="container">
     <h1> Tutte le Assegnazioni </h1>
+
+    @if (session('alert'))
+    <div class="alert alert-danger">
+        {{ session('alert') }}
+    </div>
+@endif
+@if (session('ok'))
+    <div class="alert alert-success">
+        {{ session('ok') }}
+    </div>
+@endif
+
     <table class="table table-striped">
         <thead>
           <tr>

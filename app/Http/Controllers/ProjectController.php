@@ -10,11 +10,12 @@ use Log;
 
 class ProjectController extends Controller
 {
-    //solo Admin ha accesso a gestione progetti
+    //blocco accesso se utente non è admin
     public function __construct()
     {
         $this->middleware('admin');
     }
+    
     /**
      * Display a listing of the resource.
      *

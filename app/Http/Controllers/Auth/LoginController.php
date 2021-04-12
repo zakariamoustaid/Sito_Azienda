@@ -31,9 +31,9 @@ class LoginController extends Controller
     //eseguo controllo login
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role == "admin") {
+        if ($user->role == "ADMIN") {
             return redirect('/admin');
-        } else if ($user->role == "user") {
+        } else if ($user->role == "USER") {
             return redirect('/diario'); //nome percorso deciso in precedenza (nella route)
         }
     }

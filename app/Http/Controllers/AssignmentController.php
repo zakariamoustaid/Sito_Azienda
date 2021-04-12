@@ -10,6 +10,12 @@ use Log;
 
 class AssignmentController extends Controller
 {
+    //blocco accesso se utente non è admin
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+        
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +51,6 @@ class AssignmentController extends Controller
     {
         $input = $request->all();
         $a = Assignment::all();
-        $b = 1;
 
         $validatedData = $request->validate([
             'begins'         => 'required',
@@ -53,30 +58,63 @@ class AssignmentController extends Controller
             'user_id'       => 'required',
             'description'   => 'required',
         ]);
+        
+        //variabili utilizzate per alert in caso di assegnazioni già presenti
+        $message_no = "";
+        $message_ok = "";
+        $denied_user = "";
+        $accept_user ="";
+        $b = 1;
 
-        foreach($input['user_id'] as $i)
+        foreach ($input['user_id'] as $i) 
         {
             $assignments = new Assignment();
             $assignments->begins = $request->begins;
             $assignments->project_id = $request->project_id;
             $assignments->user_id = $i;
             $assignments->description = $request->description;
-            foreach($a as $as)
-            {
-                if($as->user_id == $i && $as->project_id == $input['project_id'])
-                {
+            foreach ($a as $as) {
+                if ($as->user_id == $i && $as->project_id == $input['project_id']) {
                     $b = 0;
                 }
             }
 
-            if($b)
+            if ($b) 
+            {
+                if ($message_ok == "") 
+                {
+                    $message_ok = 'Aggiunti correttamente al progetto '  . $assignments->project->name . ' i seguenti utenti: ';
+                }
                 $assignments->save();
+                $accept_user.='"';
+                $accept_user.=$assignments->user->name;
+                $accept_user.=" ";
+                $accept_user.=$assignments->user->surname;
+                $accept_user.='" ';
+            } 
+            
+            else 
+            {
+                if ($message_no == "") 
+                {
+                    $message_no = 'Attenzione '  . $assignments->project->name . ' già assegnato a: ';
+                }
+                
+                $denied_user.='"';
+                $denied_user.=$assignments->user->name;
+                $denied_user.=" ";
+                $denied_user.=$assignments->user->surname;
+                $denied_user.='" ';
+            }
 
+            $message_no.=$denied_user;
+            $denied_user = "";
+            $message_ok.=$accept_user;
+            $accept_user = "";
             $b = 1;
         }
-        //Log::info($test);
         
-        return redirect('assignments');
+        return redirect('assignments')->with('alert', $message_no)->with('ok', $message_ok);  
     }
 
     /**
@@ -99,7 +137,6 @@ class AssignmentController extends Controller
     public function edit(Assignment $assignment)
     {
         return view('assignments.edit', compact('assignment'));
-        
     }
 
     /**
@@ -113,8 +150,7 @@ class AssignmentController extends Controller
     {
         $input = $request->all();
 
-        foreach($input['user_id'] as $i)
-        {
+        foreach ($input['user_id'] as $i) {
             $assignment->user_id = $i;
             $assignment->save();
         }

@@ -53,6 +53,17 @@
         {{ csrf_field() }}
          <div class="container">
             <h1> Assegna Progetti </h1>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
             <div class="form-group">
             <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="begins">
             <small class="form-text text-muted">Inserire data inizio</small>
@@ -69,7 +80,7 @@
                <div class="form-group col-md-4">
                      <select class="form-control" name="user_id[]" multiple>
                         @foreach ($users as $u)
-                        @if($u->role == 'user')
+                        @if($u->role == 'USER')
                         <option value="{{ $u->id }}">{{ $u->surname }} {{ $u->name }}</option>
                         @endif
                         @endforeach

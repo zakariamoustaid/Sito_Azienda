@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="/admin">Home</a><span class="sr-only">(current)</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href=""><b>Assegna Progetti</b></a><span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href=""><b>Gestione Utente</b></a><span class="sr-only">(current)</span></a></li>
                </ul>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -50,33 +50,58 @@
             @yield('content')
          </main>
          <div class="container">
-    <h1> Tutti gli Utenti </h1>
-    <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Gestione Utenti</a>
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Cognome</th>
-            <th scope="col">Ruolo</th>
-            <th scope="col">Email</th>
-          </tr>
-        </thead>
-        <tbody>
+    <h1> Gestione Cliente </h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ URL::action('UserController@update', $user) }}" method="POST">
+        <input type="hidden" name="_method" value="PATCH">
+        {{ csrf_field() }}
 
-          @foreach($users as $u)
-          <tr>
-            <td>{{ $u->name }}</td>
-            <td>{{ $u->surname }}</td>
-            <td>{{ $u->role }}</td>
-            <td>{{ $u->email }}</td>
-            <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
-          </tr>
-          @endforeach
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" name="name" value="{{ $user->name }}" disabled>
+        </div>
 
-        </tbody>
-      </table>
+        <div class="form-group">
+            <label for="surname">Cognome</label>
+            <input type="text" class="form-control" name="surname" value="{{ $user->surname }}" disabled>
+        </div>
 
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" value="{{ $user->email }}">
+            <small class="form-text text-muted">Inserisci il cognome</small>
+        </div>
+
+        <div class="form-group">
+            <label for="tel">Telefono</label>
+            <input type="text" class="form-control" name="tel" value="{{ $user->tel }}">
+            <small class="form-text text-muted">Inserisci il cognome</small>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Ruolo</label>
+            <select class="form-control" name="role">
+               <option disabled> ruolo corrente "{{ $user->role }}" </option>
+                  <option> ADMIN </option>
+                  <option> USER </option>
+               </select>
+            <small class="form-text text-muted">Modifica il ruolo</small>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Aggiorna</button>
+
+        <a href="{{ URL::action('UserController@destroy', $user) }}" class="btn btn-danger">Termina Contratto</a>
+
+        <a href="{{ URL::action('UserController@index') }}" class="btn btn-secondary">Indietro</a>
+
+    </form>    
 </div>
-    </div>
-   </body>
-</html>

@@ -16,12 +16,14 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+        $message = "Non hai i permessi per accedere alla pagina";
+
         //controllo se utente e` realmente un "admin"
-        if (Auth::check() && Auth::user()->role == "admin") {
+        if (Auth::check() && Auth::user()->role == "ADMIN") {
             return $next($request);
         }
 
-        return redirect('/login');
+        return redirect('/diario')->with('alert', $message);
     }
 }
 

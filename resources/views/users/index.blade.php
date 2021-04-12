@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="/admin">Home</a><span class="sr-only">(current)</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href=""><b>Gestione Cliente</b></a><span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href=""><b>Gestione Utenti</b></a><span class="sr-only">(current)</span></a></li>
                </ul>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -50,42 +50,35 @@
             @yield('content')
          </main>
          <div class="container">
-    <h1> Gestione Cliente </h1>
+    <h1> Tutti gli Utenti </h1>
+    <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Gestione Utenti</a>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+            <th scope="col">Ruolo</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefono</th>
+          </tr>
+        </thead>
+        <tbody>
 
-    <form action="{{ URL::action('CustomerController@update', $customer) }}" method="POST">
-        <input type="hidden" name="_method" value="PATCH">
-        {{ csrf_field() }}
+          @foreach($users as $u)
+          <tr>
+            <td>{{ $u->name }}</td>
+            <td>{{ $u->surname }}</td>
+            <td>{{ $u->role }}</td>
+            <td>{{ $u->email }}</td>
+            <td>{{ $u->tel }}</td>
+            <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
+          </tr>
+          @endforeach
 
-        <div class="form-group">
-          <label for="ragione_sociale">Nome Societ&agrave</label>
-          <input type="text" class="form-control" name="ragione_sociale" value="{{ $customer->ragione_sociale }}">
-          <small class="form-text text-muted">Inserisci ragione sociale</small>
-        </div>
+        </tbody>
+      </table>
 
-        <div class="form-group">
-            <label for="name_ref">Nome Referente</label>
-            <input type="text" class="form-control" name="name_ref" value="{{ $customer->name_ref }}" disabled>
-            <small class="form-text text-muted">Inserisci il nome</small>
-        </div>
-
-        <div class="form-group">
-            <label for="surname_ref">Cognome Referente</label>
-            <input type="text" class="form-control" name="surname_ref" value="{{ $customer->surname_ref }}" disabled >
-            <small class="form-text text-muted">Inserisci il cognome</small>
-        </div>
-
-        <div class="form-group">
-            <label for="email_ref">Email Referente</label>
-            <input type="text" class="form-control" name="email_ref" value="{{ $customer->email_ref }}">
-            <small class="form-text text-muted">Inserisci la mail</small>
-        </div>
-        
-
-        <button type="submit" class="btn btn-primary">Aggiorna</button>
-
-        <a href="{{ URL::action('CustomerController@destroy', $customer) }}" class="btn btn-danger">Termina Contratto</a>
-
-        <a href="{{ URL::action('CustomerController@index') }}" class="btn btn-secondary">Indietro</a>
-
-    </form>    
 </div>
+    </div>
+   </body>
+</html>

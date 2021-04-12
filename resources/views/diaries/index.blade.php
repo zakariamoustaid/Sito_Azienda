@@ -86,6 +86,11 @@
     </div>
     <div class="container">
        <h1> creazione di qualcosa </h1>
+       @if (session('alert'))
+    <div class="alert alert-danger">
+        {{ session('alert') }}
+    </div>
+@endif
     </div>
 </body>
 </html>
