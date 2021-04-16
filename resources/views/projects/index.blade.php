@@ -98,6 +98,7 @@
         <tbody>
 
           @foreach($projects as $p)
+          @if($p->terminated != 'no')
           <tr>
             <th scope="row">{{ date('d/m/Y', strtotime($p->begins)) }}</th>
             <td>{{ $p->name }} </td>
@@ -106,6 +107,7 @@
             <td>{{ $p->cost }}€</td>
             <td><a href="{{ URL::action('ProjectController@edit', $p) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
           </tr>
+          @endif
           @endforeach
 
         </tbody>
