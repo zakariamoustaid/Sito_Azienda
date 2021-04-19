@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href=""><b>Modifica Dettagli Progetto</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=""><b>Progetti</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                         </ul>
                 </div>
@@ -82,52 +82,39 @@
             @yield('content')
         </main>
 
-
-        <div class="container">
-    <h1> Modifica Assegnazioni </h1>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+<div class="container">
+    <h1> Progetti Terminati </h1>
+    @if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
     @endif
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Registrato</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrizione</th>
+            <th scope="col">Data Fine Prevista</th>
+            <th scope="col">Data Fine Definitiva</th>
+          </tr>
+        </thead>
+        <tbody>
 
-    <form action="{{ URL::action('ProjectController@update', $project) }}" method="POST">
-        <input type="hidden" name="_method" value="PATCH">
-        {{ csrf_field() }}
+          @foreach($projects as $p)
+          @if($p->terminated != 'no')
+          <tr>
+            <th scope="row">{{ date('d/m/Y', strtotime($p->begins)) }}</th>
+            <td>{{ $p->name }} </td>
+            <td>{{ $p->description }}</td>
+            <th scope="row">{{ date('d/m/Y', strtotime($p->p_end)) }}</th>
+            <th scope="row">{{ date('d/m/Y', strtotime($p->d_end)) }}</th>
+            <td><a href="{{ URL::action('ProjectController@destroy', $p) }}" class="btn btn-outline-danger">Elimina definitivamente</a></td>
+          </tr>
+          @endif
+          @endforeach
 
-        <div class="form-group">
-            <label for="name">Progetto</label>
-            <input type="text" class="form-control" name="name" value="{{ $project->name}}" disabled>
-        </div>
+        </tbody>
+      </table>
 
-        <div class="form-group">
-            <label for="name">Cliente</label>
-            <input type="text" class="form-control" name="name" value="{{ $project->customer->name_ref}} {{ $project->customer->surname_ref}} ({{ $project->customer->ragione_sociale}})" disabled>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Descrizione</label>
-            <input type="text" class="form-control" name="description" value="{{ $project->description }}">
-            <small class="form-text text-muted">Modifica Descrizione</small>
-        </div>
-
-        <div class="form-group">
-            <label for="cost">Costo</label>
-            <input type="number" step="any" class="form-control" name="cost" value="{{ $project->cost }}">
-        </div>
-
-
-        <button type="submit" class="btn btn-primary">Aggiorna</button>
-
-        <a href="{{ URL::action('ProjectController@terminate', $project) }}" class="btn btn-danger">Termina Progetto</a>
-
-
-        <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-secondary">Indietro</a>
-
-    </form>    
 </div>

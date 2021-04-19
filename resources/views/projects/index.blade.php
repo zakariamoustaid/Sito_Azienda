@@ -84,7 +84,13 @@
 
 <div class="container">
     <h1> Tutte i Progetti </h1>
+    @if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
+@endif
     <a href="{{ URL::action('ProjectController@create') }}" class="btn btn-primary float-md-right mb-2">Aggiungi</a>
+    <a href="{{ URL::action('ProjectController@show_terminated') }}" class="btn btn-secondary">Visualizza Progetti terminati</a>
     <table class="table table-striped">
         <thead>
           <tr>
@@ -98,7 +104,7 @@
         <tbody>
 
           @foreach($projects as $p)
-          @if($p->terminated != 'no')
+          @if($p->terminated != 'yes')
           <tr>
             <th scope="row">{{ date('d/m/Y', strtotime($p->begins)) }}</th>
             <td>{{ $p->name }} </td>

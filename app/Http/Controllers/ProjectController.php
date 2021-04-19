@@ -117,11 +117,28 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Project $project)
     {
+        $project->delete();
+        
+        return redirect('projects')->with('alert', 'Progetto eliminato definitivamente');
+    }
+    
+    public function terminate(Project $project)
+    {
         $project->terminated = 'yes';
+        $project->d_end = date("Y/m/d");
         $project->save();
         
-        return redirect('projects');
+        return redirect('projects')->with('alert', 'Terminazione confermata');
+    }
+
+    public function show_terminated()
+    {
+        $projects = Project::all();
+        $users = User::all();
+        $customers = Customer::all();
+        return view('projects.terminated', compact('projects', 'users', 'customers'));
     }
 }

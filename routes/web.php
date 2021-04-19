@@ -32,8 +32,10 @@ Route::post('/admin','AdminController@store')->name('admin');
 Route::get('/diario', 'DiaryController@index')->name('diaries');
 
 //route progetti
-Route::resource('/projects', 'ProjectController')->except(['destroy']);
+Route::get('/projects/terminated', 'ProjectController@show_terminated');
+Route::resource('/projects', 'ProjectController')->except(['destroy'],['terminate']);
 Route::get('/projects/{project}/delete', 'ProjectController@destroy');
+Route::get('/projects/{project}/terminate', 'ProjectController@terminate');
 
 
 //route clienti
