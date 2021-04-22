@@ -41,14 +41,43 @@ class ProjectsTableSeeder extends Seeder
             'cost' 		        => "25.50",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')		
-        ],
-        [
+        ],[
+            'name' 			    => 'Project Sun',
+	        'description' 		=> 'Creazione gestionale',
+            'note'              => 'massimo impegno',
+	        'begins' 		    => date('2021-4-10 12:50:20'),
+	        'p_end' 		    => date('2021-4-30 12:50:20'),
+            'customer_id' 		=> "4",
+            'cost' 		        => "25.50",
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')		
+        ],[
+            'name' 			    => 'Project Uranus',
+	        'description' 		=> 'Creazione gestionale',
+            'note'              => 'finire il prima possibile',
+	        'begins' 		    => date('2021-4-10 12:50:20'),
+	        'p_end' 		    => date('2021-4-30 12:50:20'),
+            'customer_id' 		=> "5",
+            'cost' 		        => "25.50",
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')		
+        ],[
+            'name' 			    => 'Project Lattex',
+	        'description' 		=> 'Creazione gestionale',
+            'note'              => 'molta partecipazione',
+	        'begins' 		    => date('2021-4-10 12:50:20'),
+	        'p_end' 		    => date('2021-4-30 12:50:20'),
+            'customer_id' 		=> "6",
+            'cost' 		        => "25.50",
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')		
+        ], [
             'name' 			    => 'Project Venus',
 	        'description' 		=> 'Creazione website',
             'note'              => 'selezionare utenti con attenzione',
 	        'begins' 		    => date('2021-4-10 12:50:20'),
 	        'p_end' 		    => date('2021-4-30 12:50:20'),
-            'customer_id' 		=> "4",
+            'customer_id' 		=> "7",
             'cost' 		        => "13.50",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')		

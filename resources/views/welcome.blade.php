@@ -68,8 +68,8 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth                                                                        <!-- verifico che utente sia loggato -->
-                        @if(Auth::check() && Auth::user()->role == "admin")                      <!-- check se utente è admin o user -->
-                            <a href="{{ url('/admin') }}">{{ Auth::user()->name }}</a>
+                        @if(Auth::user()->role == "ADMIN")                      <!-- check se utente è admin o user -->
+                            <a href="{{ URL::action('AdminController@index') }}">{{ Auth::user()->name }}</a>
                         @else
                             <a href="{{ url('/diario') }}">{{ Auth::user()->name }}</a>
                         @endif

@@ -31,7 +31,7 @@
 <body class="mybody">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
@@ -152,7 +152,13 @@
         <!--<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />-->
 
         <button type="submit" class="btn btn-primary">Salva</button>
-        <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-secondary">Indietro</a>
+        <a href="{{ URL::action('ProjectController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 
     </form>    
 </div>
+
+<script>
+function myFunction() {
+  document.getElementById("demo").style.color = "red";
+}
+</script>

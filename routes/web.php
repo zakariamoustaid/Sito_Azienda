@@ -22,9 +22,7 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 //route Admin
-Route::get('/admin', 'AdminController@index')->name('admin');
-Route::get('/create', 'AdminController@create')->name('admin');
-Route::post('/admin','AdminController@store')->name('admin');
+Route::resource('/admin', 'AdminController');
 
 
 

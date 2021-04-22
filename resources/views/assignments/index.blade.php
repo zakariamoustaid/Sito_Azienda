@@ -80,7 +80,7 @@
             <td>{{ $a->project->name }} </td>
             <td>{{ $a->user->name }} {{ $a->user->surname }}</td>
             <td>{{ $a->description }}</td>
-            <td><a href="{{ URL::action('AssignmentController@destroy', $a) }}" class="btn btn-danger">Cancella</a></td>
+            <td><a href="{{ URL::action('AssignmentController@destroy', $a) }}" onclick="return confirm('Confermare la cancellazione?');" class="btn btn-danger">Cancella</a></td>
           </tr>
           @endforeach
         </tbody>

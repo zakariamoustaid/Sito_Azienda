@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/admin" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');">Home</a>  <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
@@ -82,7 +82,7 @@
         </main>
     </div>
 <div class="container">
-    <h1> Inserimento Progetto </h1>
+    <h1> Inserimento Cliente </h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -120,11 +120,9 @@
             <input type="text" class="form-control" name="email_ref" >
             <small class="form-text text-muted">Inserisci la mail</small>
         </div>
-        
-        <!--<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />-->
 
         <button type="submit" class="btn btn-primary">Salva</button>
-        <a href="{{ URL::action('AdminController@index') }}" class="btn btn-secondary">Indietro</a>
+        <a href="{{ URL::action('AdminController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 
     </form>    
 </div>

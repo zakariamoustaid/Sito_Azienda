@@ -51,7 +51,7 @@
          </main>
          <div class="container">
     <h1> Tutti gli Utenti </h1>
-    <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Gestione Utenti</a>
+    <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Inserimento Utente</a>
     <table class="table table-striped">
         <thead>
           <tr>

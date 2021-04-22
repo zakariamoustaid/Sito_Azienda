@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item">
-                     <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
+                     <a class="nav-link" href="/admin" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');">Home</a>  <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href=""><b>Gestione Utenti</b></a> <span class="sr-only">(current)</span></a>
@@ -118,7 +118,7 @@
                <small class="form-text text-muted">Inserire numero telefono</small>
             </div>
             <button type="submit" class="btn btn-primary">Salva</button>
-            <a href="{{ URL::action('UserController@index') }}" class="btn btn-secondary">Indietro</a>
+            <a href="{{ URL::action('UserController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
          </form>
       </div>
    </body>

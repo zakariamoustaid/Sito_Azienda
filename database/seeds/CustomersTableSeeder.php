@@ -32,8 +32,35 @@ class CustomersTableSeeder extends Seeder
 	        'email_ref' 	    => 'lillinigianna@magia.it',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')    
-        ],
-        [
+        ], [
+            'ragione_sociale'   => 'Pontix SRL',
+	        'name_ref' 		    => 'Teresa',
+            'surname_ref'       => 'Mai',
+	        'email_ref' 	    => 'maiteresa@pontix.it',
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')    
+        ], [
+            'ragione_sociale'   => 'Furse SPA',
+	        'name_ref' 		    => 'Rossana',
+            'surname_ref'       => 'Vesti',
+	        'email_ref' 	    => 'rossanave@furse.it',
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')    
+        ],  [
+            'ragione_sociale'   => 'Morsi snc',
+	        'name_ref' 		    => 'Massimo',
+            'surname_ref'       => 'Mini',
+	        'email_ref' 	    => 'massimom@morsi.it',
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')    
+        ],  [
+            'ragione_sociale'   => 'Tronchi SRL',
+	        'name_ref' 		    => 'Giorgio',
+            'surname_ref'       => 'Merende',
+	        'email_ref' 	    => 'giorgiomerende@tronchi.it',
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')    
+        ], [
             'ragione_sociale'   => 'Lisp SPA',
 	        'name_ref' 		    => 'Walter',
             'surname_ref'       => 'Uait',

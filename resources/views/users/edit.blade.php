@@ -20,7 +20,7 @@
             </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
-                  <li class="nav-item"><a class="nav-link" href="/admin">Home</a><span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href="/admin" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');">Home</a><span class="sr-only">(current)</span></a></li>
                   <li class="nav-item"><a class="nav-link" href=""><b>Gestione Utente</b></a><span class="sr-only">(current)</span></a></li>
                </ul>
             </div>
@@ -101,7 +101,7 @@
 
         <a href="{{ URL::action('UserController@destroy', $user) }}" class="btn btn-danger">Termina Contratto</a>
 
-        <a href="{{ URL::action('UserController@index') }}" class="btn btn-secondary">Indietro</a>
+        <a href="{{ URL::action('UserController@index') }}" onclick="return confirm('Modifiche non confermate, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 
     </form>    
 </div>

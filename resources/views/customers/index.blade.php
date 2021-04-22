@@ -83,7 +83,7 @@
         </main>
 
 <div class="container">
-    <h1> Tutte i Progetti </h1>
+    <h1> Tutte i Clienti </h1>
     @if (session('alert'))
     <div class="alert alert-danger">
         {{ session('alert') }}

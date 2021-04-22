@@ -44,7 +44,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href=""><b>Progetti</b></a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/projects"><b>Progetti</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
                         </ul>
                 </div>
@@ -109,7 +109,7 @@
             <td>{{ $p->description }}</td>
             <th scope="row">{{ date('d/m/Y', strtotime($p->p_end)) }}</th>
             <th scope="row">{{ date('d/m/Y', strtotime($p->d_end)) }}</th>
-            <td><a href="{{ URL::action('ProjectController@destroy', $p) }}" class="btn btn-outline-danger">Elimina definitivamente</a></td>
+            <td><a href="{{ URL::action('ProjectController@destroy', $p) }}" onclick="return confirm('Confermando non sarà più possibile accedere al progetto');" class="btn btn-outline-danger">Elimina definitivamente</a></td>
           </tr>
           @endif
           @endforeach
