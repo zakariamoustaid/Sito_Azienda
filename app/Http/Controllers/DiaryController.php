@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Diary;
 use App\Project;
+use App\Assignment;
 use Illuminate\Http\Request;
 
 class DiaryController extends Controller
@@ -22,8 +23,9 @@ class DiaryController extends Controller
     public function index()
     {
         $diaries = Diary::all();
-
-        return view('diaries.index', compact('diaries'));
+        $assignments = Assignment::all();
+        $projects = Project::all();
+        return view('diaries.index', compact('diaries', 'assignments', 'projects'));
     }
 
     /**

@@ -24,8 +24,8 @@ class AssignmentController extends Controller
     public function index()
     {
         $assignments = Assignment::all();
-
-        return view('assignments.index', compact('assignments'));
+        $projects = Project::all();
+        return view('assignments.index', compact('assignments', 'projects'));
     }
 
     /**

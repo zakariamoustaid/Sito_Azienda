@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Assignment;
 use App\User;
 
 class UserController extends Controller
@@ -54,12 +55,10 @@ class UserController extends Controller
         $input = $request->all();
 
         $validatedData = $request->validate([
-            'email'     => 'required',
             'tel'       => 'required|min:10|numeric',
             'role'      => 'required',
         ]);
-
-        $user->email = $input['email'];
+        
         $user->tel = $input['tel'];
         $user->role = $input['role'];
         $user->save();
@@ -69,7 +68,19 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $assignments = Assignment::all();
+        $t = 1;
+        foreach($assignments as $a)
+        {
+            if($a->user->id == $user->id)
+            {
+                $t = 0;
+                return redirect('users');
+            }
+        }
+
+        if($t)
+            $user->delete();
         
         return redirect('users');
     }

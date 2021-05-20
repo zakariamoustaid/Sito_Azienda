@@ -66,7 +66,7 @@
 
             <div class="form-group">
             <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="begins">
-            <small class="form-text text-muted">Inserire data inizio</small>
+            <small class="form-text text-muted">Data assegnazione</small>
         </div>
             <div class="form-row">
                <div class="form-group col-md-6">
@@ -89,11 +89,11 @@
                </div>
             </div>
             <div class="form-group">
-            <label for="description">Descrizione</label>
+            <label for="description">Inserisci una piccola descrizione</label>
             <input type="text" class="form-control" name="description" >
-            <small class="form-text text-muted">Inserire descrizione</small>
         </div>
          <button type="submit" class="btn btn-primary">Assegna</button>
+         <a href="{{ URL::action('AssignmentController@index') }}" onclick="return confirm('Modifiche non confermate, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
         </div>
     </div>
    </body>

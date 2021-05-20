@@ -52,10 +52,10 @@
          <div class="container">
     <h1> Tutti gli Utenti </h1>
     <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Inserimento Utente</a>
-    <table class="table table-striped">
+    <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">Nome</th>
+            <th scope="col">#</th>
             <th scope="col">Cognome</th>
             <th scope="col">Ruolo</th>
             <th scope="col">Email</th>
@@ -63,18 +63,18 @@
           </tr>
         </thead>
         <tbody>
-
-          @foreach($users as $u)
-          <tr>
-            <td>{{ $u->name }}</td>
-            <td>{{ $u->surname }}</td>
-            <td>{{ $u->role }}</td>
-            <td>{{ $u->email }}</td>
-            <td>{{ $u->tel }}</td>
-            <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
-          </tr>
-          @endforeach
-
+          <?php
+            $i = 1;    
+            foreach($users as $u): ?>
+            <tr>
+               <td><?= $i++ ?></td>
+               <td><?= $u->surname ?></td>
+               <td><?= $u->role ?></td>
+               <td><?= $u->email ?></td>
+               <td><?= $u->tel ?></td>
+               <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
+            </tr>
+         <?php endforeach; ?>
         </tbody>
       </table>
 

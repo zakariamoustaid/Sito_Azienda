@@ -48,7 +48,7 @@
                         <!--<li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
                         </li>-->
-                        </ul>
+                    </ul>
                 </div>
 
                 <!-- Right Side Of Navbar -->
@@ -84,14 +84,53 @@
             @yield('content')
         </main>
     </div>
+
     <div class="container">
-       <h1> creazione di qualcosa </h1>
+       <h1> Attività svolte </h1>
        @if (session('alert'))
-    <div class="alert alert-danger">
-        {{ session('alert') }}
-    </div>
-@endif
+        <div class="alert alert-danger">
+            {{ session('alert') }}
+        </div>
+        @endif
+
+        <div class="mt-5"></div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                         <label for="begins">Data Odierna</label>
+                        <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="today" >
+                        <small class="form-text text-muted">Inserisci la data di oggi</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer_id">Seleziona Progetto</label>
+                        <select class="form-control" name="project_id">
+                        @foreach ($assignments as $a)
+                        @if($a->user_id == Auth::user()->id)
+                            <option value="{{ $a->id }}">{{ $a->project->name }}</option>
+                        @endif
+                        @endforeach
+                        </select>
+                        <small class="form-text text-muted">Seleziona Progetto</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="hours">Ore spese</label>
+                        <input type="number" class="form-control" name="hours" >
+                        <small class="form-text text-muted">Inserisci Ore spese</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Note</label>
+                        <input type="text" class="form-control" name="note" >
+                        <small class="form-text text-muted">Inserisci eventuali note</small>
+                    </div>
+                </div>
+            <div class="col-md-2">
+                <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+                <a href="" id="add-category-btn" class="btn btn-primary float-md-right mb-2" style="margin-top: 30px;">Aggiungi</a>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>
 

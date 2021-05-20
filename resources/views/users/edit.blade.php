@@ -76,8 +76,7 @@
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" value="{{ $user->email }}">
-            <small class="form-text text-muted">Inserisci il cognome</small>
+            <input type="text" class="form-control" name="email" value="{{ $user->email }}" disabled> 
         </div>
 
         <div class="form-group">
@@ -87,20 +86,26 @@
         </div>
 
         <div class="form-group">
-            <label for="role">Ruolo</label>
-            <select class="form-control" name="role">
+            @if(Auth::user()->email == $user->email)
+               <label for="role">Ruolo</label>
+               <input type="text" class="form-control" name="role" value="{{ $user->role }}" readonly> <!-- readonly al posto di disable in quanto crea errori nel controller-->
+            @else
+               <label for="role">Ruolo</label>
+               <select class="form-control" name="role">
                <option disabled> ruolo corrente "{{ $user->role }}" </option>
+                  <option> - </option>
                   <option> ADMIN </option>
                   <option> USER </option>
                </select>
+            @endif
             <small class="form-text text-muted">Modifica il ruolo</small>
         </div>
         
 
         <button type="submit" class="btn btn-primary">Aggiorna</button>
-
-        <a href="{{ URL::action('UserController@destroy', $user) }}" class="btn btn-danger">Termina Contratto</a>
-
+        @if(Auth::user()->email != $user->email)
+         <a href="{{ URL::action('UserController@destroy', $user) }}" onclick="return confirm('Confermare la cancellazione?');" class="btn btn-danger">Termina Contratto</a>
+         @endif
         <a href="{{ URL::action('UserController@index') }}" onclick="return confirm('Modifiche non confermate, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 
     </form>    
