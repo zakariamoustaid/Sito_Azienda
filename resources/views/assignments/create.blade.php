@@ -6,6 +6,9 @@
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>{{ config('app.name', 'Laravel') }}</title>
       <script src="{{ asset('js/app.js') }}" defer></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
       <link rel="dns-prefetch" href="//fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -80,7 +83,7 @@
                      <small class="form-text text-muted">Seleziona Progetto</small>
                </div>
                <div class="form-group col-md-4">
-                     <select class="form-control" name="user_id[]" multiple>
+                     <select id="choices-multiple-remove-button" class="form-control" name="user_id[]" multiple>
                         @foreach ($users as $u)
                         @if($u->role == 'USER')
                         <option value="{{ $u->id }}">{{ $u->surname }} {{ $u->name }}</option>
@@ -100,3 +103,12 @@
     </div>
    </body>
 </html>
+<script type="text/javascript">
+(function($) {
+$(document).ready(function(){
+   var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+   removeItemButton: true,
+   });
+});
+})(jQuery);
+</script>
