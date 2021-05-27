@@ -40,13 +40,9 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ URL::action('DiaryController@index') }}">Visualizza Attivit&agrave</a>  <span class="sr-only">(current)</span></a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/projects"><b>Progetti</b></a>  <span class="sr-only">(current)</span></a>
-                        </li>
-                        </ul>
+                    </ul>
                 </div>
 
                 <!-- Right Side Of Navbar -->
@@ -81,39 +77,51 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-<div class="container">
-    <h1> Progetti Terminati </h1>
-    @if (session('alert'))
-    <div class="alert alert-success">
-        {{ session('alert') }}
     </div>
-    @endif
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Registrato</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Descrizione</th>
-            <th scope="col">Data Fine Prevista</th>
-            <th scope="col">Data Fine </th>
-          </tr>
-        </thead>
-        <tbody>
 
-          @foreach($projects as $p)
-          @if($p->terminated != 'no')
-          <tr>
-            <th scope="row">{{ date('d/m/Y', strtotime($p->begins)) }}</th>
-            <td>{{ $p->name }} </td>
-            <td>{{ $p->description }}</td>
-            <th scope="row">{{ date('d/m/Y', strtotime($p->p_end)) }}</th>
-            <th scope="row">{{ date('d/m/Y', strtotime($p->d_end)) }}</th>
-          </tr>
-          @endif
-          @endforeach
+    <div class="container">
+       <h1> Inserimento Scheda</h1>
+       @if (session('alert'))
+        <div class="alert alert-danger">
+            {{ session('alert') }}
+        </div>
+        @endif
 
-        </tbody>
-      </table>
+        <form action="{{ URL::action('DiaryController@store') }}" method="POST">
+        {{ csrf_field() }}
 
-</div>
+        <div class="form-group">
+            <label for="today">Data Odierna</label>
+            <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" name="today" >
+            <small class="form-text text-muted">Inserisci la data</small>
+        </div>
+
+        <div class="form-group">
+            <label for="project_id">Seleziona Progetto</label>
+            <select class="form-control" name="project_id">
+                @foreach ($assignments as $a)
+                    @if($a->user_id == Auth::user()->id)
+                    <option value="{{ $a->project_id }}">{{ $a->project->name }}</option>
+                    @endif
+                @endforeach
+            </select>  
+        </div>
+
+        <div class="form-group">
+            <label for="hours">Ore Spese </label>
+            <input type="number" class="form-control" name="hours" >
+            <small class="form-text text-muted">Inserisci ore</small>
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Note</label>
+            <input type="text" class="form-control" name="notes" >
+            <small class="form-text text-muted">Inserisci eventuali note</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Salva</button>
+        </form>   
+    </div>
+</body>
+
+</html>
+

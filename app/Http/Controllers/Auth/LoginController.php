@@ -34,7 +34,7 @@ class LoginController extends Controller
         if ($user->role == "ADMIN") {
             return redirect('/admin');
         } else if ($user->role == "USER") {
-            return redirect('/diario'); //nome percorso deciso in precedenza (nella route)
+            return redirect('/diaries'); //nome percorso deciso in precedenza (nella route)
         }
     }
 

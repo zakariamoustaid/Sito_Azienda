@@ -25,10 +25,6 @@ Auth::routes();
 Route::resource('/admin', 'AdminController');
 
 
-
-//route diario
-Route::get('/diario', 'DiaryController@index')->name('diaries');
-
 //route progetti
 Route::get('/projects/terminated', 'ProjectController@show_terminated');
 Route::resource('/projects', 'ProjectController')->except(['destroy'],['terminate']);
@@ -48,5 +44,8 @@ Route::get('/assignments/{assignment}/delete', 'AssignmentController@destroy');
 Route::resource('/users', 'UserController')->except(['destroy']);
 Route::get('/users/{user}/delete', 'UserController@destroy');
 
+//route diario
+Route::resource('/diaries', 'DiaryController')->except(['destroy']);
+Route::get('/diaries/{diary}/delete', 'DiaryController@destroy');
 
 

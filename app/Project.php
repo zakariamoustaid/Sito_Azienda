@@ -32,4 +32,9 @@ class Project extends Model
 	{	
 		return $this->hasMany('App\Assignment');
 	}
+
+	public function diary() 
+	{	
+		return $this->hasMany('App\Diary');
+	}
 }

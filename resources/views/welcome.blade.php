@@ -71,7 +71,7 @@
                         @if(Auth::user()->role == "ADMIN")                      <!-- check se utente è admin o user -->
                             <a href="{{ URL::action('AdminController@index') }}">{{ Auth::user()->name }}</a>
                         @else
-                            <a href="{{ url('/diario') }}">{{ Auth::user()->name }}</a>
+                            <a href="{{ URL::action('DiaryController@index') }}">{{ Auth::user()->name }}</a>
                         @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>

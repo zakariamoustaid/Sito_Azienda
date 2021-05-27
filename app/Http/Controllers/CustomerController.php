@@ -49,16 +49,15 @@ class CustomerController extends Controller
     {
         $input = $request->all();
 
-        $validatedData = $request->validate([
-            'ragione_sociale'   => 'required',
-            'name_ref'          => 'required',
-            'surname_ref'       => 'required',
-            'email_ref'         => 'required',
-        ]);
-
-        Customer::create($input);
+        $customers = new Customer();
+        $customers->ragione_sociale = $input['ragione_sociale'];
+        $customers->name_ref = $input['name_ref'];
+        $customers->surname_ref = $input['surname_ref'];
+        $customers->email_ref = $input['email_ref'];
+        $customers->save();
         
-        return redirect('/customers');
+        //return redirect('/customers');
+        return json_encode(['status' => 'ok', 'customers' => $customers]);
     }
 
     /**
@@ -130,6 +129,6 @@ class CustomerController extends Controller
         if($t)
             $customer->delete();
 
-        return redirect('customers')->with('ok', $message);
+            return json_encode(['status' => 'ok']);
     }
 }

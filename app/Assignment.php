@@ -23,4 +23,10 @@ class Assignment extends Model
 	{	
 		return $this->belongsTo('App\User');
 	}
+
+
+    public function diary() 
+	{	
+		return $this->hasMany('App\Diary');
+	}
 }

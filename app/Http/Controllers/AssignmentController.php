@@ -25,7 +25,8 @@ class AssignmentController extends Controller
     {
         $assignments = Assignment::all();
         $projects = Project::all();
-        return view('assignments.index', compact('assignments', 'projects'));
+        $users = User::all();
+        return view('assignments.index', compact('assignments', 'projects', 'users'));
     }
 
     /**

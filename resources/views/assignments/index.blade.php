@@ -6,6 +6,7 @@
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>{{ config('app.name', 'Laravel') }}</title>
       <script src="{{ asset('js/app.js') }}" defer></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
       <link rel="dns-prefetch" href="//fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -50,7 +51,7 @@
             @yield('content')
          </main>
          <div class="container">
-    <h1> Tutte le Assegnazioni </h1>
+    <h1> Gestione Assegnazioni </h1>
 
     @if (session('alert'))
     <div class="alert alert-danger">
@@ -62,17 +63,21 @@
         {{ session('ok') }}
     </div>
 @endif
-   
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Registrato</th>
-            <th scope="col">Nome Progetto</th>
-            <th scope="col">Utenti</th>
-            <th scope="col">Descrizione</th>
-          </tr>
-        </thead>
-        <tbody>
+<div class="form-group">
+            <div class="col-md-2 float-right">
+            <a href="{{ URL::action('AssignmentController@create') }}" id="add-class-btn" class="btn btn-primary float-md-right mb-2" >Nuova Assegnazione</a>
+            </div>
+            
+            <table id="categories-table" class="table table-striped">
+            <thead>
+            <tr>
+               <th scope="col">Registrato</th>
+               <th scope="col">Nome Progetto</th>
+               <th scope="col">Utenti</th>
+               <th scope="col">Descrizione</th>
+            </tr>
+            </thead>
+            <tbody>
 
           @foreach($assignments as $a)
           <tr>
@@ -83,10 +88,9 @@
             <td><a href="{{ URL::action('AssignmentController@destroy', $a) }}" onclick="return confirm('Confermare la cancellazione?');" class="btn btn-danger">Cancella</a></td>
           </tr>
           @endforeach
-        </tbody>
+
       </table>
-      <a href="{{ URL::action('AssignmentController@create') }}" class="btn btn-primary float-md-right mb-2">Nuova Assegnazione</a>
-</div>
+   </div>
     </div>
    </body>
 </html>

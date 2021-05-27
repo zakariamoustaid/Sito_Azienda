@@ -72,7 +72,9 @@
                <div class="form-group col-md-6">
                      <select class="form-control" name="project_id">
                         @foreach ($projects as $p)
+                        @if($p->terminated != 'yes')
                         <option value="{{ $p->id }}">{{ $p->name }}</option>
+                        @endif
                         @endforeach
                      </select>
                      <small class="form-text text-muted">Seleziona Progetto</small>

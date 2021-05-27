@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Diary;
 use App\Project;
 use App\Assignment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DiaryController extends Controller
@@ -35,7 +36,10 @@ class DiaryController extends Controller
      */
     public function create()
     {
-        //
+        $diaries = Diary::all();
+        $assignments = Assignment::all();
+        $projects = Project::all();
+        //return json_encode(['status' => 'ok', 'diaries' => $diaries]);
     }
 
     /**
@@ -46,7 +50,25 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $d = new Diary();
+        $projects = Project::all();
+
+        $d->today = $input['today'];
+        $d->notes = $input['notes'];
+        $d->hours = $input['hours'];
+        $d->project_id = $input['project_id'];
+        $d->user_id = $input['user_id'];
+
+        $d->save();
+
+        $date = date('d/m/Y', strtotime($d->today));
+        $project = $d->project->name;
+        $hours = $d->hours;
+        
+        
+        return json_encode(['status' => 'ok', 'diaries' => $d, 'd' => $date, 'p' => $project, 'h' => $hours]);
     }
 
     /**
@@ -91,6 +113,8 @@ class DiaryController extends Controller
      */
     public function destroy(Diary $diary)
     {
-        //
+        $diary->delete();
+        
+        return redirect('diaries');
     }
 }

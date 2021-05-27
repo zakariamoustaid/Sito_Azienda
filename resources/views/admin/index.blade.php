@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -96,3 +98,55 @@
             @yield('content')
         </main>
     </div>
+    <!-- HOME -->
+    <div id="chartContainer" style="height: 300px; width: 50%;">
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer", {            
+      title:{
+        text: "Fruits sold in First & Second Quarter"              
+      },
+
+      data: [  //array of dataSeries     
+      { //dataSeries - first quarter
+ /*** Change type "column" to "bar", "area", "line" or "pie"***/        
+       type: "column",
+       name: "First Quarter",
+       showInLegend: true,
+       dataPoints: [
+       { label: "banana", y: 55 },
+       { label: "orange", y: 69 },
+       { label: "apple", y: 50 },                                    
+       { label: "mango", y: 55 },
+       { label: "grape", y: 64 }
+       ]
+     },
+
+     { //dataSeries - second quarter
+
+      type: "column",
+      name: "Second Quarter", 
+      showInLegend: true,               
+      dataPoints: [
+      { label: "banana", y: 63 },
+      { label: "orange", y: 73 },
+      { label: "apple", y: 88 },                                    
+      { label: "mango", y: 77 },
+      { label: "grape", y: 60 }
+      ]
+    }
+    ],
+ /** Set axisY properties here*/
+    axisY:{
+      prefix: "$",
+      suffix: "K"
+    }    
+  });
+
+chart.render();
+}
+</script>
+
