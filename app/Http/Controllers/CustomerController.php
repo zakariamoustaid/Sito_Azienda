@@ -77,9 +77,21 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(Request $request)
     {
-        return view('customers.edit', compact('customer'));
+        $input = $request->all();
+        $cus = Customer::all();
+
+        foreach($cus as $c)
+        {
+            if($c->id == $input['customer_id'])
+            {
+                $c->email_ref = $input['email_new'];
+                $c->save();
+                return json_encode(['status' => 'ok', 'customers' => $c]);
+            }
+        }
+
     }
 
     /**
@@ -93,16 +105,11 @@ class CustomerController extends Controller
     {
         $input = $request->all();
 
-        $validatedData = $request->validate([
-            'ragione_sociale'       => 'required',
-            'email_ref'             => 'required',
-        ]);
-
         $customer->ragione_sociale = $input['ragione_sociale'];
         $customer->email_ref = $input['email_ref'];
         $customer->save();
 
-        return redirect('customers');
+        return json_encode(['status' => 'ok', 'customers' => $customers]);
     }
 
     /**

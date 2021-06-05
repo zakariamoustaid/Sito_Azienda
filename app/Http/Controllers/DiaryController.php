@@ -26,7 +26,14 @@ class DiaryController extends Controller
         $diaries = Diary::all();
         $assignments = Assignment::all();
         $projects = Project::all();
-        return view('diaries.index', compact('diaries', 'assignments', 'projects'));
+        $ind = 0;
+        foreach($diaries as $d)
+        {
+            if($d->user_id == Auth::user()->id)
+            $ind = $d->hours + $ind;
+        }
+        
+        return view('diaries.index', compact('diaries', 'assignments', 'projects', 'ind'));
     }
 
     /**

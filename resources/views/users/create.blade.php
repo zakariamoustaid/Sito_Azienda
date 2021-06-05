@@ -18,6 +18,7 @@
       <link href="{{ asset('css/diary.css') }}" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
    </head>
+   <div class="container">
    <body class="mybody">
       <div id="app">
          <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -70,7 +71,7 @@
             @yield('content')
          </main>
       </div>
-      <div class="container">
+
          <h1> Inserimento Utente </h1>
          @if ($errors->any())
          <div class="alert alert-danger">
@@ -120,6 +121,7 @@
             <button type="submit" class="btn btn-primary">Salva</button>
             <a href="{{ URL::action('UserController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
          </form>
-      </div>
+
    </body>
+   </div>
 </html>

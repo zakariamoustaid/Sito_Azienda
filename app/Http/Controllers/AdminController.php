@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Project;
+use App\Customer;
+use App\Diary;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -16,7 +21,64 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.index');
+        $projects = Project::all();
+        $users = User::all();
+        $diaries = Diary::all();
+        $customers = Customer::all();
+
+        $tot_user = 0;
+
+        foreach($users as $u)
+        {
+            if($u->role == "USER")
+            {
+                $tot_user = $tot_user + 1;
+            }
+        }
+
+        $lista_proj = [];
+        $ore_proj = [];
+        $count = 0;
+
+        foreach($projects as $p)
+        {
+            array_push($lista_proj, $p->name);
+            foreach($diaries as $d)
+            {
+                if($p->id == $d->project_id)
+                    $count = $d->hours + $count;
+            }
+
+            array_push($ore_proj, $count);
+            $count = 0;
+        }
+
+        $lista_cust = [];
+        $ore_cust = [];
+
+        $count = 0;
+
+        foreach($customers as $c)
+        {
+            array_push($lista_cust, $c->ragione_sociale);
+            foreach($diaries as $d)
+            {
+                $pr = DB::table('projects')
+                    ->where('customer_id', $c->id)
+                    ->first();
+
+                    Log::info('ciao'.$pr->id);
+                if($pr->id == $d->project_id)
+                    $count = $d->hours + $count;
+            }
+            array_push($ore_cust, $count);
+            $count = 0;
+        }
+
+
+
+
+        return view('admin.index' , compact('users', 'tot_user', 'lista_proj', 'ore_proj', 'lista_cust', 'ore_cust'));
     }
 
     public function create()

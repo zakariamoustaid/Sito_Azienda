@@ -18,13 +18,17 @@
         .top-buffer { margin-top:25px; }
         .alert-danger { display:none;}
         .alert-success {display:none;}
+        .modal {display:none;}
       </style>
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
       <!-- inserisco css personali -->
       <!-- css Diario User -->
       <link href="{{ asset('css/diary.css') }}" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
    </head>
+   
+   <div class="container">
    <body class="mybody">
       <div id="app">
          <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -37,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item">
-                     <a class="nav-link" href="{{ URL::action('DiaryController@index') }}"> Visualizza Attività </a>  <span class="sr-only">(current)</span></a>
+                     <a class="nav-link" href="{{ URL::action('DiaryController@index') }}"> Gestione Diario </a>  <span class="sr-only">(current)</span></a>
                   </li>
                   <!--<li class="nav-item">
                      <a class="nav-link disabled" href="#">Disabled</a>
@@ -74,7 +78,39 @@
             @yield('content')
          </main>
     </div>
-    <div class="container">
+
+   <!-- modal -->
+      <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="Totale" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Scheda Ore</h5>
+            <button type="button" class="close" id="close_x" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div id="body_modal" class="modal-body">
+            <h4> Totale ore spese: <strong>{{ $ind }} </strong></h4>
+            <div class="row top-buffer"></div>
+            <?php foreach($projects as $p){?>
+            <?php $i = 0;?>
+            <?php $controllo = 1; ?>
+            <?php foreach ($diaries as $d) {?>
+            <?php if ($d->project_id == $p->id && $d->user_id == Auth::user()->id) {?>
+            <?php if($controllo){?>
+            <?php echo '<h5>'.$p->name.':</h5>';?>
+            <?php $controllo=0; }?>
+            <?php $i = $i + $d->hours; }?>
+            <?php } if($i) { echo '<h5><strong>'.$i.'</strong></h5>';} }?>
+            <button type="button" class="btn btn-outline-secondary float-md-right" id="close" data-dismiss="modal">Chiudi</button>
+            <div class="row top-buffer"></div>
+            </div>
+         </div>
+      </div>
+      </div>
+<!-- end modal -->
+
+
         <h3> Inserimento Scheda</h3>
 
         <!-- ALERT -->
@@ -86,6 +122,7 @@
         </div>
         <!-- FINE ALERT -->
 
+        <!-- Inserimento -->
         <div class="row top-buffer"></div>
 
         <div class="form-row">
@@ -117,30 +154,76 @@
  
         <div class="row top-buffer"></div>
 
+<!-- DIARIO -->
       <div class="container">
-         <h3>Lista Schede </h3>
-         <table id="diary-table" class="table table-striped">
+      <div class="form-group">
+         <h3>Lista Schede Inserite </h3>
+         <a id="diary" class="btn btn-primary float-md-right mb-2" >Visualizza riepilogo ore </a>
+         </div>
+         <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per mese o singoli progetti" title="Type in a name">
+         <table id="diary-table" class="table table-hover">
             <thead>
                <tr>
                   <th scope="col">Data scheda</th>
                   <th scope="col">Progetto</th>
                   <th scope="col">Ore Spese</th>
+                  <th scope="col">Note</th>
                </tr>
             </thead>
-            <tbody>
+            <tbody id="filtro">
                @foreach($diaries as $d)
                <tr>
                   @if($d->user->id == Auth::user()->id)
                   <td scope="row">{{ date('d/m/Y', strtotime($d->today)) }}</th>
                   <td>{{ $d->project->name }} </td>
                   <td>{{ $d->hours }}</td>
-                  <td><a href="{{ URL::action('DiaryController@destroy', $d) }}" id="delete-btn" class="btn btn-danger">Cancella</a></td>
+                  <td>{{ $d->notes }}</td>
+                  <!--<td><a href="{{ URL::action('DiaryController@destroy', $d) }}" id="delete-btn" class="btn btn-danger">Cancella</a></td>-->
                   @endif
                </tr>
                @endforeach
             </tbody>
          </table>
       </div>
+
+      <script>
+      $(document).ready(function(){
+         $("#add-diary").on("keyup",function () {
+            $('[data-toggle="popover"]').popover()
+         });
+         
+         $("#myInput").on("keyup", function() {
+         var value = $(this).val().toLowerCase();
+         if(value == 'gennaio')
+            value = '/01';
+         else if(value == 'febbraio')
+            value = '/02';
+         else if(value == 'marzo')
+            value = '/03';
+         else if(value == 'aprile')
+            value = '/04';
+         else if(value == 'maggio')
+            value = '/05';
+         else if(value == 'giugno')
+            value = '/06';
+         else if(value == 'luglio')
+            value = '/07';
+         else if(value == 'agosto')
+            value = '/08';
+         else if(value == 'settembre')
+            value = '/09';
+         else if(value == 'ottobre')
+            value = '/10';
+         else if(value == 'novembre')
+            value = '/11';
+         else if(value == 'dicembre')
+            value = '/12';
+         $("#filtro tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
    </body>
 </html>
 
@@ -168,16 +251,17 @@
                     var newColt = $('<td/>', { text: data.d });
                     var newColp = $('<td/>', { text: data.p });
                     var newColh= $('<td/>', { text: data.h });
-                    var delAction = $('<a/>', {
+                    var newColn= $('<td/>', { text: data.diaries.notes });
+                    /*var delAction = $('<a/>', {
                         href: "#",
                         id: "delete-btn",
                         "data-id": data.diaries.id,
                         class: "btn btn-danger",
                         text: 'Cancella',
                         });
-                    var newColAction2 = $('<td/>').append(delAction);
-
-                  var newRow = $('<tr/>').append(newColt).append(newColp).append(newColh).append(newColAction2);
+                    var newColAction2 = $('<td/>').append(delAction);*/
+                        //.append(newColAction2)
+                  var newRow = $('<tr/>').append(newColt).append(newColp).append(newColh).append(newColn);
                   $('#diary-table').append(newRow);
                   $('#ins_ok').css('display', 'block').fadeOut(2000);
                   var hours = $('#hours').val('');
@@ -190,6 +274,23 @@
                   var hours = $('#hours').val('');
                   var notes = $('#notes').val('');
                }
+         });
+      });
+      $(document).on("click", "#diary", function () {
+        $('.modal').css('display', 'block');
+
+        $('#close').bind('click', function(e){
+            $('.modal').css('display', 'none');
+            window.location.reload(false);  
+        });
+        $('#close_x').bind('click', function(e){
+            $('.modal').css('display', 'none');
+            window.location.reload(false);  
+        });
+
+        $("#viewH").bind('click', function(){
+           var project = $('#project_modal').val();
+            console.log(project);
          });
       });
    });

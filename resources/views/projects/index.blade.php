@@ -27,7 +27,7 @@
 
     
 </head>
-
+<div class="container">
 <body class="mybody">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -82,7 +82,7 @@
             @yield('content')
         </main>
 
-<div class="container">
+
     <h1> Tutte i Progetti </h1>
     @if (session('alert'))
     <div class="alert alert-success">
@@ -118,5 +118,6 @@
 
         </tbody>
       </table>
-
+</body>
 </div>
+</html>

@@ -27,7 +27,7 @@
 
     
 </head>
-
+<div class="container">
 <body class="mybody">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -81,7 +81,7 @@
             @yield('content')
         </main>
     </div>
-<div class="container">
+
     <h1> Inserimento Progetto </h1>
 
     @if ($errors->any())
@@ -155,7 +155,10 @@
         <a href="{{ URL::action('ProjectController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 
     </form>    
+</body>
 </div>
+</html>
+
 
 <script>
 function myFunction() {

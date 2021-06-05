@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
@@ -20,6 +20,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .top-buffer { margin-top:25px; }
+        .chart-container {
+                    width:500px;
+                    height:400px
+        }
+        #myChart {
+            display:none;
+        }
+        #myChart2 {
+            display:none;
+        }
+    </style>
 
     <!-- inserisco css personali -->
     <!-- css Diario User -->
@@ -30,6 +43,7 @@
     
 </head>
 
+<div class="container">
 <body class="mybody">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -99,54 +113,99 @@
         </main>
     </div>
     <!-- HOME -->
-    <div id="chartContainer" style="height: 300px; width: 50%;">
-  </div>
+        <h3 class="card-title">Buongiorno {{ Auth::user()->name }}</h3>
+        <p class="card-text">Qui di seguito una panoramica della situazione</p>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <p class="card-text">Totale utenti registrati: {{ $tot_user }}</p>
+        <p class="card-text">Totale utenti assegnati: </p>
+        <button id="but"> clicca qui </button>
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+            <canvas id="myChart2"></canvas>
+        </div>
+
+
 </body>
+</div>
 </html>
+
 <script type="text/javascript">
-  window.onload = function () {
-    var chart = new CanvasJS.Chart("chartContainer", {            
-      title:{
-        text: "Fruits sold in First & Second Quarter"              
-      },
-
-      data: [  //array of dataSeries     
-      { //dataSeries - first quarter
- /*** Change type "column" to "bar", "area", "line" or "pie"***/        
-       type: "column",
-       name: "First Quarter",
-       showInLegend: true,
-       dataPoints: [
-       { label: "banana", y: 55 },
-       { label: "orange", y: 69 },
-       { label: "apple", y: 50 },                                    
-       { label: "mango", y: 55 },
-       { label: "grape", y: 64 }
-       ]
-     },
-
-     { //dataSeries - second quarter
-
-      type: "column",
-      name: "Second Quarter", 
-      showInLegend: true,               
-      dataPoints: [
-      { label: "banana", y: 63 },
-      { label: "orange", y: 73 },
-      { label: "apple", y: 88 },                                    
-      { label: "mango", y: 77 },
-      { label: "grape", y: 60 }
-      ]
-    }
-    ],
- /** Set axisY properties here*/
-    axisY:{
-      prefix: "$",
-      suffix: "K"
-    }    
-  });
-
-chart.render();
-}
+(function($) {
+    $('document').ready(function(){
+        $("#but").bind('click', function(){
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var projects = @json($lista_proj);
+            var hours = @json($ore_proj);
+            var customers = @json($lista_cust);
+            var hours_c = @json($ore_cust);
+            console.log(hours);
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: projects,
+                    datasets: [{
+                        label: 'ORE SPESE PER OGNI PROGETTO',
+                        data: hours,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'x',
+                }
+            });
+            var ctx = document.getElementById('myChart2').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: customers,
+                    datasets: [{
+                        label: 'ORE SPESE PER OGNI PROGETTO',
+                        data: hours_c,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'x',
+                }
+            });
+        });
+});
+})(jQuery);
 </script>
-
