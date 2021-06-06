@@ -21,17 +21,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        .alert-danger { display:none;}
         .top-buffer { margin-top:25px; }
         .chart-container {
                     width:500px;
                     height:400px
         }
-        #myChart {
-            display:none;
-        }
-        #myChart2 {
-            display:none;
-        }
+        #descrizioneP {display:block;}
+        #descrizioneC {display:block;}
     </style>
 
     <!-- inserisco css personali -->
@@ -112,20 +109,70 @@
             @yield('content')
         </main>
     </div>
+    <!-- Alert -->
+    <div id="error_div" class="alert alert-danger">
+            <p> Selezionare un range di date corretto!</p>
+    </div>
+
     <!-- HOME -->
-        <h3 class="card-title">Buongiorno {{ Auth::user()->name }}</h3>
-        <p class="card-text">Qui di seguito una panoramica della situazione</p>
+        <h3 class="card-title"><strong> Buongiorno {{ Auth::user()->name }} </strong></h3>
+        <div class="row top-buffer"></div>
+        <p class="card-text">Qui di seguito troverai una panoramica della situazione Progetti/Clienti</p>
+
+        <!-- sezione project -->
+        <div style="width: 500px; float: right;">
         <div class="row top-buffer"></div>
         <div class="row top-buffer"></div>
-        <p class="card-text">Totale utenti registrati: {{ $tot_user }}</p>
-        <p class="card-text">Totale utenti assegnati: </p>
-        <button id="but"> clicca qui </button>
+        <button type="button" class="btn btn-dark" disable>Sezione Ore Progetti</button>
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col">
+                <label>Da:</label>
+                <input type="date" class="form-control" id="data" >
+            </div>
+            <div class="col">
+                <label>A:</label>
+                <input type="date" class="form-control" id="data2" >
+            </div>
+            <div class="col">
+                <div class="row top-buffer"></div>
+                <button type="button" id="Chart1" class="btn btn-primary btn-lg">Conferma</button>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <small class="form-text text-muted" id="descrizioneP"><strong>Di seguito sono visualizzate le ore totali per ogni Progetto, selezionare il range di interesse per maggiori dettagli.</strong></small>
         <div class="chart-container">
-            <canvas id="myChart"></canvas>
-            <canvas id="myChart2"></canvas>
+            <canvas id="myChart1"></canvas>
+        </div>
         </div>
 
-
+        <!-- Sezione customer -->
+        <div style="width: 500px; float: left;">
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <button type="button" class="btn btn-dark" disable>Sezione Ore Clienti</button>
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col">
+                <label>Da:</label>
+                <input type="date" class="form-control" id="data3" >
+            </div>
+            <div class="col">
+                <label>A:</label>
+                <input type="date" class="form-control" id="data4" >
+            </div>
+            <div class="col">
+                <div class="row top-buffer"></div>
+                <button type="button" id="Chart2" class="btn btn-primary btn-lg">Conferma</button>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <small class="form-text text-muted" id="descrizioneC"><strong>Di seguito sono visualizzate le ore totali per ogni Cliente, selezionare il range di interesse per maggiori dettagli.</strong></small>
+        <div class="chart-container">
+            <canvas id="myChart2"></canvas>
+        </div>
+        </div>
+        
 </body>
 </div>
 </html>
@@ -133,14 +180,12 @@
 <script type="text/javascript">
 (function($) {
     $('document').ready(function(){
-        $("#but").bind('click', function(){
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var projects = @json($lista_proj);
-            var hours = @json($ore_proj);
-            var customers = @json($lista_cust);
-            var hours_c = @json($ore_cust);
-            console.log(hours);
-            var myChart = new Chart(ctx, {
+
+        //grafico projects
+        const projects = @json($lista_proj);
+        const hours = @json($ore_proj);
+        var chart1 = document.getElementById('myChart1').getContext('2d');
+        window.myCharts = new Chart(chart1, {
                 type: 'bar',
                 data: {
                     labels: projects,
@@ -172,14 +217,157 @@
                     indexAxis: 'x',
                 }
             });
-            var ctx = document.getElementById('myChart2').getContext('2d');
-            var myChart = new Chart(ctx, {
+
+        //grafico customers
+        const customers = @json($lista_cust);
+        const hours_c = @json($ore_cust);
+        var chart2 = document.getElementById('myChart2').getContext('2d');
+        window.myCharts2 = new Chart(chart2, {
                 type: 'bar',
                 data: {
                     labels: customers,
                     datasets: [{
-                        label: 'ORE SPESE PER OGNI PROGETTO',
+                        label: 'ORE SPESE PER OGNI CLIENTE',
                         data: hours_c,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'x',
+                }
+            });
+
+        $("#Chart1").bind('click', function(){
+            $('#descrizioneP').css('display', 'none');
+            var chart1 = document.getElementById('myChart1').getContext('2d');
+            const projects = @json($projects);
+            const diaries = @json($diaries);
+            var projects_names = [];
+            var tot_h = 0;
+            var hours2 = [];
+            //projects.forEach(element => console.log(element.id));
+            const customers = @json($customers);
+            var data_input = $('#data').val();
+            var data_input2 = $('#data2').val();
+            //console.log(data_input, data_input2);
+            if(data_input == '' || data_input2 == '')
+                $('#error_div').css('display', 'block').fadeOut(5000);
+
+            for(p of projects)
+            {
+                projects_names.push(p.name);
+                for(d of diaries)
+                {
+                    if(d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                    {
+                        tot_h = d.hours + tot_h;
+                    }
+                }
+
+                hours2.push(tot_h);
+                tot_h = 0;
+
+            }
+
+            //console.log(hours);
+            if(window.myCharts != undefined)
+                window.myCharts.destroy();
+            window.myCharts = new Chart(chart1, {
+                type: 'bar',
+                data: {
+                    labels: projects_names,
+                    datasets: [{
+                        label: 'ORE SPESE PER OGNI PROGETTO',
+                        data: hours2,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'x',
+                }
+            });
+        });
+
+        //parte customer
+        $("#Chart2").bind('click', function(){
+            $('#descrizioneC').css('display', 'none');
+            var chart2 = document.getElementById('myChart2').getContext('2d');
+            const customers = @json($customers);
+            const diaries = @json($diaries);
+            const projects = @json($projects);
+            var customers_names = [];
+            var tot_h = 0;
+            var hours3 = [];
+            //projects.forEach(element => console.log(element.id));
+            var data_input = $('#data3').val();
+            var data_input2 = $('#data4').val();
+            //console.log(data_input, data_input2);
+            if(data_input == '' || data_input2 == '')
+                $('#error_div').css('display', 'block').fadeOut(5000);
+
+            for(c of customers)
+            {
+                customers_names.push(c.ragione_sociale);
+                for(p of projects)
+                {
+                    for(d of diaries)
+                    {
+                        if(p.customer_id == c.id && d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                        {
+                            tot_h = d.hours + tot_h;
+                            
+                        }
+                    }
+                }
+                hours3.push(tot_h);
+                tot_h = 0;
+            }
+
+            if(window.myCharts2 != undefined)
+                window.myCharts2.destroy();
+            window.myCharts2 = new Chart(chart2, {
+                type: 'bar',
+                data: {
+                    labels: customers_names,
+                    datasets: [{
+                        label: 'ORE SPESE PER OGNI CLIENTE ',
+                        data: hours3,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

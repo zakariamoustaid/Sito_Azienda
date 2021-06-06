@@ -78,7 +78,7 @@ class AdminController extends Controller
 
 
 
-        return view('admin.index' , compact('users', 'tot_user', 'lista_proj', 'ore_proj', 'lista_cust', 'ore_cust'));
+        return view('admin.index' , compact('users', 'projects', 'diaries', 'customers', 'lista_proj', 'ore_proj', 'lista_cust', 'ore_cust', 'pr'));
     }
 
     public function create()
