@@ -19,6 +19,8 @@ class CreateCustomersTable extends Migration
             $table->string('name_ref');
             $table->string('surname_ref');
             $table->string('email_ref');
+            $table->integer('tel');
+            $table->string('terminated')->default('no');
             $table->timestamps();
         });
     }

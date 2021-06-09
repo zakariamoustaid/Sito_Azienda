@@ -67,9 +67,9 @@ class AdminController extends Controller
                     ->where('customer_id', $c->id)
                     ->first();
 
-                    Log::info('ciao'.$pr->id);
-                if($pr->id == $d->project_id)
-                    $count = $d->hours + $count;
+                if($pr != null)
+                    if($pr->id == $d->project_id)
+                        $count = $d->hours + $count;
             }
             array_push($ore_cust, $count);
             $count = 0;

@@ -195,9 +195,13 @@
             <td>{{ $c->name_ref }}</td>
             <td>{{ $c->surname_ref }}</td>
             <td>{{ $c->email_ref }}</td>
-            <td><a href="#" class="btn btn-outline-secondary" id="edit-class-btn" data-rag="{{ $c->ragione_sociale }}" data-id="{{ $c->id }}"
-                    data-nom="{{ $c->name_ref }}" data-sur="{{ $c->surname_ref }}" data-email="{{ $c->email_ref }}">Modifica</a></td>
-            <td><a href="#" class="btn btn-outline-danger" id="delete-btn" data-id="{{ $c }}" onclick="return confirm('Confermare eliminazione?');">Elimina Cliente</a></td>
+            <td><a href="" class="btn btn-outline-secondary" id="edit-class-btn" data-rag="{{ $c->ragione_sociale }}" data-id="{{ $c->id }}"
+                    data-nom="{{ $c->name_ref }}" data-sur="{{ $c->surname_ref }}" data-email="{{ $c->email_ref }}">Modifica</a>
+            </td>
+            <td>
+            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+            <a href="" class="btn btn-outline-danger" id="delete-btn" data-id="{{ $c }}">Elimina Cliente</a>
+            </td>
           </tr>
           @endforeach
 
@@ -268,59 +272,61 @@
       });
 
       $(document).on("click", "a#edit-class-btn", function () {
-        $('.modal').css('display', 'block');
+            $('.modal').css('display', 'block');
 
-        $('#close').bind('click', function(e){
-            $('.modal').css('display', 'none');
-            window.location.reload(false);  
-        });
-        $('#close_x').bind('click', function(e){
-            $('.modal').css('display', 'none');
-            window.location.reload(false);  
-        });
+            $('#close').bind('click', function(e){
+                $('.modal').css('display', 'none');
+                window.location.reload(false);  
+            });
+            $('#close_x').bind('click', function(e){
+                $('.modal').css('display', 'none');
+                window.location.reload(false);  
+            });
 
-        var rag_s = $(this).attr('data-rag');
-        var name = $(this).attr('data-nom');
-        var sur = $(this).attr('data-sur');
-        var email = $(this).attr('data-email');
-        var customer_id = $(this).attr('data-id');
-        var _token = $('#_token').val(); 
-        console.log(email);
-        $(".modal-body #ragione_s").val( rag_s );
-        $(".modal-body #nome").val( name );
-        $(".modal-body #cognome").val( sur );
-        $(".modal-body #email").val( email );
+            var rag_s = $(this).attr('data-rag');
+            var name = $(this).attr('data-nom');
+            var sur = $(this).attr('data-sur');
+            var email = $(this).attr('data-email');
+            var customer_id = $(this).attr('data-id');
+            var _token = $('#_token').val(); 
+            console.log(email);
+            $(".modal-body #ragione_s").val( rag_s );
+            $(".modal-body #nome").val( name );
+            $(".modal-body #cognome").val( sur );
+            $(".modal-body #email").val( email );
 
 
 
-        $('#save').bind('click', function(e){
-            var email_new = $('#email').val();
-            console.log(customer_id);
-            $.ajax({
-                    url: "/customers/" + customer_id +"/edit",     
-                    type: "GET",                     
-                    dataType: "json",  
-                    data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
-                    success: function(data) {                        
-                        if (data.status === 'ok') {
-                            window.location.reload(false);        
+            $('#save').bind('click', function(e){
+                var email_new = $('#email').val();
+                console.log(customer_id);
+                $.ajax({
+                        url: "/customers/" + customer_id +"/edit",     
+                        type: "GET",                     
+                        dataType: "json",  
+                        data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
+                        success: function(data) {                        
+                            if (data.status === 'ok') {
+                                window.location.reload(false);        
+                            }
+                        }, 
+                        error: function(response, stato) {
+                            console.log(stato);
                         }
-                    }, 
-                    error: function(response, stato) {
-                        console.log(stato);
-                    }
-                });
-            $('.modal').css('display', 'none');
-        });
+                    });
+                $('.modal').css('display', 'none');
+            });
 
 
         });
 
-      $('#customers-table').on('click','#delete-btn', function(e) {
+      $('#delete-btn').bind('click', function(e) {
             e.preventDefault();
+            console.log('ciao');
             var row = $(this).parents('tr');            
             var customerId = $(this).attr('data-id');   
-            var _token = $('#_token').val();     
+            var _token = $('#_token').val();  
+            console.log(customerId);   
             $.ajax({
                     url: "/customers/" + customerId + "/delete",     
                     type: "GET",                     

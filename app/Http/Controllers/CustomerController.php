@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -103,13 +104,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        $input = $request->all();
 
-        $customer->ragione_sociale = $input['ragione_sociale'];
-        $customer->email_ref = $input['email_ref'];
-        $customer->save();
-
-        return json_encode(['status' => 'ok', 'customers' => $customers]);
     }
 
     /**
@@ -120,22 +115,22 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $projects = Project::all();
-        $message = "Eliminazione avvenuta con successo";
-        $t = 1;
-        foreach($projects as $p)
-        {
-            if($p->customer->id == $customer->id)
-            {
-                $message = "Non è possibile chiudere il contratto con " . $customer->ragione_sociale;
-                $t = 0;
-                return redirect('customers')->with('alert', $message);
-            }
-        }
+        $input = $request->all();
 
-        if($t)
-            $customer->delete();
+        $projects = DB::table('projects')
+        ->where('customer_id', $input['customer_id'])
+        ->get();
+
+        Log::info('ciaociao'.$input['customer_id']);
+
+        if($projects == null)
+        {
+            $cus = DB::table('customers')
+            ->where('id', $input['customer_id'])
+            ->delete();
 
             return json_encode(['status' => 'ok']);
+        }
+
     }
 }

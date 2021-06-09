@@ -24,11 +24,41 @@ class ProjectsTableSeeder extends Seeder
 		], [
             'name' 			    => 'Project Pluto',
 	        'description' 		=> 'Creazione sito',
-            'note'              => 'molto simpatici',
+            'note'              => 'intuitivo',
 	        'begins' 		    => date('2021-4-10 12:50:20'),
 	        'p_end' 		    => date('2021-4-30 12:50:20'),
             'customer_id' 		=> "2",
             'cost' 		        => "17.50",
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')	
+		], [
+            'name' 			    => 'Project Europa',
+	        'description' 		=> 'Creazione sito',
+            'note'              => 'intuitivo',
+	        'begins' 		    => date('2021-4-10 12:50:20'),
+	        'p_end' 		    => date('2021-4-30 12:50:20'),
+            'customer_id' 		=> "2",
+            'cost' 		        => "17.50",
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')	
+		], [
+            'name' 			    => 'Project Kratos',
+	        'description' 		=> 'Creazione sito',
+            'note'              => 'intuitivo',
+	        'begins' 		    => date('2021-4-10 12:50:20'),
+	        'p_end' 		    => date('2021-4-30 12:50:20'),
+            'customer_id' 		=> "3",
+            'cost' 		        => "20",
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')	
+		], [
+            'name' 			    => 'Project Star',
+	        'description' 		=> 'Creazione sito',
+            'note'              => 'intuitivo',
+	        'begins' 		    => date('2021-4-10 12:50:20'),
+	        'p_end' 		    => date('2021-4-30 12:50:20'),
+            'customer_id' 		=> "3",
+            'cost' 		        => "18",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')	
 		], [
@@ -38,20 +68,20 @@ class ProjectsTableSeeder extends Seeder
 	        'begins' 		    => date('2021-4-10 12:50:20'),
 	        'p_end' 		    => date('2021-4-30 12:50:20'),
             'customer_id' 		=> "3",
-            'cost' 		        => "25.50",
+            'cost' 		        => "21.50",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')		
-        ],[
+        ], [
             'name' 			    => 'Project Sun',
 	        'description' 		=> 'Creazione gestionale',
             'note'              => 'massimo impegno',
 	        'begins' 		    => date('2021-4-10 12:50:20'),
 	        'p_end' 		    => date('2021-4-30 12:50:20'),
             'customer_id' 		=> "4",
-            'cost' 		        => "25.50",
+            'cost' 		        => "22.50",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')		
-        ],[
+        ], [
             'name' 			    => 'Project Uranus',
 	        'description' 		=> 'Creazione gestionale',
             'note'              => 'finire il prima possibile',
@@ -61,14 +91,14 @@ class ProjectsTableSeeder extends Seeder
             'cost' 		        => "25.50",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')		
-        ],[
+        ], [
             'name' 			    => 'Project Lattex',
 	        'description' 		=> 'Creazione gestionale',
             'note'              => 'molta partecipazione',
 	        'begins' 		    => date('2021-4-10 12:50:20'),
 	        'p_end' 		    => date('2021-4-30 12:50:20'),
             'customer_id' 		=> "6",
-            'cost' 		        => "25.50",
+            'cost' 		        => "26.50",
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')		
         ], [

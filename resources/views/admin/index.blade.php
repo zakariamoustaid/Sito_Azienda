@@ -53,7 +53,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin">Home</a>  <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/admin"><b> Home</b></a>  <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
@@ -128,11 +128,11 @@
         <div class="row">
             <div class="col">
                 <label>Da:</label>
-                <input type="date" class="form-control" id="data" >
+                <input type="date" value="<?php echo date('Y-m-01'); ?>" class="form-control" id="data" >
             </div>
             <div class="col">
                 <label>A:</label>
-                <input type="date" class="form-control" id="data2" >
+                <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="data2" >
             </div>
             <div class="col">
                 <div class="row top-buffer"></div>
@@ -140,7 +140,7 @@
             </div>
         </div>
         <div class="row top-buffer"></div>
-        <small class="form-text text-muted" id="descrizioneP"><strong>Di seguito sono visualizzate le ore totali per ogni Progetto, selezionare il range di interesse per maggiori dettagli.</strong></small>
+        <small class="form-text text-muted" id="descrizioneP"><strong>Di seguito sono visualizzate le ore totali di questo mese, selezionare il range di interesse per maggiori dettagli.</strong></small>
         <div class="chart-container">
             <canvas id="myChart1"></canvas>
         </div>
@@ -155,11 +155,11 @@
         <div class="row">
             <div class="col">
                 <label>Da:</label>
-                <input type="date" class="form-control" id="data3" >
+                <input type="date" value="<?php echo date('Y-m-01'); ?>" class="form-control" id="data3" >
             </div>
             <div class="col">
                 <label>A:</label>
-                <input type="date" class="form-control" id="data4" >
+                <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="data4" >
             </div>
             <div class="col">
                 <div class="row top-buffer"></div>
@@ -167,7 +167,7 @@
             </div>
         </div>
         <div class="row top-buffer"></div>
-        <small class="form-text text-muted" id="descrizioneC"><strong>Di seguito sono visualizzate le ore totali per ogni Cliente, selezionare il range di interesse per maggiori dettagli.</strong></small>
+        <small class="form-text text-muted" id="descrizioneC"><strong>Di seguito sono visualizzate le ore totali di questo mese, selezionare il range di interesse per maggiori dettagli.</strong></small>
         <div class="chart-container">
             <canvas id="myChart2"></canvas>
         </div>
@@ -182,79 +182,137 @@
     $('document').ready(function(){
 
         //grafico projects
-        const projects = @json($lista_proj);
-        const hours = @json($ore_proj);
         var chart1 = document.getElementById('myChart1').getContext('2d');
-        window.myCharts = new Chart(chart1, {
-                type: 'bar',
-                data: {
-                    labels: projects,
-                    datasets: [{
-                        label: 'ORE SPESE PER OGNI PROGETTO',
-                        data: hours,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive:true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'x',
+        const projects = @json($projects);
+        const diaries = @json($diaries);
+        var projects_names = [];
+        var tot_h = 0;
+        var hours2 = [];
+        //projects.forEach(element => console.log(element.id));
+        const customers = @json($customers);
+        var data_input = $('#data').val();
+        var data_input2 = $('#data2').val();
+        //console.log(data_input, data_input2);
+        if(data_input == '' || data_input2 == '')
+            $('#error_div').css('display', 'block').fadeOut(5000);
+
+        for(p of projects)
+        {
+            projects_names.push(p.name);
+            for(d of diaries)
+            {
+                if(d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                {
+                    tot_h = d.hours + tot_h;
                 }
-            });
+            }
+
+            hours2.push(tot_h);
+            tot_h = 0;
+
+        }
+
+        //console.log(hours);
+        if(window.myCharts != undefined)
+            window.myCharts.destroy();
+        window.myCharts = new Chart(chart1, {
+            type: 'bar',
+            data: {
+                labels: projects_names,
+                datasets: [{
+                    label: 'ORE SPESE PER OGNI PROGETTO',
+                    data: hours2,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive:true,
+                maintainAspectRatio: false,
+                indexAxis: 'x',
+            }
+        });
 
         //grafico customers
-        const customers = @json($lista_cust);
-        const hours_c = @json($ore_cust);
         var chart2 = document.getElementById('myChart2').getContext('2d');
-        window.myCharts2 = new Chart(chart2, {
-                type: 'bar',
-                data: {
-                    labels: customers,
-                    datasets: [{
-                        label: 'ORE SPESE PER OGNI CLIENTE',
-                        data: hours_c,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive:true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'x',
-                }
-            });
+        var customers_names = [];
+        tot_h = 0;
+        var hours3 = [];
+        //projects.forEach(element => console.log(element.id));
+        var data_input = $('#data3').val();
+        var data_input2 = $('#data4').val();
+        //console.log(data_input, data_input2);
+        if(data_input == '' || data_input2 == '')
+            $('#error_div').css('display', 'block').fadeOut(5000);
 
+        for(c of customers)
+        {
+            customers_names.push(c.ragione_sociale);
+            for(p of projects)
+            {
+                for(d of diaries)
+                {
+                    if(p.customer_id == c.id && d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                    {
+                        tot_h = d.hours + tot_h;
+                        
+                    }
+                }
+            }
+            hours3.push(tot_h);
+            tot_h = 0;
+        }
+
+        if(window.myCharts2 != undefined)
+            window.myCharts2.destroy();
+        window.myCharts2 = new Chart(chart2, {
+            type: 'bar',
+            data: {
+                labels: customers_names,
+                datasets: [{
+                    label: 'ORE SPESE PER OGNI CLIENTE ',
+                    data: hours3,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive:true,
+                maintainAspectRatio: false,
+                indexAxis: 'x',
+            }
+        });
+    
         $("#Chart1").bind('click', function(){
             $('#descrizioneP').css('display', 'none');
             var chart1 = document.getElementById('myChart1').getContext('2d');
@@ -268,60 +326,60 @@
             var data_input = $('#data').val();
             var data_input2 = $('#data2').val();
             //console.log(data_input, data_input2);
-            if(data_input == '' || data_input2 == '')
+            if(data_input == '' || data_input2 == '' || data_input > data_input2)
                 $('#error_div').css('display', 'block').fadeOut(5000);
 
-            for(p of projects)
-            {
-                projects_names.push(p.name);
-                for(d of diaries)
+            else{
+                for(p of projects)
                 {
-                    if(d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                    projects_names.push(p.name);
+                    for(d of diaries)
                     {
-                        tot_h = d.hours + tot_h;
+                        if(d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                        {
+                            tot_h = d.hours + tot_h;
+                        }
                     }
+                    hours2.push(tot_h);
+                    tot_h = 0;
                 }
 
-                hours2.push(tot_h);
-                tot_h = 0;
-
+                //console.log(hours);
+                if(window.myCharts != undefined)
+                    window.myCharts.destroy();
+                window.myCharts = new Chart(chart1, {
+                    type: 'bar',
+                    data: {
+                        labels: projects_names,
+                        datasets: [{
+                            label: 'ORE SPESE PER OGNI PROGETTO',
+                            data: hours2,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive:true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'x',
+                    }
+                });
             }
-
-            //console.log(hours);
-            if(window.myCharts != undefined)
-                window.myCharts.destroy();
-            window.myCharts = new Chart(chart1, {
-                type: 'bar',
-                data: {
-                    labels: projects_names,
-                    datasets: [{
-                        label: 'ORE SPESE PER OGNI PROGETTO',
-                        data: hours2,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive:true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'x',
-                }
-            });
         });
 
         //parte customer
@@ -338,61 +396,62 @@
             var data_input = $('#data3').val();
             var data_input2 = $('#data4').val();
             //console.log(data_input, data_input2);
-            if(data_input == '' || data_input2 == '')
+            if(data_input == '' || data_input2 == '' || data_input > data_input2)
                 $('#error_div').css('display', 'block').fadeOut(5000);
-
-            for(c of customers)
-            {
-                customers_names.push(c.ragione_sociale);
-                for(p of projects)
+            else{
+                for(c of customers)
                 {
-                    for(d of diaries)
+                    customers_names.push(c.ragione_sociale);
+                    for(p of projects)
                     {
-                        if(p.customer_id == c.id && d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                        for(d of diaries)
                         {
-                            tot_h = d.hours + tot_h;
-                            
+                            if(p.customer_id == c.id && d.today >= data_input && d.today <= data_input2 && d.project_id == p.id)
+                            {
+                                tot_h = d.hours + tot_h;
+                                
+                            }
                         }
                     }
+                    hours3.push(tot_h);
+                    tot_h = 0;
                 }
-                hours3.push(tot_h);
-                tot_h = 0;
-            }
 
-            if(window.myCharts2 != undefined)
-                window.myCharts2.destroy();
-            window.myCharts2 = new Chart(chart2, {
-                type: 'bar',
-                data: {
-                    labels: customers_names,
-                    datasets: [{
-                        label: 'ORE SPESE PER OGNI CLIENTE ',
-                        data: hours3,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive:true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'x',
-                }
-            });
+                if(window.myCharts2 != undefined)
+                    window.myCharts2.destroy();
+                window.myCharts2 = new Chart(chart2, {
+                    type: 'bar',
+                    data: {
+                        labels: customers_names,
+                        datasets: [{
+                            label: 'ORE SPESE PER OGNI CLIENTE ',
+                            data: hours3,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive:true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'x',
+                    }
+                });
+            }
         });
 });
 })(jQuery);

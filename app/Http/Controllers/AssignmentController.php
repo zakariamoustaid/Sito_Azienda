@@ -66,7 +66,7 @@ class AssignmentController extends Controller
         $denied_user = "";
         $accept_user ="";
         $b = 1;
-
+        
         foreach ($input['user_id'] as $i) 
         {
             $assignments = new Assignment();

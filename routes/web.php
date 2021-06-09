@@ -33,8 +33,8 @@ Route::get('/projects/{project}/terminate', 'ProjectController@terminate');
 
 
 //route clienti
-Route::resource('/customers', 'CustomerController')->except(['destroy']);
-Route::get('/customers/{customer}/delete', 'CustomerController@destroy');
+Route::resource('/customers', 'CustomerController');//->except(['destroy']);
+//Route::get('/customers/{customer}/delete', 'CustomerController@destroy');
 
 //route assegnazioni
 Route::resource('/assignments', 'AssignmentController')->except(['destroy']);

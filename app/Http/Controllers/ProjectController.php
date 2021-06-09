@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\Customer;
 use App\User;
+use App\Assignment;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Log;
 
@@ -58,7 +60,7 @@ class ProjectController extends Controller
             'p_end'             => 'required',
             'd_end'             => '',
             'customer_id'       => 'required',
-            'cost'              => 'required|numeric|max:50|min:12',
+            'cost'              => 'required|numeric|max:100|min:12',
         ]);
 
         Project::create($input);
@@ -101,7 +103,7 @@ class ProjectController extends Controller
 
         $validatedData = $request->validate([
             'description'       => 'required',
-            'cost'              => 'required|numeric|max:50|min:12',
+            'cost'              => 'required|numeric|max:100|min:12',
         ]);
 
         $project->description = $input['description'];
@@ -130,7 +132,11 @@ class ProjectController extends Controller
         $project->terminated = 'yes';
         $project->d_end = date("Y/m/d");
         $project->save();
-        
+
+        $assignments = DB::table('assignments')
+                        ->where('project_id', $project->id)
+                        ->delete();
+
         return redirect('projects')->with('alert', 'Terminazione confermata');
     }
 

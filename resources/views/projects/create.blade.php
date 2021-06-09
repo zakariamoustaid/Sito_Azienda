@@ -129,7 +129,7 @@
 
         <div class="form-group">
             <label for="d_end">Data Fine</label>
-            <input type="date" class="form-control" name="d_end" >
+            <input type="date" class="form-control" name="d_end" disabled>
             <small class="form-text text-muted">Inserisci la data di scadenza se disponibile</small>
         </div>
 

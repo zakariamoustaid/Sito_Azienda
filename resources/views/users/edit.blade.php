@@ -94,7 +94,6 @@
                <label for="role">Ruolo</label>
                <select class="form-control" name="role">
                <option disabled> ruolo corrente "{{ $user->role }}" </option>
-                  <option> - </option>
                   <option> ADMIN </option>
                   <option> USER </option>
                </select>

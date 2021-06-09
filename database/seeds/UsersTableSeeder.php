@@ -20,11 +20,92 @@ class UsersTableSeeder extends Seeder
 			'tel' 			=> '1234567890',
 	        'updated_at' 	=> date('Y-m-d h:i:s'),
 			'created_at' 	=> date('Y-m-d h:i:s')		        
-		], [
-            'name' 			=> 'Martino',
-	        'surname' 		=> 'Marroni',
+		],[
+            'name' 			=> 'Gianni',
+	        'surname' 		=> 'Meccio',
             'role'          => 'ADMIN',
-	        'email' 		=> 'martino.marroni@coffedev.com',
+	        'email' 		=> 'gianni.meccio@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Giulietto',
+	        'surname' 		=> 'Frate',
+            'role'          => 'ADMIN',
+	        'email' 		=> 'giulietto.frate@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Sara',
+	        'surname' 		=> 'Lumino',
+            'role'          => 'ADMIN',
+	        'email' 		=> 'sara.lumino@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Rania',
+	        'surname' 		=> 'Absu',
+            'role'          => 'USER',
+	        'email' 		=> 'rania.absu@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Silvio',
+	        'surname' 		=> 'Serv',
+            'role'          => 'USER',
+	        'email' 		=> 'silvio.serv@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Renata',
+	        'surname' 		=> 'Sata',
+            'role'          => 'USER',
+	        'email' 		=> 'renata.sata@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Paolo',
+	        'surname' 		=> 'Capo',
+            'role'          => 'USER',
+	        'email' 		=> 'paolo.capo@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Jess',
+	        'surname' 		=> 'Met',
+            'role'          => 'USER',
+	        'email' 		=> 'jess.met@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Hal',
+	        'surname' 		=> 'Dei',
+            'role'          => 'USER',
+	        'email' 		=> 'hal.dei@coffedev.com',
+	        'password' 		=> bcrypt('password'),
+			'tel' 			=> '1234567890',
+	        'updated_at' 	=> date('Y-m-d h:i:s'),
+			'created_at' 	=> date('Y-m-d h:i:s')	        
+		],[
+            'name' 			=> 'Flavio',
+	        'surname' 		=> 'Dote',
+            'role'          => 'USER',
+	        'email' 		=> 'flavio.dote@coffedev.com',
 	        'password' 		=> bcrypt('password'),
 			'tel' 			=> '1234567890',
 	        'updated_at' 	=> date('Y-m-d h:i:s'),
@@ -59,7 +140,7 @@ class UsersTableSeeder extends Seeder
         ], [
             'name' 			=> 'Federico',
 	        'surname' 		=> 'Forse',
-            'role'          => 'ADMIN',
+            'role'          => 'USER',
 	        'email' 		=> 'federico.forse@coffedev.com',
 	        'password' 		=> bcrypt('password'),
 			'tel' 			=> '1234567890',
