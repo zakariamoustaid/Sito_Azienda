@@ -15,7 +15,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-1-10 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '3',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '1',
             'user_id'           => '5',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -23,7 +23,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-2-10 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '4',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '2',
             'user_id'           => '6',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -31,7 +31,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-3-10 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '2',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '3',
             'user_id'           => '7',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -39,7 +39,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-4-10 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '1',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '4',
             'user_id'           => '8',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -47,7 +47,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-5-10 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '6',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '5',
             'user_id'           => '9',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -55,7 +55,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-1-09 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '5',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '6',
             'user_id'           => '10',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -63,7 +63,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-2-09 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '3',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '7',
             'user_id'           => '11',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -71,7 +71,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-3-09 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '7',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '8',
             'user_id'           => '12',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -79,7 +79,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-4-09 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '4',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '9',
             'user_id'           => '13',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -87,7 +87,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-5-09 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '6',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '10',
             'user_id'           => '14',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -95,7 +95,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-1-08 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '6',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '8',
             'user_id'           => '15',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -103,7 +103,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-2-08 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '3',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '9',
             'user_id'           => '16',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -111,7 +111,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-3-08 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '1',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '10',
             'user_id'           => '17',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -119,7 +119,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-4-08 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '1',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '10',
             'user_id'           => '18',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -127,7 +127,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-5-08 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '3',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '1',
             'user_id'           => '19',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -135,7 +135,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-6-08 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '3',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '2',
             'user_id'           => '5',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -143,7 +143,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-1-07 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '7',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '3',
             'user_id'           => '6',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -151,7 +151,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-2-07 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '8',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '4',
             'user_id'           => '7',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -159,7 +159,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-3-07 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '1',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '5',
             'user_id'           => '8',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -167,7 +167,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-5-07 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '2',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '6',
             'user_id'           => '9',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -175,7 +175,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-6-07 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '2',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '7',
             'user_id'           => '10',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -183,7 +183,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-2-05 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '3',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '6',
             'user_id'           => '11',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -191,7 +191,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-3-05 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '5',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '5',
             'user_id'           => '12',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      
@@ -199,7 +199,7 @@ class DiariesTableSeeder extends Seeder
             'today'             => date('2021-4-05 12:50:20'),
 	        'notes' 		    => '',
             'hours'             => '5',
-	        'project_id' 	    => 'mitorosaria@koka.it',
+	        'project_id' 	    => '4',
             'user_id'           => '13',
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')      

@@ -16,7 +16,7 @@
    <body class="mybody">
       <div id="app">
          <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand">
             {{ config('app.name', 'Laravel') }}
             </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -51,31 +51,47 @@
             @yield('content')
          </main>
 
-    <h1> Tutti gli Utenti </h1>
+    <h1> Lista Utenti </h1>
+    @if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
+    @endif
+    @if (session('no'))
+    <div class="alert alert-danger" >
+        {{ session('no') }}
+    </div>
+   @endif
+
     <a href="{{ URL::action('UserController@create') }}" class="btn btn-primary float-md-right mb-2">Inserimento Utente</a>
+    <a href="{{ URL::action('UserController@show_terminated') }}" class="btn btn-outline-secondary btn-sm">Visualizza Contratti Conclusi</a>
     <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Nome</th>
             <th scope="col">Cognome</th>
-            <th scope="col">Ruolo</th>
             <th scope="col">Email</th>
             <th scope="col">Telefono</th>
+            <th scope="col">Ruolo</th>
           </tr>
         </thead>
         <tbody>
           <?php
             $i = 1;    
-            foreach($users as $u): ?>
-            <tr>
-               <td><?= $i++ ?></td>
-               <td><?= $u->surname ?></td>
-               <td><?= $u->role ?></td>
-               <td><?= $u->email ?></td>
-               <td><?= $u->tel ?></td>
-               <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm">Modifica</a></td>
-            </tr>
-         <?php endforeach; ?>
+            foreach($users as $u){?>
+            <?php if ($u->in_corso != 'no') {?>
+            <?php echo '<tr>'; ?>
+            <?php echo '<td>'.$i.'</td>'; ?>
+            <?php echo '<td>'.$u->name.'</td>'; ?>
+            <?php echo '<td>'.$u->surname.'</td>'; ?>
+            <?php echo '<td>'.$u->email.'</td>'; ?>
+            <?php echo '<td>'.$u->tel.'</td>'; ?>
+            <?php echo '<td>'.$u->role.'</td>'; ?>
+            <td><a href="{{ URL::action('UserController@edit', $u) }}" class="btn btn-outline-primary btn-sm"> Modifica</a></td>
+            <?php echo '</tr>'; ?>
+            <?php }; $i++; ?>
+         <?php } ?>
         </tbody>
       </table>
 

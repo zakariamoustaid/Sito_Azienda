@@ -12,16 +12,17 @@
       <link href="{{ asset('css/diary.css') }}" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
    </head>
+   <div class="container">
    <body class="mybody">
       <div id="app">
          <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" >
             {{ config('app.name', 'Laravel') }}
             </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="/admin">Home</a><span class="sr-only">(current)</span></a></li>
-                  <li class="nav-item"><a class="nav-link" href=""><b>Assegna Progetti</b></a><span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href=""><b>Gestione Utenti</b></a><span class="sr-only">(current)</span></a></li>
                </ul>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -49,33 +50,43 @@
          <main class="py-4">
             @yield('content')
          </main>
-         <div class="container">
-    <h1> Modifica Assegnazioni </h1>
 
-    <form action="{{ URL::action('AssignmentController@update', $assignment) }}" method="POST">
-        <input type="hidden" name="_method" value="PATCH">
-        {{ csrf_field() }}
+    <h1> Contratti terminati</h1>
+    <a href="{{ URL::action('UserController@index') }}" class="btn btn-outline-secondary btn-sm">Visualizza Utenti a disposizione</a>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Ore spese nei progetti</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            $i = 1;    
+            foreach($users as $u){?>
+            <?php if ($u->in_corso != 'yes') {?>
+            <?php echo '<tr>'; ?>
+            <?php $i++; echo '<td>'.$i.'</td>'; ?>
+            <?php echo '<td>'.$u->name.'</td>'; ?>
+            <?php echo '<td>'.$u->surname.'</td>'; ?>
+            <?php echo '<td>'.$u->email.'</td>'; ?>
+            <?php echo '<td>'.$u->tel.'</td>'; ?>
+            <?php $di = DB::table('diaries') ->where('user_id', $u->id) ->get(); 
+             $h = 0; foreach($di as $d) {
+                 $h = $d->hours + $h;
+             } echo '<td style="text-align:center">'.$h.' ore'.'</td></center>'; ?>
+            <?php echo '</tr>'; ?>
+            <?php }; ?>
+         <?php } ?>
+        </tbody>
+      </table>
 
-        <div class="form-group">
-          <label for="begins">Data</label>
-          <input type="date" class="form-control" name="begins" value="{{ $assignment->begins }}" disabled>
-        </div>
-
-        <div class="form-group">
-            <label for="project_id">Progetto</label>
-            <input type="text" class="form-control" name="project_id" value="{{ $assignment->project->name}}" disabled>
-        </div>
-
-        <div class="form-group">
-            <label for="user_id">Utenti</label>
-            <input type="number" class="form-control" name="user_id" value="{{ $assignment->user->name }}">
-            <small class="form-text text-muted">Modifica Utenti</small>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Aggiorna</button>
-
-
-        <a href="{{ URL::action('AssignmentController@index') }}" class="btn btn-secondary">Indietro</a>
-
-    </form>    
 </div>
+
+   </body>
+   </div>
+</html>

@@ -16,7 +16,7 @@
    <body class="mybody">
       <div id="app">
          <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand">
             {{ config('app.name', 'Laravel') }}
             </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -102,9 +102,9 @@
         </div>
         
 
-        <button type="submit" class="btn btn-primary">Aggiorna</button>
+        <button type="submit" class="btn btn-primary" onclick="return confirm('Confermare le modifiche?');">Aggiorna</button>
         @if(Auth::user()->email != $user->email)
-         <a href="{{ URL::action('UserController@destroy', $user) }}" onclick="return confirm('Confermare la cancellazione?');" class="btn btn-danger">Termina Contratto</a>
+         <a href="{{ URL::action('UserController@destroy', $user) }}" onclick="return confirm('Confermare questa operazione? Se sono presenti assegnazioni esse verranno eliminate.');" class="btn btn-danger">Termina Contratto</a>
          @endif
         <a href="{{ URL::action('UserController@index') }}" onclick="return confirm('Modifiche non confermate, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 

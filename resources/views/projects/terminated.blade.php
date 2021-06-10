@@ -31,7 +31,7 @@
 <body class="mybody">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,26 +89,30 @@
         {{ session('alert') }}
     </div>
     @endif
+    <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-secondary">Visualizza Progetti in corso</a>
     <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Registrato</th>
             <th scope="col">Nome</th>
             <th scope="col">Descrizione</th>
+            <th scope="col">Cliente</th>
             <th scope="col">Data Fine Prevista</th>
             <th scope="col">Data Fine </th>
+            <th scope="col">Ricavi </th>
           </tr>
         </thead>
         <tbody>
 
           @foreach($projects as $p)
-          @if($p->terminated != 'no')
+          @if($p->finito != 'no')
           <tr>
-            <th scope="row">{{ date('d/m/Y', strtotime($p->begins)) }}</th>
             <td>{{ $p->name }} </td>
             <td>{{ $p->description }}</td>
+            <td>{{ $p->customer->ragione_sociale }}</td>
             <th scope="row">{{ date('d/m/Y', strtotime($p->p_end)) }}</th>
             <th scope="row">{{ date('d/m/Y', strtotime($p->d_end)) }}</th>
+            <?php $r = 0; $h = DB::table('diaries') ->where('project_id', $p->id) ->sum('hours');
+                $r = $h*$p->cost; echo "<td>".$r." Euro</td>"; ?>
           </tr>
           @endif
           @endforeach

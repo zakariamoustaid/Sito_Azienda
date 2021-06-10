@@ -129,7 +129,7 @@ class ProjectController extends Controller
     
     public function terminate(Project $project)
     {
-        $project->terminated = 'yes';
+        $project->finito = 'yes';
         $project->d_end = date("Y/m/d");
         $project->save();
 
@@ -143,8 +143,13 @@ class ProjectController extends Controller
     public function show_terminated()
     {
         $projects = Project::all();
-        $users = User::all();
-        $customers = Customer::all();
-        return view('projects.terminated', compact('projects', 'users', 'customers'));
+        $ricavo = 0;
+        $ore = DB::table('diaries')
+            ->where('project_id', 4)
+            ->sum('hours');
+        
+        Log::info($ore);
+
+        return view('projects.terminated', compact('projects'));
     }
 }

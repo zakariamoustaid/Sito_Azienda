@@ -42,7 +42,7 @@
     <div id="app">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand">
                 {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,6 +134,8 @@
 </div>
 <!-- end -->
 
+    <!-- ALERT -->
+
     <h1> Gestione Clienti </h1>
         <!-- ALERT -->
         <div id="error_div" class="alert alert-danger">
@@ -143,7 +145,10 @@
             <p> Inserimento confermato </p>
         </div>
         <div id="del_ok" class="alert alert-success">
-            <p> Eliminazione confermata </p>
+            <p> Operazione confermata </p>
+        </div>
+        <div id="del_no" class="alert alert-danger">
+            <p> Non è possibile terminare il rapporto, ci sono ancora progetti in corso! </p>
         </div>
         <div id="mod_ok" class="alert alert-success">
             <p> Modifica confermata </p>
@@ -166,7 +171,7 @@
                 <input type="text" class="form-control" name="ragione_sociale"  placeholder="Nome Società" id="ragione_sociale" >
             </div>
             <div class="form-group col-md-5">
-                <input type="text" class="form-control" name="email_ref" placeholder="Email Referente" id="email_ref">
+                <input type="email" class="form-control" name="email_ref" placeholder="Email Referente" id="email_ref">
             </div>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
             <a href="" id="add-class-btn" class="btn btn-primary float-md-right mb-2" onclick="return confirm('Confermare inserimento?');">Aggiungi</a>
@@ -178,6 +183,7 @@
     
 <!-- ELENCO -->
     <h4>Lista Clienti</h4>
+    <a href="{{ URL::action('CustomerController@show_terminated') }}" class="btn btn-outline-secondary btn-sm">Visualizza Rapporti Conclusi</a>
     <table id="customers-table" class="table table-striped">
         <thead>
           <tr>
@@ -190,19 +196,21 @@
         <tbody>
 
           @foreach($customers as $c)
+          @if($c->finito == 'no')
           <tr>
             <td>{{ $c->ragione_sociale }} </td>
             <td>{{ $c->name_ref }}</td>
             <td>{{ $c->surname_ref }}</td>
-            <td>{{ $c->email_ref }}</td>
-            <td><a href="" class="btn btn-outline-secondary" id="edit-class-btn" data-rag="{{ $c->ragione_sociale }}" data-id="{{ $c->id }}"
+            <td id="email_update">{{ $c->email_ref }}</td>
+            <td><a class="btn btn-outline-secondary" id="edit-class-btn" data-rag="{{ $c->ragione_sociale }}" data-id="{{ $c->id }}"
                     data-nom="{{ $c->name_ref }}" data-sur="{{ $c->surname_ref }}" data-email="{{ $c->email_ref }}">Modifica</a>
             </td>
             <td>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-            <a href="" class="btn btn-outline-danger" id="delete-btn" data-id="{{ $c }}">Elimina Cliente</a>
+            <a class="btn btn-outline-danger" id="delete-btn" data-id="{{ $c->id }}" onclick="return confirm('Confermare operazione?');">Termina Rapporto</a>
             </td>
           </tr>
+          @endif
           @endforeach
 
         </tbody>
@@ -216,7 +224,8 @@
 <script type="text/javascript">
 (function($) {
    $('document').ready(function(){
-      $('#add-class-btn').bind('click', function(e){
+        
+        $(document).on("click", "#add-class-btn", function (e){
          e.preventDefault();
 
          var ragione_sociale = $('#ragione_sociale').val();
@@ -225,60 +234,75 @@
          var email_ref = $('#email_ref').val();
          var _token = $('#_token').val();
 
-      $.ajax({
-         url: "/customers", 
-         type: "POST",
-         dataType: "json",
-         data: { 'ragione_sociale': ragione_sociale, 'name_ref': name_ref, 'surname_ref': surname_ref, 'email_ref': email_ref, '_token': _token},
-         success: function(data) {                        
-               if (data.status === 'ok') {
-                    var newColr = $('<td/>', { text: data.customers.ragione_sociale });
-                    var newColn = $('<td/>', { text: data.customers.name_ref });
-                    var newCols= $('<td/>', { text: data.customers.surname_ref});
-                    var newCole = $('<td/>', { text: data.customers.email_ref });
+         if(ragione_sociale == "" || name_ref == "" || surname_ref == "" || email_ref == "")
+         {
+            $('#error_div').css('display', 'block').fadeOut(3000);
+            var ragione_sociale = $('#ragione_sociale').val('');
+            var name_ref = $('#name_ref').val('');
+            var surname_ref = $('#surname_ref').val('');
+            var email_ref = $('#email_ref').val('');
+         }
 
-                    var editAction = $('<a/>', {
-                                href: "/customers/"+data.customers.id+"/edit",
-                                text: 'Modifica',
-                                class: "btn btn-outline-secondary",
-                                "data-id": data.customers.id
+         else{
+            $.ajax({
+            url: "/customers", 
+            type: "POST",
+            dataType: "json",
+            data: { 'ragione_sociale': ragione_sociale, 'name_ref': name_ref, 'surname_ref': surname_ref, 'email_ref': email_ref, '_token': _token},
+            success: function(data) {                        
+                if (data.status === 'ok') {
+                        var newColr = $('<td/>', { text: data.customers.ragione_sociale });
+                        var newColn = $('<td/>', { text: data.customers.name_ref });
+                        var newCols= $('<td/>', { text: data.customers.surname_ref});
+                        var newCole = $('<td/>', { text: data.customers.email_ref });
+
+                        var editAction = $('<a/>', {
+                                    href: "/customers/"+data.customers.id+"/edit",
+                                    text: 'Modifica',
+                                    class: "btn btn-outline-secondary",
+                                    "data-id": data.customers.id
+                                });
+                        var delAction = $('<a/>', {
+                            href: "#",
+                            id: "delete-btn",
+                            "data-id": data.customers.id,
+                            class: "btn btn-outline-danger",
+                            text: 'Elimina Cliente',
+                            onclick: "return confirm('Confermare eliminazione?');"
                             });
-                    var delAction = $('<a/>', {
-                        href: "#",
-                        id: "delete-btn",
-                        "data-id": data.customers.id,
-                        class: "btn btn-outline-danger",
-                        text: 'Elimina Cliente',
-                        onclick: "return confirm('Confermare eliminazione?');"
-                        });
-                    var newColAction = $('<td/>').append(editAction);
-                    var newColAction2 = $('<td/>').append(delAction);
+                        var newColAction = $('<td/>').append(editAction);
+                        var newColAction2 = $('<td/>').append(delAction);
 
-                  var newRow = $('<tr/>').append(newColr).append(newColn).append(newCols).append(newCole).append(newColAction).append(newColAction2);
-                  $('#customers-table').append(newRow);
+                    var newRow = $('<tr/>').append(newColr).append(newColn).append(newCols).append(newCole).append(newColAction).append(newColAction2);
+                    $('#customers-table').append(newRow);
 
-                var ragione_sociale = $('#ragione_sociale').val('');
-                var name_ref = $('#name_ref').val('');
-                var surname_ref = $('#surname_ref').val('');
-                var email_ref = $('#email_ref').val('');
-                $('#ins_ok').css('display', 'block').fadeOut(2000);
-               }
-               }, 
-               error: function(response, stato) {
-                  console.log(stato);
-                  $('#error_div').css('display', 'block').fadeOut(5000);
-               }
-         });
+                    var ragione_sociale = $('#ragione_sociale').val('');
+                    var name_ref = $('#name_ref').val('');
+                    var surname_ref = $('#surname_ref').val('');
+                    var email_ref = $('#email_ref').val('');
+                    $('#ins_ok').css('display', 'block').fadeOut(3000);
+                }
+                }, 
+                error: function(response, stato) {
+                    console.log(stato);
+                    $('#error_div').css('display', 'block').fadeOut(5000);
+                }
+            });
+         }
+
       });
 
-      $(document).on("click", "a#edit-class-btn", function () {
+      $(document).on("click", "a#edit-class-btn", function (e) {
+            e.preventDefault();
             $('.modal').css('display', 'block');
 
             $('#close').bind('click', function(e){
+                e.preventDefault();
                 $('.modal').css('display', 'none');
                 window.location.reload(false);  
             });
             $('#close_x').bind('click', function(e){
+                e.preventDefault();
                 $('.modal').css('display', 'none');
                 window.location.reload(false);  
             });
@@ -290,6 +314,7 @@
             var customer_id = $(this).attr('data-id');
             var _token = $('#_token').val(); 
             console.log(email);
+
             $(".modal-body #ragione_s").val( rag_s );
             $(".modal-body #nome").val( name );
             $(".modal-body #cognome").val( sur );
@@ -298,44 +323,57 @@
 
 
             $('#save').bind('click', function(e){
+                e.preventDefault();
                 var email_new = $('#email').val();
-                console.log(customer_id);
-                $.ajax({
-                        url: "/customers/" + customer_id +"/edit",     
-                        type: "GET",                     
-                        dataType: "json",  
-                        data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
-                        success: function(data) {                        
-                            if (data.status === 'ok') {
-                                window.location.reload(false);        
+                if(email_new == '')
+                {
+                    $('#error_div').css('display', 'block').fadeOut(5000);
+                }
+                else {
+                    $.ajax({
+                            url: "/customers/" + customer_id +"/edit",     
+                            type: "GET",                     
+                            dataType: "json",  
+                            data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
+                            success: function(data) {                        
+                                if (data.status === 'ok') {
+                                    window.location.reload(false);
+                                    alert('Modifica Confermata!');
+                                    //alert('ok');
+                                    //$('#mod_ok ').css('display', 'block').fadeOut(3000);
+                                    //$("#email_update"+$(this).attr("id")).text(email_new);
+                                }
+                            }, 
+                            error: function(response, stato) {
+                                console.log(stato);
                             }
-                        }, 
-                        error: function(response, stato) {
-                            console.log(stato);
-                        }
-                    });
+                        });
+            }
                 $('.modal').css('display', 'none');
             });
 
 
         });
 
-      $('#delete-btn').bind('click', function(e) {
+        $(document).on("click", "#delete-btn", function (e){
             e.preventDefault();
-            console.log('ciao');
             var row = $(this).parents('tr');            
-            var customerId = $(this).attr('data-id');   
+            const customerId = $(this).attr('data-id');   
             var _token = $('#_token').val();  
-            console.log(customerId);   
+            //customer.forEach(element => console.log(element[id]));  
             $.ajax({
                     url: "/customers/" + customerId + "/delete",     
                     type: "GET",                     
                     dataType: "json",  
-                    data: { 'customer': customerId, '_token': _token }, 
+                    data: { 'customerId': customerId, '_token': _token }, 
                     success: function(data) {                        
                         if (data.status === 'ok') {
                             $(row).remove();
-                            $('#del_ok').css('display', 'block').fadeOut(2000);          
+                            $('#del_ok').css('display', 'block').fadeOut(3000);          
+                        }
+                        else if (data.status === 'no')
+                        {
+                            $('#del_no').css('display', 'block').fadeOut(3000);
                         }
                     }, 
                     error: function(response, stato) {

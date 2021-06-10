@@ -33,14 +33,17 @@ Route::get('/projects/{project}/terminate', 'ProjectController@terminate');
 
 
 //route clienti
-Route::resource('/customers', 'CustomerController');//->except(['destroy']);
-//Route::get('/customers/{customer}/delete', 'CustomerController@destroy');
+Route::get('/customers/terminated', 'CustomerController@show_terminated');
+Route::resource('/customers', 'CustomerController')->except(['destroy']);
+Route::get('/customers/{customer}/delete', 'CustomerController@destroy');
+
 
 //route assegnazioni
 Route::resource('/assignments', 'AssignmentController')->except(['destroy']);
 Route::get('/assignments/{assignment}/delete', 'AssignmentController@destroy');
 
 //route utenti
+Route::get('/users/terminated', 'UserController@show_terminated');
 Route::resource('/users', 'UserController')->except(['destroy']);
 Route::get('/users/{user}/delete', 'UserController@destroy');
 

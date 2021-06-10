@@ -12,6 +12,9 @@
       <link rel="dns-prefetch" href="//fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
       <!-- Styles -->
+      <style>
+         .alert-danger { display:none;}
+      </style>
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
       <!-- inserisco css personali -->
       <!-- css Diario User -->
@@ -22,7 +25,7 @@
    <body class="mybody">
       <div id="app">
          <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" >
             {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,16 +75,22 @@
          </main>
       </div>
 
-         <h1> Inserimento Utente </h1>
-         @if ($errors->any())
-         <div class="alert alert-danger">
-            <ul>
-               @foreach ($errors->all() as $error)
-               <li>{{ $error }}</li>
-               @endforeach
-            </ul>
-         </div>
-         @endif
+   <h1> Inserimento Utente </h1>
+   @if ($errors->any())
+   <div class="alert alert-danger">
+      <ul>
+         @foreach ($errors->all() as $error)
+         <li>{{ $error }}</li>
+         @endforeach
+      </ul>
+   </div>
+   @endif
+
+   @if (session('no'))
+    <div style="display: block" class="alert alert-danger" >
+        {{ session('no') }}
+    </div>
+   @endif
          <form action="{{ URL::action('UserController@store') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -91,7 +100,7 @@
             </div>
             <div class="form-group">
                <label for="surname">Cognome</label>
-               <input type="text" class="form-control" name="surname" >
+               <input type="text" class="form-control" name="surname">
                <small class="form-text text-muted">Inserisci cognome utente</small>
             </div>
             <div class="form-group">

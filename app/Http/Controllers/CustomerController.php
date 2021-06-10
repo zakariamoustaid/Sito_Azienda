@@ -6,6 +6,7 @@ use App\Customer;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -113,24 +114,33 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(Request $request)
     {
         $input = $request->all();
 
         $projects = DB::table('projects')
-        ->where('customer_id', $input['customer_id'])
-        ->get();
-
-        Log::info('ciaociao'.$input['customer_id']);
+            ->where('customer_id', $input['customerId'])
+            ->first();
+        
+        Log::info('ciao'.$input['customerId']);
 
         if($projects == null)
         {
             $cus = DB::table('customers')
-            ->where('id', $input['customer_id'])
-            ->delete();
+                ->where('id', $input['customerId'])
+                ->update(['finito' => 'yes']);
 
             return json_encode(['status' => 'ok']);
         }
+        else 
+            return json_encode(['status' => 'no']);
 
+    }
+
+    public function show_terminated()
+    {
+        $customers = Customer::all();
+    
+        return view('customers.terminated', compact('customers'));
     }
 }

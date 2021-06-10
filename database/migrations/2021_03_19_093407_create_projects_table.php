@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('terminated')->default('no');
+            $table->string('finito')->default('no');
             $table->string('note')->nullable();
             $table->date('begins');
             $table->date('p_end');

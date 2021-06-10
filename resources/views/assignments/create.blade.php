@@ -76,7 +76,7 @@
                <div class="form-group col-md-6">
                      <select class="form-control" name="project_id">
                         @foreach ($projects as $p)
-                        @if($p->terminated != 'yes')
+                        @if($p->finito != 'yes')
                         <option value="{{ $p->id }}">{{ $p->name }}</option>
                         @endif
                         @endforeach
@@ -86,7 +86,7 @@
                <div class="form-group col-md-4">
                      <select id="choices-multiple-remove-button" class="form-control" name="user_id[]" multiple>
                         @foreach ($users as $u)
-                        @if($u->role == 'USER')
+                        @if($u->role == 'USER' && $u->in_corso == 'yes')
                         <option value="{{ $u->id }}">{{ $u->surname }} {{ $u->name }}</option>
                         @endif
                         @endforeach

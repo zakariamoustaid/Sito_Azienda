@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Assignment;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class UserController extends Controller
 {
@@ -25,6 +28,7 @@ class UserController extends Controller
         $users = User::all();
 
         return view('users.create', compact('users'));
+
     }
 
     public function store(Request $request)
@@ -39,10 +43,23 @@ class UserController extends Controller
             'password'      => 'required',
             'tel'           => 'required|min:10|numeric',
         ]);
-
-        User::create($input);
         
-        return redirect('users');
+        $check = DB::table('users')
+            ->where('email',$input['email'])
+            ->get();
+
+        if($check == null)
+        {
+            User::create($input);
+        
+            return redirect('users')->with('alert', 'Utente inserito correttamente');
+        }
+
+        else{
+            return redirect('users')->with('no', 'Inserimento non confermato, email già in uso');
+        }
+
+
     }
 
     public function edit(User $user)
@@ -68,21 +85,19 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $assignments = Assignment::all();
-        $t = 1;
-        foreach($assignments as $a)
-        {
-            if($a->user->id == $user->id)
-            {
-                $t = 0;
-                return redirect('users');
-            }
-        }
-
-        if($t)
-            $user->delete();
-        
+        $user->in_corso = 'no'; 
+        $user->save();
+        $assignments = DB::table('assignments')
+                        ->where('user_id', $user->id)
+                        ->delete();
         return redirect('users');
+    }
+
+    public function show_terminated()
+    {
+        $users = User::all();
+    
+        return view('users.terminated', compact('users'));
     }
     
 }

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('tel');
-            $table->integer('in_corso')->default('yes'); 
+            $table->string('in_corso')->default('yes'); 
             $table->rememberToken();
             $table->timestamps();
         });
