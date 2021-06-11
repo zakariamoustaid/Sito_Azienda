@@ -1,5 +1,18 @@
 .mybody {
-    background-color: #f2e4da;
+    background-color: #f5f1e0;
+    font-size: 16px;
+}
+
+#nav_bar {
+    background-color: #aad6a0 !important;
+}
+
+#mybutton {
+    background-color: #382C2C !important;
+}
+
+#mydrop {
+    background-color: #f5f1e0 !important;
 }
 
 .containers {

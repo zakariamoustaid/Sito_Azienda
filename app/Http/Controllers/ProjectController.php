@@ -63,7 +63,7 @@ class ProjectController extends Controller
             'cost'              => 'required|numeric|max:100|min:12',
         ]);
 
-        Project::create($input);
+        Log::info($input);
         
         return redirect('projects');
     }
