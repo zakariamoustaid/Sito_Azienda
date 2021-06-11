@@ -41,22 +41,22 @@ class UserController extends Controller
             'role'          => 'required',
             'email'         => 'required',
             'password'      => 'required',
-            'tel'           => 'required|min:10|numeric',
+            'tel'           => 'required|numeric|digits:10',
         ]);
         
         $check = DB::table('users')
             ->where('email',$input['email'])
-            ->get();
+            ->first();
 
         if($check == null)
         {
             User::create($input);
         
-            return redirect('users')->with('alert', 'Utente inserito correttamente');
+            return redirect('users')->with('alert', 'Utente inserito correttamente.');
         }
 
         else{
-            return redirect('users')->with('no', 'Inserimento non confermato, email già in uso');
+            return redirect('users')->with('no', 'Inserimento non confermato, email già in uso.');
         }
 
 
@@ -80,7 +80,7 @@ class UserController extends Controller
         $user->role = $input['role'];
         $user->save();
 
-        return redirect('users');
+        return redirect('users')->with('alert', 'Modifiche confermate.');
     }
 
     public function destroy(User $user)
@@ -90,7 +90,7 @@ class UserController extends Controller
         $assignments = DB::table('assignments')
                         ->where('user_id', $user->id)
                         ->delete();
-        return redirect('users');
+        return redirect('users')->with('alert', 'Utente cancellato correttamente.');
     }
 
     public function show_terminated()

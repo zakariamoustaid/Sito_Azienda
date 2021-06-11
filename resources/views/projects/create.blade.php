@@ -75,7 +75,7 @@
         
         <!--<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />-->
 
-        <button type="submit" class="btn btn-primary">Salva</button>
+        <button type="submit" onclick="return confirm('Confermare inserimento Progetto?');" class="btn btn-primary">Salva</button>
         <a href="{{ URL::action('ProjectController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 
     </form>    

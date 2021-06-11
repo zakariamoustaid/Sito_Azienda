@@ -41,7 +41,7 @@
    <p> Errore nell'inserimento. </p>
 </div>
 <div id="error_hours" class="alert alert-danger">
-   <p> Attenzione, le ore inserite sono superiori a quelle permesse da contratto! Verificare di aver inserito i dati correttamente, se il problema persiste contattare un Admin.</p>
+   <p> Errore inserimento ore </p>
 </div>
 <div id="ins_ok" class="alert alert-success">
    <p> Inserimento confermato. </p>
@@ -97,7 +97,7 @@
             </tr>
          </thead>
          <tbody id="filtro">
-            @foreach($diaries as $d)
+            @foreach($diaries->reverse() as $d)
             <tr>
                @if($d->user->id == Auth::user()->id)
                <td scope="row">{{ date('d/m/Y', strtotime($d->today)) }}</th>
@@ -165,7 +165,7 @@
       var _token = $('#_token').val();
 
       console.log(today,project_id,hours,notes, user_id);
-      if(hours <= 8)
+      if(hours <= 8 && hours >= 0)
       {
          $.ajax({
             url: "/diaries", 
@@ -188,22 +188,21 @@
                      var newColAction2 = $('<td/>').append(delAction);*/
                            //.append(newColAction2)
                      var newRow = $('<tr/>').append(newColt).append(newColp).append(newColh).append(newColn);
-                     $('#diary-table').append(newRow);
-                     $('#ins_ok').css('display', 'block').fadeOut(3000);
+                     $('#diary-table').prepend  (newRow);
+                     $('#ins_ok').css('display', 'block').fadeOut(8000);
                      var hours = $('#hours').val('');
                      var notes = $('#notes').val('');
                   }
                   }, 
                   error: function(response, stato) {
-                     console.log('errore cavolfiore');
-                     $('#error_div').css('display', 'block').fadeOut(3000);
+                     $('#error_div').css('display', 'block').fadeOut(8000);
                      var hours = $('#hours').val('');
                      var notes = $('#notes').val('');
                   }
             });
       }
       else{
-            $('#error_hours').css('display', 'block').fadeOut(6000);
+            $('#error_hours').css('display', 'block').fadeOut(13000);
             var hours = $('#hours').val('');
             var notes = $('#notes').val('');
       }

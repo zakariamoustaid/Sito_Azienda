@@ -39,9 +39,9 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-        <button type="button" id="save" class="btn btn-primary">Save changes</button>
+        <button type="button" id="save" class="btn btn-primary" >Conferma modifica</button>
       </div>
     </div>
   </div>
@@ -88,7 +88,7 @@
                 <input type="email" class="form-control" name="email_ref" placeholder="Email Referente" id="email_ref">
             </div>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-            <a href="" id="add-class-btn" class="btn btn-outline-primary float-md-right mb-2" onclick="return confirm('Confermare inserimento?');">Conferma inserimento</a>
+            <a href="" id="add-class-btn" class="btn btn-outline-primary float-md-right mb-2">Conferma inserimento</a>
         </div>
        
 </form>    
@@ -122,7 +122,7 @@
             </td>
             <td>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-            <a class="btn btn-outline-danger" id="delete-btn" data-id="{{ $c->id }}" onclick="return confirm('Confermare operazione?');">Termina Rapporto</a>
+            <a class="btn btn-outline-danger" id="delete-btn" data-id="{{ $c->id }}">Termina Rapporto</a>
             </td>
           </tr>
           @endif
@@ -135,72 +135,73 @@
 <script type="text/javascript">
 (function($) {
    $('document').ready(function(){
-        
         $(document).on("click", "#add-class-btn", function (e){
-         e.preventDefault();
+            if(confirm('Confermare inserimento?'))
+            {
+                e.preventDefault();
 
-         var ragione_sociale = $('#ragione_sociale').val();
-         var name_ref = $('#name_ref').val();
-         var surname_ref = $('#surname_ref').val();
-         var email_ref = $('#email_ref').val();
-         var _token = $('#_token').val();
+                var ragione_sociale = $('#ragione_sociale').val();
+                var name_ref = $('#name_ref').val();
+                var surname_ref = $('#surname_ref').val();
+                var email_ref = $('#email_ref').val();
+                var _token = $('#_token').val();
 
-         if(ragione_sociale == "" || name_ref == "" || surname_ref == "" || email_ref == "")
-         {
-            $('#error_div').css('display', 'block').fadeOut(3000);
-            var ragione_sociale = $('#ragione_sociale').val('');
-            var name_ref = $('#name_ref').val('');
-            var surname_ref = $('#surname_ref').val('');
-            var email_ref = $('#email_ref').val('');
-         }
-
-         else{
-            $.ajax({
-            url: "/customers", 
-            type: "POST",
-            dataType: "json",
-            data: { 'ragione_sociale': ragione_sociale, 'name_ref': name_ref, 'surname_ref': surname_ref, 'email_ref': email_ref, '_token': _token},
-            success: function(data) {                        
-                if (data.status === 'ok') {
-                        var newColr = $('<td/>', { text: data.customers.ragione_sociale });
-                        var newColn = $('<td/>', { text: data.customers.name_ref });
-                        var newCols= $('<td/>', { text: data.customers.surname_ref});
-                        var newCole = $('<td/>', { text: data.customers.email_ref });
-
-                        var editAction = $('<a/>', {
-                                    href: "/customers/"+data.customers.id+"/edit",
-                                    text: 'Modifica',
-                                    class: "btn btn-outline-secondary",
-                                    "data-id": data.customers.id
-                                });
-                        var delAction = $('<a/>', {
-                            href: "#",
-                            id: "delete-btn",
-                            "data-id": data.customers.id,
-                            class: "btn btn-outline-danger",
-                            text: 'Elimina Cliente',
-                            onclick: "return confirm('Confermare eliminazione?');"
-                            });
-                        var newColAction = $('<td/>').append(editAction);
-                        var newColAction2 = $('<td/>').append(delAction);
-
-                    var newRow = $('<tr/>').append(newColr).append(newColn).append(newCols).append(newCole).append(newColAction).append(newColAction2);
-                    $('#customers-table').append(newRow);
-
-                    var ragione_sociale = $('#ragione_sociale').val('');
-                    var name_ref = $('#name_ref').val('');
-                    var surname_ref = $('#surname_ref').val('');
-                    var email_ref = $('#email_ref').val('');
-                    $('#ins_ok').css('display', 'block').fadeOut(3000);
+                if(ragione_sociale == "" || name_ref == "" || surname_ref == "" || email_ref == "")
+                {
+                $('#error_div').css('display', 'block').fadeOut(3000);
+                var ragione_sociale = $('#ragione_sociale').val('');
+                var name_ref = $('#name_ref').val('');
+                var surname_ref = $('#surname_ref').val('');
+                var email_ref = $('#email_ref').val('');
                 }
-                }, 
-                error: function(response, stato) {
-                    console.log(stato);
-                    $('#error_div').css('display', 'block').fadeOut(5000);
-                }
-            });
-         }
 
+                else{
+                    $.ajax({
+                    url: "/customers", 
+                    type: "POST",
+                    dataType: "json",
+                    data: { 'ragione_sociale': ragione_sociale, 'name_ref': name_ref, 'surname_ref': surname_ref, 'email_ref': email_ref, '_token': _token},
+                    success: function(data) {                        
+                        if (data.status === 'ok') {
+                                var newColr = $('<td/>', { text: data.customers.ragione_sociale });
+                                var newColn = $('<td/>', { text: data.customers.name_ref });
+                                var newCols= $('<td/>', { text: data.customers.surname_ref});
+                                var newCole = $('<td/>', { text: data.customers.email_ref });
+
+                                var editAction = $('<a/>', {
+                                            href: "/customers/"+data.customers.id+"/edit",
+                                            text: 'Modifica',
+                                            class: "btn btn-outline-secondary",
+                                            "data-id": data.customers.id
+                                        });
+                                var delAction = $('<a/>', {
+                                    href: "#",
+                                    id: "delete-btn",
+                                    "data-id": data.customers.id,
+                                    class: "btn btn-outline-danger",
+                                    text: 'Elimina Cliente',
+                                    onclick: "return confirm('Confermare eliminazione?');"
+                                    });
+                                var newColAction = $('<td/>').append(editAction);
+                                var newColAction2 = $('<td/>').append(delAction);
+
+                            var newRow = $('<tr/>').append(newColr).append(newColn).append(newCols).append(newCole).append(newColAction).append(newColAction2);
+                            $('#customers-table').append(newRow);
+
+                            var ragione_sociale = $('#ragione_sociale').val('');
+                            var name_ref = $('#name_ref').val('');
+                            var surname_ref = $('#surname_ref').val('');
+                            var email_ref = $('#email_ref').val('');
+                            $('#ins_ok').css('display', 'block').fadeOut(3000);
+                        }
+                        }, 
+                        error: function(response, stato) {
+                            console.log(stato);
+                            $('#error_div').css('display', 'block').fadeOut(5000);
+                        }
+                    });
+                }
+            }
       });
 
       $(document).on("click", "a#edit-class-btn", function (e) {
@@ -233,64 +234,67 @@
 
 
 
-            $('#save').bind('click', function(e){
+            $(document).off("click", "#save").on("click", "#save", function (e) {
                 e.preventDefault();
-                var email_new = $('#email').val();
-                if(email_new == '')
-                {
-                    $('#error_div').css('display', 'block').fadeOut(5000);
-                }
-                else {
-                    $.ajax({
-                            url: "/customers/" + customer_id +"/edit",     
-                            type: "GET",                     
-                            dataType: "json",  
-                            data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
-                            success: function(data) {                        
-                                if (data.status === 'ok') {
-                                    window.location.reload(false);
-                                    alert('Confermare la modifica?');
-                                    //alert('ok');
-                                    //$('#mod_ok ').css('display', 'block').fadeOut(3000);
-                                    //$("#email_update"+$(this).attr("id")).text(email_new);
-                                }
-                            }, 
-                            error: function(response, stato) {
-                                console.log(stato);
-                            }
-                        });
-            }
+                if (confirm('Confermare la modifica?')) {
+                    var email_new = $('#email').val();
+                        if(email_new == '')
+                        {
+                            $('#error_div').css('display', 'block').fadeOut(5000);
+                        }
+                        else {
+                            $.ajax({
+                                    url: "/customers/" + customer_id +"/edit",     
+                                    type: "GET",                     
+                                    dataType: "json",  
+                                    data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
+                                    success: function(data) {                        
+                                        if (data.status === 'ok') {
+                                            alert('modifica confermata!');
+                                            window.location.reload(false);
+                                            //alert('ok');
+                                            //$('#mod_ok ').css('display', 'block').fadeOut(3000);
+                                            //$("#email_update"+$(this).attr("id")).text(email_new);
+                                        }
+                                    }, 
+                                    error: function(response, stato) {
+                                        console.log(stato);
+                                    }
+                                });
+                    }
+                } 
                 $('.modal').css('display', 'none');
             });
-
-
         });
 
         $(document).on("click", "#delete-btn", function (e){
             e.preventDefault();
-            var row = $(this).parents('tr');            
-            const customerId = $(this).attr('data-id');   
-            var _token = $('#_token').val();  
-            //customer.forEach(element => console.log(element[id]));  
-            $.ajax({
-                    url: "/customers/" + customerId + "/delete",     
-                    type: "GET",                     
-                    dataType: "json",  
-                    data: { 'customerId': customerId, '_token': _token }, 
-                    success: function(data) {                        
-                        if (data.status === 'ok') {
-                            $(row).remove();
-                            $('#del_ok').css('display', 'block').fadeOut(3000);          
+            if (confirm('Richiesta terminazione contratto, confermare operazione?'))
+            {
+                var row = $(this).parents('tr');            
+                const customerId = $(this).attr('data-id');   
+                var _token = $('#_token').val();  
+                //customer.forEach(element => console.log(element[id]));  
+                $.ajax({
+                        url: "/customers/" + customerId + "/delete",     
+                        type: "GET",                     
+                        dataType: "json",  
+                        data: { 'customerId': customerId, '_token': _token }, 
+                        success: function(data) {                        
+                            if (data.status === 'ok') {
+                                $(row).remove();
+                                $('#del_ok').css('display', 'block').fadeOut(3000);          
+                            }
+                            else if (data.status === 'no')
+                            {
+                                $('#del_no').css('display', 'block').fadeOut(3000);
+                            }
+                        }, 
+                        error: function(response, stato) {
+                            console.log(stato);
                         }
-                        else if (data.status === 'no')
-                        {
-                            $('#del_no').css('display', 'block').fadeOut(3000);
-                        }
-                    }, 
-                    error: function(response, stato) {
-                        console.log(stato);
-                    }
-                });
+                    });
+            }
         });
    });
 })(jQuery);

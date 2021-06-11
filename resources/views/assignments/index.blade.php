@@ -11,7 +11,6 @@
    </div>
 @endif
 @if (session('ok'))
-    
 	<div class="alert alert-success">
         {{ session('ok') }}
     </div>
@@ -34,7 +33,7 @@
 			</thead>
 			<tbody>
 
-          @foreach($assignments as $a)
+          @foreach($assignments->reverse() as $a)
           
 				<tr>
 					<th scope="row">{{ date('d/m/Y', strtotime($a->begins)) }}</th>

@@ -2,10 +2,16 @@
 @section('content')
 
 
-<h1> Tutte i Progetti </h1>
+<h1> Lista Progetti </h1>
 @if (session('alert'))
 <div class="alert alert-success">
     {{ session('alert') }}
+</div>
+@endif
+
+@if (session('no'))
+<div class="alert alert-danger">
+    {{ session('no') }}
 </div>
 @endif
 
@@ -24,8 +30,8 @@
     </thead>
 
     <tbody>
-        @foreach($projects as $p)
-        @if($p->terminated != 'yes')
+        @foreach($projects->reverse() as $p)
+        @if($p->finito != 'yes')
         <tr>
         <td>{{ $p->name }} </td>
         <td>{{ date('d/m/Y', strtotime($p->begins)) }}</th>

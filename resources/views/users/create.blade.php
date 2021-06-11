@@ -65,7 +65,7 @@
             </div>
             
             <div class="row top-buffer"></div>
-            <button type="submit" class="btn btn-primary">Salva</button>
+            <button type="submit" onclick="return confirm('Confermare inserimento Utente?');" class="btn btn-primary">Salva</button>
             <a href="{{ URL::action('UserController@index') }}" onclick="return confirm('Inserimento non confermato, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
          </form>
 

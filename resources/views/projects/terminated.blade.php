@@ -28,10 +28,10 @@
         <td>{{ $p->name }} </td>
         <td>{{ $p->description }}</td>
         <td>{{ $p->customer->ragione_sociale }}</td>
-        <th scope="row">{{ date('d/m/Y', strtotime($p->p_end)) }}</th>
+        <td>{{ date('d/m/Y', strtotime($p->p_end)) }}</td>
         <th scope="row">{{ date('d/m/Y', strtotime($p->d_end)) }}</th>
         <?php $r = 0; $h = DB::table('diaries') ->where('project_id', $p->id) ->sum('hours');
-            $r = $h*$p->cost; echo "<td>".$r." Euro</td>"; ?>
+            $r = $h*$p->cost; echo "<th scope=".'"row">'.$r." Euro</th>"; ?>
         </tr>
         @endif
         @endforeach

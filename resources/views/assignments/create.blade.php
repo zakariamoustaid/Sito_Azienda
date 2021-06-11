@@ -45,7 +45,7 @@
       <label for="description">Inserisci una piccola descrizione</label>
       <input type="text" class="form-control" name="description" >
    </div>
-   <button type="submit" class="btn btn-primary">Assegna</button>
+   <button type="submit" onclick="return confirm('Confermare assegnazione?');" class="btn btn-primary">Assegna</button>
       <a href="{{ URL::action('AssignmentController@index') }}" onclick="return confirm('Modifiche non confermate, sicuro di voler uscire?');" class="btn btn-secondary">Indietro</a>
 </div>
 

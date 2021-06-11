@@ -39,12 +39,12 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Aggiorna</button>
+    <button type="submit" class="btn btn-primary" onclick="return confirm('Confermare le modifiche?');">Aggiorna</button>
 
-    <a href="{{ URL::action('ProjectController@terminate', $project) }}" class="btn btn-danger">Termina Progetto</a>
+    <a href="{{ URL::action('ProjectController@terminate', $project) }}" class="btn btn-danger" onclick="return confirm('Confermare la terminazione? Se sono presenti assegnazioni esse verranno eliminate!');">Termina Progetto</a>
 
 
-    <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-secondary">Indietro</a>
+    <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-secondary" onclick="return confirm('Modifiche non confermate, uscire comunque?');">Indietro</a>
 
 </form>    
 

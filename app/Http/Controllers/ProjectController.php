@@ -60,12 +60,21 @@ class ProjectController extends Controller
             'p_end'             => 'required',
             'd_end'             => '',
             'customer_id'       => 'required',
-            'cost'              => 'required|numeric|max:100|min:12',
+            'cost'              => 'required|numeric|max:100|',
         ]);
 
-        Log::info($input);
-        
-        return redirect('projects');
+        $test = DB::table('projects')
+            ->where('name',$input['name'])
+            ->first();
+
+        if($test == null)
+        {
+            Project::create($input);
+            return redirect('projects')->with('alert', 'Progetto inserito correttamente.');
+        }
+        else
+            return redirect('projects')->with('no', 'Inserimento NON confermato, nome Progetto già presente negli archivi.');
+
     }
 
     /**
@@ -103,14 +112,14 @@ class ProjectController extends Controller
 
         $validatedData = $request->validate([
             'description'       => 'required',
-            'cost'              => 'required|numeric|max:100|min:12',
+            'cost'              => 'required|numeric|max:100|',
         ]);
 
         $project->description = $input['description'];
         $project->cost = $input['cost'];
         $project->save();
 
-        return redirect('projects');
+        return redirect('projects')->with('alert', 'Modifiche confermate.');
     }
 
     /**
@@ -124,7 +133,7 @@ class ProjectController extends Controller
     {
         $project->delete();
         
-        return redirect('projects')->with('alert', 'Progetto eliminato definitivamente');
+        return redirect('projects')->with('alert', 'Progetto eliminato definitivamente.');
     }
     
     public function terminate(Project $project)
@@ -137,7 +146,7 @@ class ProjectController extends Controller
                         ->where('project_id', $project->id)
                         ->delete();
 
-        return redirect('projects')->with('alert', 'Terminazione confermata');
+        return redirect('projects')->with('alert', 'Terminazione confermata.');
     }
 
     public function show_terminated()

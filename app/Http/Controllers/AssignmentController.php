@@ -169,6 +169,6 @@ class AssignmentController extends Controller
     {
         $assignment->delete();
         
-        return redirect('assignments');
+        return redirect('assignments')->with('ok', 'Assegnazione cancellata!'); 
     }
 }
