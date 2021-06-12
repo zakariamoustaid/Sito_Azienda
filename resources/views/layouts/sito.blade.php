@@ -28,15 +28,20 @@
         #del_ok{ display:none; }
         #ins_ok{ display:none; }
         #error_hours{ display:none; }
+        #error_hours_day{ display:none; }
         .top-buffer { margin-top:25px; }
         .chart-container {
                     width:500px;
                     height:400px
         }
+        #exampleModalCenter{ display:none; }
         #descrizioneP {display:block;}
         #descrizioneC {display:block;}
         .top-buffer { margin-top:25px; }
         .modal {display:none;}
+        #ore {background-color: #f5f1e0;}
+
+        #header_riepilogo {background-color: #aad6a0;}
     </style>
 
     <!-- inserisco css personali -->

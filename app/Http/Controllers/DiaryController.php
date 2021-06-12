@@ -6,6 +6,7 @@ use App\Diary;
 use App\Project;
 use App\Assignment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class DiaryController extends Controller
@@ -26,12 +27,11 @@ class DiaryController extends Controller
         $diaries = Diary::all();
         $assignments = Assignment::all();
         $projects = Project::all();
-        $ind = 0;
-        foreach($diaries as $d)
-        {
-            if($d->user_id == Auth::user()->id)
-            $ind = $d->hours + $ind;
-        }
+
+        $ind = DB::table('diaries')
+            ->select('hours')
+            ->where('user_id', Auth::user()->id)
+            ->sum('hours');
         
         return view('diaries.index', compact('diaries', 'assignments', 'projects', 'ind'));
     }
@@ -62,20 +62,36 @@ class DiaryController extends Controller
         $d = new Diary();
         $projects = Project::all();
 
-        $d->today = $input['today'];
-        $d->notes = $input['notes'];
-        $d->hours = $input['hours'];
-        $d->project_id = $input['project_id'];
-        $d->user_id = $input['user_id'];
+        $controllo_ore = DB::table('diaries')
+            ->select('hours')
+            ->where('user_id', $input['user_id'])
+            ->where('today', $input['today'])
+            ->sum('hours');
 
-        $d->save();
+        $controllo_ore = $controllo_ore + $input['hours'];
 
-        $date = date('d/m/Y', strtotime($d->today));
-        $project = $d->project->name;
-        $hours = $d->hours;
+        if($controllo_ore <= 8)
+        {
+            $d->today = $input['today'];
+            $d->notes = $input['notes'];
+            $d->hours = $input['hours'];
+            $d->project_id = $input['project_id'];
+            $d->user_id = $input['user_id'];
+    
+            $d->save();
+    
+            $date = date('d/m/Y', strtotime($d->today));
+            $project = $d->project->name;
+            $hours = $d->hours;
+            
+            
+            return json_encode(['status' => 'ok', 'diaries' => $d, 'd' => $date, 'p' => $project, 'h' => $hours]);
+        }
         
-        
-        return json_encode(['status' => 'ok', 'diaries' => $d, 'd' => $date, 'p' => $project, 'h' => $hours]);
+        else
+        return json_encode(['status' => 'no']);
+
+
     }
 
     /**

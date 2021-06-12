@@ -3,28 +3,23 @@
 
 
 <!-- modal -->
-<div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="Totale" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Scheda Ore</h5>
+         <div class="modal-header" id="header_riepilogo">
+            <h5 class="modal-title">Scheda Ore</h5>
             <button type="button" class="close" id="close_x" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <div id="body_modal" class="modal-body">
+         <div id="ore" class="modal-body">
             <h4> Totale ore spese: <strong>{{ $ind }} </strong></h4>
             <div class="row top-buffer"></div>
             <?php foreach($projects as $p){?>
-            <?php $i = 0;?>
-            <?php $controllo = 1; ?>
-            <?php foreach ($diaries as $d) {?>
-            <?php if ($d->project_id == $p->id && $d->user_id == Auth::user()->id) {?>
-            <?php if($controllo){?>
+            <?php $d = DB::table('diaries') ->where('project_id', $p->id) ->where('user_id', Auth::user()->id) -> first(); if ($d != null) {?>
             <?php echo '<h5>'.$p->name.':</h5>';?>
-            <?php $controllo=0; }?>
-            <?php $i = $i + $d->hours; }?>
-            <?php } if($i) { echo '<h5><strong>'.$i.'</strong></h5>';} }?>
+            <?php $somma = DB::table('diaries') ->select('hours') ->where('project_id', $p->id) ->where('user_id', Auth::user()->id) -> sum('hours');?>
+            <?php echo '<h5><strong>'.$somma.'</strong></h5>'; } }?>
             <button type="button" class="btn btn-outline-secondary float-md-right" id="close" data-dismiss="modal">Chiudi</button>
             <div class="row top-buffer"></div>
          </div>
@@ -42,6 +37,9 @@
 </div>
 <div id="error_hours" class="alert alert-danger">
    <p> Errore inserimento ore </p>
+</div>
+<div id="error_hours_day" class="alert alert-danger">
+   <p> Attenzione, da contratto nazionale non è possibile effettuare più di 8 ore lavorative al giorno! </p>
 </div>
 <div id="ins_ok" class="alert alert-success">
    <p> Inserimento confermato. </p>
@@ -84,8 +82,10 @@
 <div class="container">
    <div class="form-group">
       <h3>Lista Schede Inserite </h3>
-      <a id="diary" class="btn btn-primary float-md-right mb-2" >Visualizza riepilogo ore </a>
+      <button type="button" class="btn btn-primary float-md-right" data-toggle="modal" data-target="#exampleModalCenter" id="apri_modal">Visualizza riepilogo ore </button>
    </div>
+   <div class="row top-buffer"></div>
+   <div class="row top-buffer"></div>
       <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per mese o singoli progetti" title="Type in a name">
       <table id="diary-table" class="table table-hover">
          <thead>
@@ -110,6 +110,7 @@
             @endforeach
          </tbody>
       </table>
+</div>
 </div>
 
 <script>
@@ -163,7 +164,6 @@
       var notes = $('#notes').val();
       var user_id = $(this).attr('data-id'); 
       var _token = $('#_token').val();
-
       console.log(today,project_id,hours,notes, user_id);
       if(hours <= 8 && hours >= 0)
       {
@@ -189,33 +189,39 @@
                            //.append(newColAction2)
                      var newRow = $('<tr/>').append(newColt).append(newColp).append(newColh).append(newColn);
                      $('#diary-table').prepend  (newRow);
-                     $('#ins_ok').css('display', 'block').fadeOut(8000);
+                     $('#ins_ok').css('display', 'block').fadeOut(5000);
+                     var hours = $('#hours').val('');
+                     var notes = $('#notes').val('');
+                  }
+                  else if(data.status == 'no')
+                  {
+                     $('#error_hours_day').css('display', 'block').fadeOut(10000);
                      var hours = $('#hours').val('');
                      var notes = $('#notes').val('');
                   }
                   }, 
                   error: function(response, stato) {
-                     $('#error_div').css('display', 'block').fadeOut(8000);
+                     $('#error_div').css('display', 'block').fadeOut(5000);
                      var hours = $('#hours').val('');
                      var notes = $('#notes').val('');
                   }
             });
       }
       else{
-            $('#error_hours').css('display', 'block').fadeOut(13000);
+            $('#error_hours').css('display', 'block').fadeOut(5000);
             var hours = $('#hours').val('');
             var notes = $('#notes').val('');
       }
       });
-      $(document).on("click", "#diary", function () {
-        $('.modal').css('display', 'block');
+      $(document).on("click", "#apri_modal", function () {
+        $('#exampleModalCenter').css('display', 'block');
 
         $('#close').bind('click', function(e){
-            $('.modal').css('display', 'none');
+            $('#exampleModalCenter').css('display', 'none');
             window.location.reload(false);  
         });
         $('#close_x').bind('click', function(e){
-            $('.modal').css('display', 'none');
+            $('#exampleModalCenter').css('display', 'none');
             window.location.reload(false);  
         });
 
