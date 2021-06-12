@@ -120,9 +120,9 @@ class CustomerController extends Controller
 
         $projects = DB::table('projects')
             ->where('customer_id', $input['customerId'])
+            ->where('finito', 'no')
             ->first();
-        
-        Log::info('ciao'.$input['customerId']);
+
 
         if($projects == null)
         {
