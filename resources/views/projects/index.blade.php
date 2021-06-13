@@ -21,8 +21,8 @@
     <thead>
         <tr>
         <th scope="col">Nome</th>
-        <th scope="col">Registrato</th>
         <th scope="col">Descrizione</th>
+        <th scope="col">Registrato</th>
         <th scope="col">Cliente</th>
         <th scope="col">Costo Orario</th>
         <th scope="col"></th>
@@ -33,11 +33,11 @@
         @foreach($projects->reverse() as $p)
         @if($p->finito != 'yes')
         <tr>
-        <td>{{ $p->name }} </td>
-        <td>{{ date('d/m/Y', strtotime($p->begins)) }}</th>
+        <td><strong>{{ $p->name }}</strong> </td>
         <td>{{ $p->description }}</td>
+        <td>{{ date('d/m/Y', strtotime($p->begins)) }}</th>
         <td>{{ $p->customer->ragione_sociale }}</td>
-        <th scope="row">{{ $p->cost }}€</th>
+        <td><u>{{ $p->cost }}€</u></th>
         <td><a href="{{ URL::action('ProjectController@edit', $p) }}" class="btn btn-outline-dark">Modifica</a></td>
         </tr>
         @endif

@@ -32,7 +32,7 @@
             foreach($users as $u){?>
             <?php if ($u->in_corso != 'no') {?>
             <?php echo '<tr>'; ?>
-            <?php echo '<td>'.$i.'</td>'; ?>
+            <?php echo '<td><strong>'.$i.'</strong></td>'; ?>
             <?php echo '<td>'.$u->name.'</td>'; ?>
             <?php echo '<td>'.$u->surname.'</td>'; ?>
             <?php echo '<td>'.$u->email.'</td>'; ?>

@@ -23,6 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         #error_div { display:none;}
+        #error_email { display:none;}
         #del_no{ display:none; }
         #mod_ok{ display:none;}
         #del_ok{ display:none; }

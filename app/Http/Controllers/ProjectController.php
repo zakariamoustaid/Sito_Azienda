@@ -60,7 +60,7 @@ class ProjectController extends Controller
             'p_end'             => 'required',
             'd_end'             => '',
             'customer_id'       => 'required',
-            'cost'              => 'required|numeric|max:100|',
+            'cost'              => 'required|numeric|min:7|max:100|',
         ]);
 
         $test = DB::table('projects')
@@ -112,7 +112,7 @@ class ProjectController extends Controller
 
         $validatedData = $request->validate([
             'description'       => 'required',
-            'cost'              => 'required|numeric|max:100|',
+            'cost'              => 'required|numeric|min:7|max:100|',
         ]);
 
         $project->description = $input['description'];

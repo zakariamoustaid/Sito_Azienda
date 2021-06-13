@@ -53,19 +53,22 @@
 <h1> Gestione Clienti </h1>
     <!-- ALERT -->
     <div id="error_div" class="alert alert-danger">
-        <p> Errore nell'inserimento, assicurarsi di aver inserito tutti i dati correttamente</p>
+        <p> Errore nell'inserimento, assicurarsi di aver inserito tutti i dati correttamente.</p>
+    </div>
+    <div id="error_email" class="alert alert-danger">
+        <p> Formato email non corretto.</p>
     </div>
     <div id="ins_ok" class="alert alert-success">
-        <p> Inserimento confermato </p>
+        <p> Inserimento confermato. </p>
     </div>
     <div id="del_ok" class="alert alert-success">
-        <p> Operazione confermata </p>
+        <p> Operazione confermata. </p>
     </div>
     <div id="del_no" class="alert alert-danger">
         <p> Non è possibile terminare il rapporto, ci sono ancora progetti in corso! </p>
     </div>
     <div id="mod_ok" class="alert alert-success">
-        <p> Modifica confermata </p>
+        <p> Modifica confermata. </p>
     </div>
     <!-- FINE ALERT -->
         
@@ -85,7 +88,7 @@
                 <input type="text" class="form-control" name="ragione_sociale"  placeholder="Nome Società" id="ragione_sociale" >
             </div>
             <div class="form-group col-md-5">
-                <input type="email" class="form-control" name="email_ref" placeholder="Email Referente" id="email_ref">
+                <input type="email" class="form-control" name="email_ref" placeholder="Email Referente" pattern="[^ @]*@[^ @]*" id="email_ref">
             </div>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
             <a href="" id="add-class-btn" class="btn btn-outline-primary float-md-right mb-2">Conferma inserimento</a>
@@ -113,7 +116,7 @@
           @foreach($customers as $c)
           @if($c->finito == 'no')
           <tr>
-            <td>{{ $c->ragione_sociale }} </td>
+            <td><strong>{{ $c->ragione_sociale }} </strong></td>
             <td>{{ $c->name_ref }}</td>
             <td>{{ $c->surname_ref }}</td>
             <td id="email_update">{{ $c->email_ref }}</td>
@@ -145,14 +148,23 @@
                 var surname_ref = $('#surname_ref').val();
                 var email_ref = $('#email_ref').val();
                 var _token = $('#_token').val();
+                
+                var check_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email_ref);
 
                 if(ragione_sociale == "" || name_ref == "" || surname_ref == "" || email_ref == "")
                 {
-                $('#error_div').css('display', 'block').fadeOut(3000);
-                var ragione_sociale = $('#ragione_sociale').val('');
-                var name_ref = $('#name_ref').val('');
-                var surname_ref = $('#surname_ref').val('');
-                var email_ref = $('#email_ref').val('');
+                    $('#error_div').css('display', 'block').fadeOut(3000);
+                    var ragione_sociale = $('#ragione_sociale').val('');
+                    var name_ref = $('#name_ref').val('');
+                    var surname_ref = $('#surname_ref').val('');
+                    var email_ref = $('#email_ref').val('');
+                }
+                if(!check_email)
+                {
+                    $('#error_email').css('display', 'block').fadeOut(3000);
+                    var name_ref = $('#name_ref').val('');
+                    var surname_ref = $('#surname_ref').val('');
+                    var email_ref = $('#email_ref').val('');
                 }
 
                 else{
@@ -163,7 +175,7 @@
                     data: { 'ragione_sociale': ragione_sociale, 'name_ref': name_ref, 'surname_ref': surname_ref, 'email_ref': email_ref, '_token': _token},
                     success: function(data) {                        
                         if (data.status === 'ok') {
-                                var newColr = $('<td/>', { text: data.customers.ragione_sociale });
+                                var newColr = $('<td/>', { text: data.customers.ragione_sociale }).css('font-weight','bold');;
                                 var newColn = $('<td/>', { text: data.customers.name_ref });
                                 var newCols= $('<td/>', { text: data.customers.surname_ref});
                                 var newCole = $('<td/>', { text: data.customers.email_ref });

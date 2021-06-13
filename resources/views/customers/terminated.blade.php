@@ -8,8 +8,7 @@
     <thead>
         <tr>
         <th scope="col">Ragione Sociale</th>
-        <th scope="col">Nome Referente</th>
-        <th scope="col">Cognome Referente</th>
+        <th scope="col">Referente</th>
         <th id="email_l" scope="col">Email</th>
         </tr>
     </thead>
@@ -18,9 +17,8 @@
         @foreach($customers as $c)
         @if($c->finito == 'yes')
         <tr>
-        <td>{{ $c->ragione_sociale }} </td>
-        <td>{{ $c->name_ref }}</td>
-        <td>{{ $c->surname_ref }}</td>
+        <td><strong> {{ $c->ragione_sociale }} </strong></td>
+        <td>{{ $c->name_ref }} {{$c->surname_ref }}</td>
         <td>{{ $c->email_ref }}</td>
         </tr>
         @endif
