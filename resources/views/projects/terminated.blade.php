@@ -9,6 +9,7 @@
 @endif
 
 <a href="{{ URL::action('ProjectController@index') }}" class="btn btn-outline-dark">Visualizza Progetti in corso</a>
+<div class="row top-buffer"></div>
 <table class="table table-hover">
     <thead>
         <tr>

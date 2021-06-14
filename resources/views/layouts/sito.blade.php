@@ -28,6 +28,12 @@
         #mod_ok{ display:none;}
         #del_ok{ display:none; }
         #ins_ok{ display:none; }
+        #selezione_c{ display:none; }
+        #selezione_c2{ display:none; }
+        #selezione_c3{ display:none; }
+        #selezione_p{ display:none; }
+        #selezione_p2{ display:none; }
+        #selezione_p3{ display:none; }
         #error_hours{ display:none; }
         #error_hours_day{ display:none; }
         .top-buffer { margin-top:25px; }
@@ -36,12 +42,25 @@
                     height:400px
         }
         #exampleModalCenter{ display:none; }
+        #titolo_scheda{ display:none; }
+        #data_scheda{ display:none; }
+        #progetto_scheda{ display:none; }
+        #ore_scheda{ display:none; }
+        #note_scheda{ display:none; }
+        #add-diary{ display:none; }
+        #bottone_chiusura{ display:none; }
         #descrizioneP {display:block;}
         #descrizioneC {display:block;}
         .top-buffer { margin-top:25px; }
         .modal {display:none;}
         #ore {background-color: #f5f1e0;}
-
+        #titolo_scheda_c{display:none;}
+        #bottone_chiusura_c{display:none;}
+        #inserimento_nome_ref{display:none;}
+        #inserimento_cognome_ref{display:none;}
+        #inserimento_nome_soc{display:none;}
+        #inserimento_email{display:none;}
+        #add-class-btn_c{display:none;}
         #header_riepilogo {background-color: #aad6a0;}
     </style>
 

@@ -1,7 +1,7 @@
 @extends('layouts.sito')
 @section('content')
 
-    <h1> Gestione Cliente </h1>
+    <h1> Gestione Utente </h1>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -33,7 +33,7 @@
         <div class="form-group">
             <label for="tel">Telefono</label>
             <input type="text" class="form-control" name="tel" value="{{ $user->tel }}">
-            <small class="form-text text-muted">Inserisci il cognome</small>
+            <small class="form-text text-muted">*Modifica telefono</small>
         </div>
 
         <div class="form-group">
@@ -48,7 +48,7 @@
                   <option> USER </option>
                </select>
             @endif
-            <small class="form-text text-muted">Modifica il ruolo</small>
+            <small class="form-text text-muted">*Modifica il ruolo</small>
         </div>
         
 

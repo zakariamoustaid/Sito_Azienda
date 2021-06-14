@@ -2,16 +2,16 @@
 @section('content')
 
     <h1> Contratti terminati</h1>
-    <a href="{{ URL::action('UserController@index') }}" class="btn btn-outline-secondary btn-sm">Visualizza Utenti a disposizione</a>
+    <a href="{{ URL::action('UserController@index') }}" class="btn btn-outline-secondary">Visualizza Utenti Attivi</a>
+    <div class="row top-buffer"></div>
     <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Nome</th>
             <th scope="col">Cognome</th>
             <th scope="col">Email</th>
             <th scope="col">Telefono</th>
-            <th scope="col">Ore spese nei progetti</th>
+            <th scope="col">Totale ore lavorate</th>
           </tr>
         </thead>
         <tbody>
@@ -20,7 +20,6 @@
             foreach($users as $u){?>
             <?php if ($u->in_corso != 'yes') {?>
             <?php echo '<tr>'; ?>
-            <?php $i++; echo '<td>'.$i.'</td>'; ?>
             <?php echo '<td>'.$u->name.'</td>'; ?>
             <?php echo '<td>'.$u->surname.'</td>'; ?>
             <?php echo '<td>'.$u->email.'</td>'; ?>

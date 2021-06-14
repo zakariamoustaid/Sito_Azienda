@@ -2,9 +2,10 @@
 @section('content')
 
 <!-- ELENCO -->
-<h4>Lista Clienti</h4>
-    <a href="{{ URL::action('CustomerController@index') }}" class="btn btn-outline-secondary btn-sm">Visualizza Rapporti in corso</a>
-<table id="customers-table" class="table table-striped">
+<h3>Lista Clienti</h3>
+    <a href="{{ URL::action('CustomerController@index') }}" class="btn btn-outline-secondary">Visualizza Rapporti in corso</a>
+    <div class="row top-buffer"></div>
+<table id="customers-table" class="table table-hover">
     <thead>
         <tr>
         <th scope="col">Ragione Sociale</th>

@@ -63,15 +63,22 @@ class ProjectController extends Controller
             'cost'              => 'required|numeric|min:7|max:100|',
         ]);
 
+        if($input['begins'] > $input['p_end'])
+        {
+            return redirect('projects')->with('no', 'Inserimento non confermato, la data di possibile fine non può essere antecedente la data di inizio');
+        }
+
         $test = DB::table('projects')
             ->where('name',$input['name'])
             ->first();
+        
 
         if($test == null)
         {
             Project::create($input);
             return redirect('projects')->with('alert', 'Progetto inserito correttamente.');
         }
+
         else
             return redirect('projects')->with('no', 'Inserimento NON confermato, nome Progetto già presente negli archivi.');
 

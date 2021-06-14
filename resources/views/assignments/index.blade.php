@@ -12,12 +12,11 @@
         {{ session('ok') }}
     </div>
 @endif
-
+<a href="{{ URL::action('AssignmentController@create') }}" id="add-class-btn" class="btn btn-outline-primary float-md-right">Crea una nuova assegnazione</a>
+<div class="row top-buffer"></div>
+<div class="row top-buffer"></div>
 <div class="form-group">
-	<div class="col-md-2 float-right">
-		<a href="{{ URL::action('AssignmentController@create') }}" id="add-class-btn" class="btn btn-outline-primary">Crea una nuova assegnazione</a>
-		<div class="row top-buffer"></div>
-	</div>
+
 	<table id="categories-table" class="table table-hover">
 		<thead>
 			<tr>
@@ -29,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody id="filtro">
-		<input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per Progetto, per Nome/Cognome Utente o Data" title="Type in a name">
+		<input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per Progetto, Nome/Cognome Utente o Data">
 		@foreach($assignments->reverse() as $a)
 		<tr>
 			<th scope="row">{{ $a->project->name }}</th>

@@ -17,18 +17,18 @@
         <div class="row top-buffer"></div>
         <div class="row top-buffer"></div>
 
-        <button type="button" class="btn btn-outline-dark">SEZIONE PROGETTI</button>
+        <button type="button" id="b_progetti" class="btn btn-outline-dark">SEZIONE PROGETTI</button>
         <div class="row top-buffer"></div>
             <div class="row">
-                <div class="col">
+                <div id="selezione_p" class="col">
                     <label>Da:</label>
                     <input type="date" value="<?php echo date('Y-m-01'); ?>" class="form-control" id="data" >
                 </div>
-                <div class="col">
+                <div id="selezione_p2" class="col">
                     <label>A:</label>
                     <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="data2" >
                 </div>
-                <div class="col">
+                <div id="selezione_p3" class="col">
                     <div class="row top-buffer"></div>
                     <button type="button" id="Chart1" class="btn btn-outline-primary float-md-right">Conferma</button>
                     </div>
@@ -44,18 +44,18 @@
         <div style="width: 500px; float: left;">
             <div class="row top-buffer"></div>
             <div class="row top-buffer"></div>
-            <button type="button" class="btn btn-outline-dark">SEZIONE CLIENTI</button>
+            <button type="button" id="b_clienti" class="btn btn-outline-dark">SEZIONE CLIENTI</button>
                 <div class="row top-buffer"></div>
                 <div class="row">
-                    <div class="col">
+                    <div id="selezione_c" class="col">
                         <label>Da:</label>
                         <input type="date" value="<?php echo date('Y-m-01'); ?>" class="form-control" id="data3" >
                     </div>
-                    <div class="col">
+                    <div id="selezione_c2" class="col">
                         <label>A:</label>
                         <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="data4" >
                     </div>
-                    <div class="col">
+                    <div id="selezione_c3" class="col">
                         <div class="row top-buffer"></div>
                             <button type="button" id="Chart2" class="btn btn-outline-primary float-md-right">Conferma</button>
                         </div>
@@ -72,6 +72,21 @@
     
 <script type="text/javascript">
 (function($) {
+    $(document).on("click", "#b_clienti", function (e) {
+        e.preventDefault();
+        $('#selezione_c').css('display', 'block');
+        $('#selezione_c2').css('display', 'block');
+        $('#selezione_c3').css('display', 'block');
+
+    });
+    $(document).on("click", "#b_progetti", function (e) {
+        e.preventDefault();
+        $('#selezione_p').css('display', 'block');
+        $('#selezione_p2').css('display', 'block');
+        $('#selezione_p3').css('display', 'block');
+
+    });
+
     $('document').ready(function(){
 
         //grafico projects

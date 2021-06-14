@@ -181,11 +181,13 @@
             <div class="title m-b-md">
             <img src="{{ URL::to('/logo2.png') }}" >
         </div>
+        @if(!Auth::user())  
         <div>
-            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalCenter" id="apri_modal">
+            <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalCenter" id="apri_modal">
                 ENTRA
             </button>
         </div>
+        @endif
 
     </div>
     </body>

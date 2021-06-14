@@ -25,12 +25,12 @@
                <div class="col">
                   <label for="name">Nome</label>
                   <input type="text" class="form-control" name="name" >
-                  <small class="form-text text-muted">Inserisci nome utente</small>
+                  <small class="form-text text-muted">*Inserisci nome utente</small>
                </div>
                <div class="col">
                   <label for="surname">Cognome</label>
                   <input type="text" class="form-control" name="surname">
-                  <small class="form-text text-muted">Inserisci cognome utente</small>
+                  <small class="form-text text-muted">*Inserisci cognome utente</small>
                </div>
             </div>
 
@@ -42,12 +42,12 @@
                      <option> ADMIN </option>
                      <option> USER </option>
                   </select>
-                  <small class="form-text text-muted">Inserisci ruolo utente</small>
+                  <small class="form-text text-muted">*Inserisci ruolo utente</small>
                </div>
                <div class="col">
                   <label for="tel">Telefono</label>
                   <input type="text" class="form-control" name="tel" >
-                  <small class="form-text text-muted">Inserire numero telefono</small>
+                  <small class="form-text text-muted">*Inserire numero telefono</small>
                </div>
             </div>
 
@@ -55,12 +55,12 @@
                <div class="col">
                   <label for="email">Email</label>
                   <input type="email" pattern=".+@coffedev.com" value="@coffedev.com" class="form-control" name="email" >
-                  <small class="form-text text-muted">Inserisci email utente</small>
+                  <small class="form-text text-muted">*Inserisci email utente</small>
                </div>
                <div class="col">
                   <label for="password">Password</label>
                   <input type="password" class="form-control" name="password" >
-                  <small class="form-text text-muted">Inserisci password utente</small>
+                  <small class="form-text text-muted">*Inserisci password utente</small>
                </div>
             </div>
             

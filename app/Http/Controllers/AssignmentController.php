@@ -54,7 +54,6 @@ class AssignmentController extends Controller
         $a = Assignment::all();
 
         $validatedData = $request->validate([
-            'begins'         => 'required',
             'project_id'    => 'required',
             'user_id'       => 'required',
             'description'   => 'required',
@@ -70,7 +69,7 @@ class AssignmentController extends Controller
         foreach ($input['user_id'] as $i) 
         {
             $assignments = new Assignment();
-            $assignments->begins = $request->begins;
+            $assignments->begins = date('Y-m-d');
             $assignments->project_id = $request->project_id;
             $assignments->user_id = $i;
             $assignments->description = $request->description;

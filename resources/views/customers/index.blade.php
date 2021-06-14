@@ -41,7 +41,7 @@
       <div class="modal-footer">
         <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-        <button type="button" id="save" class="btn btn-primary" >Conferma modifica</button>
+        <button type="button" id="save" class="btn btn-primary"> Conferma modifica</button>
       </div>
     </div>
   </div>
@@ -49,8 +49,10 @@
 <!-- end -->
 
     <!-- ALERT -->
-
-<h1> Gestione Clienti </h1>
+<div class="form-row">
+<h3 id="titolo_scheda_c"> Inserimento Clienti </h3>
+<button id="bottone_chiusura_c" type="button" class="btn btn-outline-secondary float-md-right btn-sm" style="margin:2px" id="apri_scheda">Chiudi </button>
+</div>
     <!-- ALERT -->
     <div id="error_div" class="alert alert-danger">
         <p> Errore nell'inserimento, assicurarsi di aver inserito tutti i dati correttamente.</p>
@@ -76,30 +78,32 @@
 <form action="{{ URL::action('CustomerController@store') }}" method="POST">
         {{ csrf_field() }}
         <div class="form-row">
-            <div class="form-group col-md-5">
-                <input type="text" class="form-control" name="name_ref" placeholder="Nome Referente" id="name_ref">
+            <div id="inserimento_nome_ref" class="form-group col-md-5">
+                <input type="text" class="form-control" name="name_ref" placeholder="*Nome Referente" id="name_ref">
             </div>
-            <div class="form-group col-md-5">
-                <input type="text" class="form-control" name="surname_ref" placeholder="Cognome Referente" id="surname_ref" >
+            <div id="inserimento_cognome_ref" class="form-group col-md-5">
+                <input type="text" class="form-control" name="surname_ref" placeholder="*Cognome Referente" id="surname_ref" >
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-5">
-                <input type="text" class="form-control" name="ragione_sociale"  placeholder="Nome Società" id="ragione_sociale" >
+            <div id="inserimento_nome_soc" class="form-group col-md-5">
+                <input type="text" class="form-control" name="ragione_sociale"  placeholder="*Nome Società" id="ragione_sociale" >
             </div>
-            <div class="form-group col-md-5">
-                <input type="email" class="form-control" name="email_ref" placeholder="Email Referente" pattern="[^ @]*@[^ @]*" id="email_ref">
+            <div id="inserimento_email" class="form-group col-md-5">
+                <input type="email" class="form-control" name="email_ref" placeholder="*Email Referente" pattern="[^ @]*@[^ @]*" id="email_ref">
             </div>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-            <a href="" id="add-class-btn" class="btn btn-outline-primary float-md-right mb-2">Conferma inserimento</a>
         </div>
+        <a href="" id="add-class-btn_c" class="btn btn-outline-primary float-md-right mb-3">Conferma inserimento</a>
        
 </form>    
     <div class="row top-buffer"></div>
     
 <!-- ELENCO -->
-    <h4>Lista Clienti</h4>
-    <a href="{{ URL::action('CustomerController@show_terminated') }}" class="btn btn-outline-secondary btn-sm">Visualizza Rapporti Conclusi</a>
+    <h2>Lista Clienti</h2>
+    <a class="btn btn-outline-primary float-md-right" id="apri_scheda_c" style="margin:5px">Scheda inserimento</a>
+    <a href="{{ URL::action('CustomerController@show_terminated') }}" class="btn btn-outline-secondary  float-md-right" style="margin:5px">Visualizza Rapporti Conclusi</a>
+    <div class="row top-buffer"></div>
     <table id="customers-table" class="table table-hover">
         <thead>
           <tr>
@@ -111,8 +115,8 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
-
+        <tbody id="filtro">
+        <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per Ragione Sociale, Nome/Cognome Cliente o Email">
           @foreach($customers as $c)
           @if($c->finito == 'no')
           <tr>
@@ -135,10 +139,72 @@
       </table>
 </div>
 
+<script type="application/javascript">
+   $(document).ready(function(){
+      $("#customers-table").on("keyup",function () {
+         //$('[data-toggle="popover"]').popover()
+      });
+      
+      $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+	  if(value == 'gennaio')
+         value = '/01';
+      else if(value == 'febbraio')
+         value = '/02';
+      else if(value == 'marzo')
+         value = '/03';
+      else if(value == 'aprile')
+         value = '/04';
+      else if(value == 'maggio')
+         value = '/05';
+      else if(value == 'giugno')
+         value = '/06';
+      else if(value == 'luglio')
+         value = '/07';
+      else if(value == 'agosto')
+         value = '/08';
+      else if(value == 'settembre')
+         value = '/09';
+      else if(value == 'ottobre')
+         value = '/10';
+      else if(value == 'novembre')
+         value = '/11';
+      else if(value == 'dicembre')
+         value = '/12';
+      $("#filtro tr").filter(function() {
+         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+   });
+});
+</script>
+
+
 <script type="text/javascript">
 (function($) {
    $('document').ready(function(){
-        $(document).on("click", "#add-class-btn", function (e){
+    $('#apri_scheda_c').bind('click', function(e){
+          e.preventDefault();
+          $('#titolo_scheda_c').css('display', 'block');
+          $('#bottone_chiusura_c').css('display', 'block');
+          $('#inserimento_nome_ref').css('display', 'block');
+          $('#inserimento_cognome_ref').css('display', 'block');
+          $('#inserimento_nome_soc').css('display', 'block');
+          $('#inserimento_email').css('display', 'block');
+          $('#add-class-btn_c').css('display', 'block');
+      });
+
+      $('#bottone_chiusura_c').bind('click', function(e){
+          e.preventDefault();
+          $('#titolo_scheda_c').css('display', 'none');
+          $('#bottone_chiusura_c').css('display', 'none');
+          $('#inserimento_nome_ref').css('display', 'none');
+          $('#inserimento_cognome_ref').css('display', 'none');
+          $('#inserimento_nome_soc').css('display', 'none');
+          $('#inserimento_email').css('display', 'none');
+          $('#add-class-btn_c').css('display', 'none');
+      });
+
+        $(document).on("click", "#add-class-btn_c", function (e){
             if(confirm('Confermare inserimento?'))
             {
                 e.preventDefault();
@@ -153,7 +219,7 @@
 
                 if(ragione_sociale == "" || name_ref == "" || surname_ref == "" || email_ref == "")
                 {
-                    $('#error_div').css('display', 'block').fadeOut(3000);
+                    $('#error_div').css('display', 'block').fadeOut(6000);
                     var ragione_sociale = $('#ragione_sociale').val('');
                     var name_ref = $('#name_ref').val('');
                     var surname_ref = $('#surname_ref').val('');
@@ -161,7 +227,8 @@
                 }
                 if(!check_email)
                 {
-                    $('#error_email').css('display', 'block').fadeOut(3000);
+                    $('#error_email').css('display', 'block').fadeOut(6000);
+                    var ragione_sociale = $('#ragione_sociale').val('');
                     var name_ref = $('#name_ref').val('');
                     var surname_ref = $('#surname_ref').val('');
                     var email_ref = $('#email_ref').val('');
@@ -181,17 +248,21 @@
                                 var newCole = $('<td/>', { text: data.customers.email_ref });
 
                                 var editAction = $('<a/>', {
-                                            href: "/customers/"+data.customers.id+"/edit",
                                             text: 'Modifica',
                                             class: "btn btn-outline-secondary",
-                                            "data-id": data.customers.id
+                                            id: "edit-class-btn",
+                                            "data-id": data.customers.id,
+                                            "data-email": data.customers.email_ref,
+                                            "data-sur": data.customers.surname_ref,
+                                            "data-nom": data.customers.name_ref,
+                                            "data-rag": data.customers.ragione_sociale
                                         });
-                                var delAction = $('<a/>', {
+                                 var delAction = $('<a/>', {
                                     href: "#",
                                     id: "delete-btn",
                                     "data-id": data.customers.id,
                                     class: "btn btn-outline-danger",
-                                    text: 'Elimina Cliente',
+                                    text: 'Termina Rapporto',
                                     onclick: "return confirm('Confermare eliminazione?');"
                                     });
                                 var newColAction = $('<td/>').append(editAction);
@@ -204,12 +275,12 @@
                             var name_ref = $('#name_ref').val('');
                             var surname_ref = $('#surname_ref').val('');
                             var email_ref = $('#email_ref').val('');
-                            $('#ins_ok').css('display', 'block').fadeOut(3000);
+                            $('#ins_ok').css('display', 'block').fadeOut(6000);
                         }
                         }, 
                         error: function(response, stato) {
                             console.log(stato);
-                            $('#error_div').css('display', 'block').fadeOut(5000);
+                            $('#error_div').css('display', 'block').fadeOut(6000);
                         }
                     });
                 }

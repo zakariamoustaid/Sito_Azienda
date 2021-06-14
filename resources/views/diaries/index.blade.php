@@ -28,8 +28,10 @@
 </div>
 <!-- end modal -->
 
-
-<h3> Inserimento Scheda</h3>
+<div class="form-row">
+<h3 id="titolo_scheda"> Inserimento Scheda</h3>
+<button id="bottone_chiusura" type="button" class="btn btn-outline-secondary float-md-right btn-sm" style="margin:2px" id="apri_scheda">Chiudi </button>
+</div>
 
 <!-- ALERT -->
 <div id="error_div" class="alert alert-danger">
@@ -49,12 +51,12 @@
 <!-- Inserimento -->
 <div class="row top-buffer"></div>
 
-<div class="form-row">
-   <div class="form-group col-md-2">
+<div id="inserimento_scheda" class="form-row">
+   <div id="data_scheda" class="form-group col-md-2">
          <input type="date" value="<?php echo date('Y-m-d'); ?>" id="today" class="form-control" name="today" >
-         <small class="form-text text-muted">Inserisci la data</small>
+         <small class="form-text text-muted">*Inserisci la data</small>
    </div>
-   <div class="form-group col-md-4">
+   <div id="progetto_scheda" class="form-group col-md-4">
          <select class="form-control" name="project_id" id="project_id">
             @foreach ($assignments as $a)
             @if($a->user_id == Auth::user()->id)
@@ -62,13 +64,13 @@
             @endif
             @endforeach
          </select>
-         <small class="form-text text-muted">Seleziona Progetto</small>
+         <small class="form-text text-muted">*Seleziona Progetto</small>
    </div>
-   <div class="form-group col-md-1">
+   <div id="ore_scheda" class="form-group col-md-1">
          <input type="number" class="form-control" id="hours" name="hours" >
-         <small class="form-text text-muted">Inserisci ore</small>
+         <small class="form-text text-muted">*Inserisci ore</small>
    </div>
-   <div class="form-group col-md-4">
+   <div id="note_scheda" class="form-group col-md-4">
          <input type="text" class="form-control" id="notes" name="notes" >
          <small class="form-text text-muted">Inserisci eventuali note</small>
    </div>
@@ -76,17 +78,16 @@
    <a id="add-diary" class="btn btn-primary float-md-right mb-5" data-id="{{ Auth::user()->id }}">Salva</a>
 </div>
 
-<div class="row top-buffer"></div>
-
 <!-- DIARIO -->
 <div class="container">
    <div class="form-group">
-      <h3>Lista Schede Inserite </h3>
-      <button type="button" class="btn btn-primary float-md-right" data-toggle="modal" data-target="#exampleModalCenter" id="apri_modal">Visualizza riepilogo ore </button>
+      <h2>Diario Utente </h2>
+      <button type="button" class="btn btn-outline-primary float-md-right" style="margin:5px" id="apri_scheda">Inserimento nuova scheda </button>
+      <button type="button" class="btn btn-outline-secondary float-md-right" data-toggle="modal" style="margin:5px" data-target="#exampleModalCenter" id="apri_modal">Visualizza riepilogo ore </button>
    </div>
    <div class="row top-buffer"></div>
    <div class="row top-buffer"></div>
-      <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per mese o singoli progetti" title="Type in a name">
+      <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per Mese o Progetto" title="Type in a name">
       <table id="diary-table" class="table table-hover">
          <thead>
             <tr>
@@ -155,6 +156,28 @@
 <script type="text/javascript">
 (function($) {
    $('document').ready(function(){
+      $('#apri_scheda').bind('click', function(e){
+          e.preventDefault();
+          $('#titolo_scheda').css('display', 'block');
+          $('#bottone_chiusura').css('display', 'block');
+          $('#data_scheda').css('display', 'block');
+          $('#progetto_scheda').css('display', 'block');
+          $('#ore_scheda').css('display', 'block');
+          $('#note_scheda').css('display', 'block');
+          $('#add-diary').css('display', 'block');
+      });
+
+      $('#bottone_chiusura').bind('click', function(e){
+          e.preventDefault();
+          $('#titolo_scheda').css('display', 'none');
+          $('#bottone_chiusura').css('display', 'none');
+          $('#data_scheda').css('display', 'none');
+          $('#progetto_scheda').css('display', 'none');
+          $('#ore_scheda').css('display', 'none');
+          $('#note_scheda').css('display', 'none');
+          $('#add-diary').css('display', 'none');
+      });
+
       $('#add-diary').bind('click', function(e){
          e.preventDefault();
 
@@ -165,7 +188,7 @@
       var user_id = $(this).attr('data-id'); 
       var _token = $('#_token').val();
       console.log(today,project_id,hours,notes, user_id);
-      if(hours <= 8 && hours >= 0)
+      if(hours <= 8 && hours > 0)
       {
          $.ajax({
             url: "/diaries", 
