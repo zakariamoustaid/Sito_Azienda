@@ -46,6 +46,7 @@
         #data_scheda{ display:none; }
         #progetto_scheda{ display:none; }
         #ore_scheda{ display:none; }
+        #warning_ins{ display:none; }
         #note_scheda{ display:none; }
         #add-diary{ display:none; }
         #bottone_chiusura{ display:none; }

@@ -32,7 +32,7 @@
         <td>{{ date('d/m/Y', strtotime($p->p_end)) }}</td>
         <th scope="row">{{ date('d/m/Y', strtotime($p->d_end)) }}</th>
         <?php $r = 0; $h = DB::table('diaries') ->where('project_id', $p->id) ->sum('hours');
-            $r = $h*$p->cost; echo "<td><u><strong>".$r." Euro</strong></u></th>"; ?>
+            $r = $h*$p->cost; echo "<td><u><strong>".$r." €</strong></u></th>"; ?>
         </tr>
         @endif
         @endforeach

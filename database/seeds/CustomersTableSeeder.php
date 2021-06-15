@@ -54,6 +54,13 @@ class CustomersTableSeeder extends Seeder
 	        'updated_at' 	    => date('Y-m-d h:i:s'),
 			'created_at' 	    => date('Y-m-d h:i:s')    
         ],  [
+            'ragione_sociale'   => 'Jexi SRL',
+	        'name_ref' 		    => 'Doria',
+            'surname_ref'       => 'Losca',
+	        'email_ref' 	    => 'loscado@jexi.it',
+	        'updated_at' 	    => date('Y-m-d h:i:s'),
+			'created_at' 	    => date('Y-m-d h:i:s')    
+        ],  [
             'ragione_sociale'   => 'Tronchi SRL',
 	        'name_ref' 		    => 'Giorgio',
             'surname_ref'       => 'Merende',

@@ -34,7 +34,7 @@
         <div class="form-group">
             <label for="email_ref">Email Referente</label>
             <input type="text" id="email" data-email-s="input" class="form-control" name="email_ref" value="">
-            <small class="form-text text-muted">Inserisci la mail</small>
+            <small class="form-text text-muted">*Inserisci la mail</small>
         </div>
 
       </div>
@@ -47,12 +47,6 @@
   </div>
 </div>
 <!-- end -->
-
-    <!-- ALERT -->
-<div class="form-row">
-<h3 id="titolo_scheda_c"> Inserimento Clienti </h3>
-<button id="bottone_chiusura_c" type="button" class="btn btn-outline-secondary float-md-right btn-sm" style="margin:2px" id="apri_scheda">Chiudi </button>
-</div>
     <!-- ALERT -->
     <div id="error_div" class="alert alert-danger">
         <p> Errore nell'inserimento, assicurarsi di aver inserito tutti i dati correttamente.</p>
@@ -75,8 +69,10 @@
     <!-- FINE ALERT -->
         
 <!-- INSERIMENTO -->
-<form action="{{ URL::action('CustomerController@store') }}" method="POST">
-        {{ csrf_field() }}
+<div class="form-row">
+    <h3 id="titolo_scheda_c"> Inserimento Clienti </h3>
+    <button id="bottone_chiusura_c" type="button" class="btn btn-outline-secondary float-md-right btn-sm" style="margin:2px" id="apri_scheda">Chiudi </button>
+    </div>
         <div class="form-row">
             <div id="inserimento_nome_ref" class="form-group col-md-5">
                 <input type="text" class="form-control" name="name_ref" placeholder="*Nome Referente" id="name_ref">
@@ -93,16 +89,15 @@
                 <input type="email" class="form-control" name="email_ref" placeholder="*Email Referente" pattern="[^ @]*@[^ @]*" id="email_ref">
             </div>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+            <a href="" id="add-class-btn_c" class="btn btn-outline-primary float-md-right mb-3">Conferma inserimento</a>
         </div>
-        <a href="" id="add-class-btn_c" class="btn btn-outline-primary float-md-right mb-3">Conferma inserimento</a>
-       
-</form>    
-    <div class="row top-buffer"></div>
+
+
     
 <!-- ELENCO -->
-    <h2>Lista Clienti</h2>
-    <a class="btn btn-outline-primary float-md-right" id="apri_scheda_c" style="margin:5px">Scheda inserimento</a>
-    <a href="{{ URL::action('CustomerController@show_terminated') }}" class="btn btn-outline-secondary  float-md-right" style="margin:5px">Visualizza Rapporti Conclusi</a>
+    <h1>Lista Clienti attivi</h1>
+    <a class="btn btn-outline-primary float-md-right" id="apri_scheda_c">Scheda inserimento</a>
+    <a href="{{ URL::action('CustomerController@show_terminated') }}" class="btn btn-outline-secondary">Visualizza Rapporti Conclusi</a>
     <div class="row top-buffer"></div>
     <table id="customers-table" class="table table-hover">
         <thead>
@@ -123,9 +118,9 @@
             <td><strong>{{ $c->ragione_sociale }} </strong></td>
             <td>{{ $c->name_ref }}</td>
             <td>{{ $c->surname_ref }}</td>
-            <td id="email_update">{{ $c->email_ref }}</td>
-            <td><a class="btn btn-outline-secondary" id="edit-class-btn" data-rag="{{ $c->ragione_sociale }}" data-id="{{ $c->id }}"
-                    data-nom="{{ $c->name_ref }}" data-sur="{{ $c->surname_ref }}" data-email="{{ $c->email_ref }}">Modifica</a>
+            <td id="{{ $c->id }}" >{{ $c->email_ref }}</td>
+            <td><a class="btn btn-outline-dark" id="edit-class-btn" data-rag="{{ $c->ragione_sociale }}" data-id="{{ $c->id }}"
+                    data-nom="{{ $c->name_ref }}" data-sur="{{ $c->surname_ref }}">Modifica</a>
             </td>
             <td>
             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
@@ -245,14 +240,13 @@
                                 var newColr = $('<td/>', { text: data.customers.ragione_sociale }).css('font-weight','bold');;
                                 var newColn = $('<td/>', { text: data.customers.name_ref });
                                 var newCols= $('<td/>', { text: data.customers.surname_ref});
-                                var newCole = $('<td/>', { text: data.customers.email_ref });
+                                var newCole = $('<td/>', { id:data.customers.id, text: data.customers.email_ref });
 
                                 var editAction = $('<a/>', {
                                             text: 'Modifica',
-                                            class: "btn btn-outline-secondary",
+                                            class: "btn btn-outline-dark",
                                             id: "edit-class-btn",
                                             "data-id": data.customers.id,
-                                            "data-email": data.customers.email_ref,
                                             "data-sur": data.customers.surname_ref,
                                             "data-nom": data.customers.name_ref,
                                             "data-rag": data.customers.ragione_sociale
@@ -288,66 +282,67 @@
       });
 
       $(document).on("click", "a#edit-class-btn", function (e) {
+        e.preventDefault();
+        $('.modal').css('display', 'block');
+        var rag_s = $(this).attr('data-rag');
+        var name = $(this).attr('data-nom');
+        var sur = $(this).attr('data-sur');
+        var customer_id = $(this).attr('data-id');
+        var _token = $('#_token').val(); 
+
+
+        $(".modal-body #ragione_s").val( rag_s );
+        $(".modal-body #nome").val( name );
+        $(".modal-body #cognome").val( sur );
+        $(".modal-body #email").val( '' );
+
+        $('#close').bind('click', function(e){
             e.preventDefault();
-            $('.modal').css('display', 'block');
+            customer_id = '';
+            $('.modal').css('display', 'none');
+        });
+        
+        $('#close_x').bind('click', function(e){
+            e.preventDefault();
+            customer_id = '';
+            $('.modal').css('display', 'none');
+        });
 
-            $('#close').bind('click', function(e){
-                e.preventDefault();
-                $('.modal').css('display', 'none');
-                window.location.reload(false);  
-            });
-            $('#close_x').bind('click', function(e){
-                e.preventDefault();
-                $('.modal').css('display', 'none');
-                window.location.reload(false);  
-            });
+        console.log($(this));
 
-            var rag_s = $(this).attr('data-rag');
-            var name = $(this).attr('data-nom');
-            var sur = $(this).attr('data-sur');
-            var email = $(this).attr('data-email');
-            var customer_id = $(this).attr('data-id');
-            var _token = $('#_token').val(); 
-            console.log(email);
-
-            $(".modal-body #ragione_s").val( rag_s );
-            $(".modal-body #nome").val( name );
-            $(".modal-body #cognome").val( sur );
-            $(".modal-body #email").val( email );
-
-
-
-            $(document).off("click", "#save").on("click", "#save", function (e) {
-                e.preventDefault();
-                if (confirm('Confermare la modifica?')) {
-                    var email_new = $('#email').val();
-                        if(email_new == '')
-                        {
-                            $('#error_div').css('display', 'block').fadeOut(5000);
-                        }
-                        else {
-                            $.ajax({
-                                    url: "/customers/" + customer_id +"/edit",     
-                                    type: "GET",                     
-                                    dataType: "json",  
-                                    data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
-                                    success: function(data) {                        
-                                        if (data.status === 'ok') {
-                                            alert('modifica confermata!');
-                                            window.location.reload(false);
-                                            //alert('ok');
-                                            //$('#mod_ok ').css('display', 'block').fadeOut(3000);
-                                            //$("#email_update"+$(this).attr("id")).text(email_new);
-                                        }
-                                    }, 
-                                    error: function(response, stato) {
-                                        console.log(stato);
-                                    }
-                                });
+        $(document).off("click", "#save").on("click", "#save", function (e) {
+            e.preventDefault();
+            if (confirm('Confermare la modifica?')) {
+                var email_new = $('#email').val();
+                var check_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email_new);
+                    if(email_new == '')
+                    {
+                        $('#error_div').css('display', 'block').fadeOut(5000);
                     }
-                } 
-                $('.modal').css('display', 'none');
-            });
+                    else if(!check_email)
+                    {
+                        $('#error_email').css('display', 'block').fadeOut(6000);
+                    }
+                    else {
+                        $.ajax({
+                                url: "/customers/" + customer_id + "/edit",     
+                                type: "GET",                     
+                                dataType: "json",  
+                                data: { 'email_new': email_new, 'customer_id': customer_id, '_token': _token},
+                                success: function(data) {                        
+                                    if (data.status === 'ok') {
+                                        $("#"+customer_id).text(email_new);
+                                        $('#mod_ok ').css('display', 'block').fadeOut(5000);
+                                    }
+                                }, 
+                                error: function(response, stato) {
+                                    console.log(stato);
+                                }
+                            });
+                }
+            } 
+            $('.modal').css('display', 'none');
+        });
         });
 
         $(document).on("click", "#delete-btn", function (e){
@@ -366,11 +361,11 @@
                         success: function(data) {                        
                             if (data.status === 'ok') {
                                 $(row).remove();
-                                $('#del_ok').css('display', 'block').fadeOut(3000);          
+                                $('#del_ok').css('display', 'block').fadeOut(5000);          
                             }
                             else if (data.status === 'no')
                             {
-                                $('#del_no').css('display', 'block').fadeOut(3000);
+                                $('#del_no').css('display', 'block').fadeOut(5000);
                             }
                         }, 
                         error: function(response, stato) {

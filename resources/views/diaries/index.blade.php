@@ -13,13 +13,15 @@
             </button>
          </div>
          <div id="ore" class="modal-body">
+         <div id="test">
             <h4> Totale ore spese: <strong>{{ $ind }} </strong></h4>
             <div class="row top-buffer"></div>
             <?php foreach($projects as $p){?>
-            <?php $d = DB::table('diaries') ->where('project_id', $p->id) ->where('user_id', Auth::user()->id) -> first(); if ($d != null) {?>
+            <?php $d = DB::table('diaries') -> where('project_id', $p->id) ->where('user_id', Auth::user()->id) -> first(); if ($d != null) {?>
             <?php echo '<h5>'.$p->name.':</h5>';?>
             <?php $somma = DB::table('diaries') ->select('hours') ->where('project_id', $p->id) ->where('user_id', Auth::user()->id) -> sum('hours');?>
             <?php echo '<h5><strong>'.$somma.'</strong></h5>'; } }?>
+         </div>
             <button type="button" class="btn btn-outline-secondary float-md-right" id="close" data-dismiss="modal">Chiudi</button>
             <div class="row top-buffer"></div>
          </div>
@@ -34,14 +36,19 @@
 </div>
 
 <!-- ALERT -->
+<div id="warning_ins" class="alert alert-warning">
+   <p> Compilare con attenzione. La scheda, una volta salvata, non potrà essere modificata. </p>
+</div>
+
 <div id="error_div" class="alert alert-danger">
    <p> Errore nell'inserimento. </p>
 </div>
 <div id="error_hours" class="alert alert-danger">
-   <p> Errore inserimento ore </p>
+   <p> Errore nell'inserimento, controllare i dati inseriti. </p>
 </div>
+
 <div id="error_hours_day" class="alert alert-danger">
-   <p> Attenzione, da contratto nazionale non è possibile effettuare più di 8 ore lavorative al giorno! </p>
+   <p> Attenzione, da contratto non è possibile effettuare più di 8 ore lavorative al giorno! </p>
 </div>
 <div id="ins_ok" class="alert alert-success">
    <p> Inserimento confermato. </p>
@@ -165,6 +172,7 @@
           $('#ore_scheda').css('display', 'block');
           $('#note_scheda').css('display', 'block');
           $('#add-diary').css('display', 'block');
+          $('#warning_ins').css('display', 'block');
       });
 
       $('#bottone_chiusura').bind('click', function(e){
@@ -176,6 +184,7 @@
           $('#ore_scheda').css('display', 'none');
           $('#note_scheda').css('display', 'none');
           $('#add-diary').css('display', 'none');
+          $('#warning_ins').css('display', 'none');
       });
 
       $('#add-diary').bind('click', function(e){
@@ -237,21 +246,20 @@
       }
       });
       $(document).on("click", "#apri_modal", function () {
-        $('#exampleModalCenter').css('display', 'block');
-
-        $('#close').bind('click', function(e){
-            $('#exampleModalCenter').css('display', 'none');
-            window.location.reload(false);  
-        });
-        $('#close_x').bind('click', function(e){
-            $('#exampleModalCenter').css('display', 'none');
-            window.location.reload(false);  
-        });
-
-        $("#viewH").bind('click', function(){
-           var project = $('#project_modal').val();
-            console.log(project);
+         $('#exampleModalCenter').css('display', 'block');
+         $("#test").load(location.href + " #test");
+         
+         $('#close').bind('click', function(e){
+               $('#exampleModalCenter').css('display', 'none');
          });
+         $('#close_x').bind('click', function(e){
+               $('#exampleModalCenter').css('display', 'none');
+         });
+
+         $("#viewH").bind('click', function(){
+            var project = $('#project_modal').val();
+               console.log(project);
+            });
       });
    });
 })(jQuery);

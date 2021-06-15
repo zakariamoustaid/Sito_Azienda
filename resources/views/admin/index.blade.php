@@ -9,15 +9,12 @@
 <h3 class="card-title"><strong> Buongiorno {{ Auth::user()->name }} </strong></h3>
 
 <div class="row top-buffer"></div>
-<p class="card-text">Qui di seguito troverai una panoramica della situazione Clienti / Progetti</p>
+<p class="card-text"><strong> Qui di seguito una panoramica della situazione Clienti / Progetti<strong></p>
 
     <!-- sezione project -->
     <div style="width: 500px; float: right;">
 
-        <div class="row top-buffer"></div>
-        <div class="row top-buffer"></div>
-
-        <button type="button" id="b_progetti" class="btn btn-outline-dark">SEZIONE PROGETTI</button>
+        <button type="button" id="b_progetti" class="btn btn-outline-dark">Range PROGETTI</button>
         <div class="row top-buffer"></div>
             <div class="row">
                 <div id="selezione_p" class="col">
@@ -26,7 +23,7 @@
                 </div>
                 <div id="selezione_p2" class="col">
                     <label>A:</label>
-                    <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="data2" >
+                    <input type="date" value="<?php echo date('Y-m-t'); ?>" class="form-control" id="data2" >
                 </div>
                 <div id="selezione_p3" class="col">
                     <div class="row top-buffer"></div>
@@ -42,9 +39,8 @@
 
         <!-- Sezione customer -->
         <div style="width: 500px; float: left;">
-            <div class="row top-buffer"></div>
-            <div class="row top-buffer"></div>
-            <button type="button" id="b_clienti" class="btn btn-outline-dark">SEZIONE CLIENTI</button>
+
+            <button type="button" id="b_clienti" class="btn btn-outline-dark">Range CLIENTI</button>
                 <div class="row top-buffer"></div>
                 <div class="row">
                     <div id="selezione_c" class="col">
@@ -53,7 +49,7 @@
                     </div>
                     <div id="selezione_c2" class="col">
                         <label>A:</label>
-                        <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="data4" >
+                        <input type="date" value="<?php echo date('Y-m-t'); ?>" class="form-control" id="data4" >
                     </div>
                     <div id="selezione_c3" class="col">
                         <div class="row top-buffer"></div>

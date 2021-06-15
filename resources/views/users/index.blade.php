@@ -23,6 +23,7 @@
             <th scope="col">Email</th>
             <th scope="col">Telefono</th>
             <th scope="col">Ruolo</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody id="filtro">

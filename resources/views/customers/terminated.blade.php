@@ -2,8 +2,8 @@
 @section('content')
 
 <!-- ELENCO -->
-<h3>Lista Clienti</h3>
-    <a href="{{ URL::action('CustomerController@index') }}" class="btn btn-outline-secondary">Visualizza Rapporti in corso</a>
+<h3>Lista Clienti conclusi</h3>
+    <a href="{{ URL::action('CustomerController@index') }}" class="btn btn-outline-secondary">Visualizza Rapporti attivi</a>
     <div class="row top-buffer"></div>
 <table id="customers-table" class="table table-hover">
     <thead>

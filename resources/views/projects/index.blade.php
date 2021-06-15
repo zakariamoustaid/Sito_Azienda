@@ -16,7 +16,7 @@
 @endif
 
 <a href="{{ URL::action('ProjectController@create') }}" id="add-class-btn" class="btn btn-outline-primary float-md-right">Inserisci un nuovo Progetto</a>
-<a href="{{ URL::action('ProjectController@show_terminated') }}" class="btn btn-outline-dark">Visualizza Progetti terminati</a>
+<a href="{{ URL::action('ProjectController@show_terminated') }}" class="btn btn-outline-secondary">Visualizza Progetti terminati</a>
 <div class="row top-buffer"></div>
 <table class="table table-hover">
     <thead>
