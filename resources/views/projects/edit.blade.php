@@ -30,12 +30,13 @@
     <div class="form-group">
         <label for="description">Descrizione</label>
         <input type="text" class="form-control" name="description" value="{{ $project->description }}">
-        <small class="form-text text-muted">Modifica Descrizione</small>
+        <small class="form-text text-muted">*Modifica Descrizione</small>
     </div>
 
     <div class="form-group">
         <label for="cost">Costo</label>
         <input type="number" step="any" class="form-control" name="cost" value="{{ $project->cost }}">
+        <small class="form-text text-muted">*Modifica Costo</small>
     </div>
 
 

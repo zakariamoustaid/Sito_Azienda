@@ -16,14 +16,14 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        $message = "Non hai i permessi per accedere alla pagina";
+        $message = "ATTENZIONE, RILEVATO TENTATO ACCESSO IN SEZIONI NON CONSENTITE.";
 
         //controllo se utente e` realmente un "admin"
         if (Auth::check() && Auth::user()->role == "ADMIN") {
             return $next($request);
         }
 
-        return redirect('/diario')->with('alert', $message);
+        return redirect('/diaries')->with('no', $message);
     }
 }
 

@@ -35,7 +35,7 @@
         @foreach($projects->reverse() as $p)
         @if($p->finito != 'yes')
         <tr>
-        <td><strong>{{ $p->name }}</strong> </td>
+        <td title="{{$p->note}}"><strong>{{ $p->name }}</strong> </td>
         <td>{{ $p->description }}</td>
         <td>{{ date('d/m/Y', strtotime($p->begins)) }}</th>
         <td>{{ $p->customer->ragione_sociale }}</td>

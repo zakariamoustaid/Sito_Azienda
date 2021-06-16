@@ -110,7 +110,7 @@
                     tot_h = d.hours + tot_h;
                 }
             }
-
+            
             hours2.push(tot_h);
             tot_h = 0;
 

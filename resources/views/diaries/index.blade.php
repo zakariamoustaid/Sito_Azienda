@@ -36,6 +36,12 @@
 </div>
 
 <!-- ALERT -->
+@if (session('no'))
+<div class="alert alert-danger">
+    {{ session('no') }}
+</div>
+@endif
+
 <div id="warning_ins" class="alert alert-warning">
    <p> Compilare con attenzione. La scheda, una volta salvata, non potrà essere modificata. </p>
 </div>
@@ -94,7 +100,7 @@
    </div>
    <div class="row top-buffer"></div>
    <div class="row top-buffer"></div>
-      <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per Mese o Progetto" title="Type in a name">
+      <input type="text" class="form-control mb-3" id="myInput" placeholder="Filtra per Mese o Progetto">
       <table id="diary-table" class="table table-hover">
          <thead>
             <tr>

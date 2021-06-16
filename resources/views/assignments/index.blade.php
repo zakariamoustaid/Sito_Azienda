@@ -1,7 +1,7 @@
 @extends('layouts.sito')
 @section('content')
 
-<h1> Gestione Assegnazioni </h1>
+<h1> Lista Assegnazioni </h1>
 @if (session('alert'))
 	<div class="alert alert-danger">
     	{{ session('alert') }}

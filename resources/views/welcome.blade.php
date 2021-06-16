@@ -89,6 +89,7 @@
 
 </head>
 
+
     <body class="mybody">
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -109,12 +110,14 @@
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                            <?php $i = 0; ?>
                             @error('email')
+                                <?php $i = 1; ?>
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+
                         </div>
                     </div>
 
@@ -164,6 +167,12 @@
     </div>
     </div>
     <!-- end modal -->
+    <?php if($i == 1){ ?>
+        <div id="pass_mail_error" class="alert alert-danger">
+            <p> Password o mail non corrette </p>
+        </div>
+        <?php } ?>
+
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
             <div class="top-right links">
